@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RentingApplication",
+            "request": "launch",
+            "mainClass": "com.renting.RentingApplication",
+            "projectName": "renting"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-RentingApplication<renting>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
