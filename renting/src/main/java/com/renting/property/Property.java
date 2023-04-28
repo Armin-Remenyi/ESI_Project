@@ -1,11 +1,9 @@
 package com.renting.property;
 
-import java.math.BigDecimal;
-
 public class Property
 {
     private Integer propertyid;
-    private BigDecimal size; 
+    private Integer size; 
     private String balcony;
     private String address;
     private Integer floor;
@@ -18,10 +16,10 @@ public class Property
     public void setPropertyid(Integer propertyid) {
         this.propertyid = propertyid;
     }
-    public BigDecimal getSize() {
+    public Integer getSize() {
         return size;
     }
-    public void setSize(BigDecimal size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
     public String getBalcony() {
@@ -56,7 +54,7 @@ public class Property
     }
     public Property() {
     }
-    public Property(Integer propertyid, BigDecimal size, String balcony, String address, Integer floor, Integer rooms,
+    public Property(Integer propertyid, Integer size, String balcony, String address, Integer floor, Integer rooms,
             String parking) {
         this.propertyid = propertyid;
         this.size = size;
