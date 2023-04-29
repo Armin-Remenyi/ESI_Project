@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.esi.contractservice.contracts.model.Contract;
 
-public interface ContractRepository extends CrudRepository<Product, String>{
+public interface ContractRepository extends CrudRepository<Contract, Integer>{
 
 }

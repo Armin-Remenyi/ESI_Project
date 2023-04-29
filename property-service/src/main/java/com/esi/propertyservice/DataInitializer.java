@@ -1,11 +1,11 @@
-package com.esi.contractservice;
+package com.esi.propertyservice;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.esi.contractservice.contracts.model.Contract;
-import com.esi.contractservice.contracts.repository.ContractRepository;
+import com.esi.propertyservice.properties.model.Property;
+import com.esi.propertyservice.properties.repository.PropertyRepository;
 
 import java.math.BigDecimal;
 

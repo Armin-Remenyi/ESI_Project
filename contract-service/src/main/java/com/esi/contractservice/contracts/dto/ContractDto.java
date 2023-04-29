@@ -1,7 +1,5 @@
 package com.esi.contractservice.contracts.dto;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +23,8 @@ public class ContractDto
         private String status;
         private String signing;
     
-        public ContractDto(String contractid) {
-            this.id = id;
+        public ContractDto(Integer contractid) {
+            this.contractid = contractid;
         }
     
     }

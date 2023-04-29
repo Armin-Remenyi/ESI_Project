@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.esi.contractservice.contracts.dto.ContractDto;
+
 /* 
 import com.esi.productservice.products.dto.ProductDto;
 import com.esi.productservice.products.dto.ProductQuantityDto;
 */
 
-import com.esi.productservice.contracts.model.Contract;
-import com.esi.productservice.contracts.repository.ContractRepository;
+import com.esi.contractservice.contracts.model.Contract;
+import com.esi.contractservice.contracts.repository.ContractRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

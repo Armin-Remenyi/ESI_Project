@@ -1,4 +1,4 @@
-package com.renting.contract;
+package com.esi.contractservice.contracts.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;

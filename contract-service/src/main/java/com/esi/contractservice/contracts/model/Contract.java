@@ -1,6 +1,5 @@
 package com.esi.contractservice.contracts.model;
 
-import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

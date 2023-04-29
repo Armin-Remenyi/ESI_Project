@@ -1,9 +1,8 @@
-package com.renting.handover;
+package com.esi.handoverservice.handovers.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import com.esi.handoverservice.handovers.model.Handover;
 
-@Repository
 public interface HandoverRepository extends CrudRepository<Handover, Integer>{
     
 }

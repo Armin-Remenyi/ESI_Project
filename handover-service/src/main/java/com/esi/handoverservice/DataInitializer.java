@@ -1,11 +1,11 @@
-package com.esi.contractservice;
+package com.esi.handoverservice;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.esi.contractservice.contracts.model.Contract;
-import com.esi.contractservice.contracts.repository.ContractRepository;
+import com.esi.handoverservice.handovers.model.Handover;
+import com.esi.handoverservice.handovers.repository.HandoverRepository;
 
 import java.math.BigDecimal;
 
