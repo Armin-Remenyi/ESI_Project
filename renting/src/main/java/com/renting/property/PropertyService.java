@@ -27,12 +27,12 @@ public class PropertyService {
         propertyRepository.save(property);
     }
 
-    // To be solved by students
+    // TODO: To be solved by students
     public void updateProperty(Integer propertyid, Property property) {
 
     }
 
-    // To be solved by students
+    // TODO: To be solved by students
     public void deleteProperty(Integer propertyid) {
         propertyRepository.deleteById(propertyid);
     }
