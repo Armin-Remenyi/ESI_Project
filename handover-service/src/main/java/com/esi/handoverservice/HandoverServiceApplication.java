@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
-public class HandoverServiceApplication {
+public class CandidacyServiceApplication {
 	@Bean
 	public WebClient.Builder getWebClientBuilder() {
 		return  WebClient.builder();
@@ -14,7 +14,7 @@ public class HandoverServiceApplication {
 
 	public static void main(String[] args) {
 		DatabaseInitializer.initialize("handoverservice_db");
-		SpringApplication.run(HandoverServiceApplication.class, args);
+		SpringApplication.run(CandidacyServiceApplication.class, args);
 	}
 
 }
