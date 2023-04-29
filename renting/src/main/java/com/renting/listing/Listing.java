@@ -14,9 +14,9 @@ public class Listing {
 
     @Column
     private Integer propertyId;
-    private Float price;
+    private Integer price;
     private String description;
-    private Float size;
+    private Double size;
     private String status;
 
     public Integer getListingId() {
@@ -35,11 +35,11 @@ public class Listing {
         this.propertyId = propertyId;
     }
 
-    public Float getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -52,11 +52,11 @@ public class Listing {
     }
 
 
-    public Float getSize() {
+    public Double getSize() {
         return size;
     }
 
-    public void setSize(Float size) {
+    public void setSize(Double size) {
         this.size = size;
     }
 
@@ -68,4 +68,23 @@ public class Listing {
         this.status = status;
     }
 
+
+    public Listing() {
+    }
+
+    public Listing(
+            Integer listingId,
+            Integer propertyId,
+            Integer price,
+            String description,
+            Double size,
+            String status
+    ) {
+        this.listingId = listingId;
+        this.propertyId = propertyId;
+        this.price = price;
+        this.description = description;
+        this.size = size;
+        this.status = status;
+    }
 }
