@@ -1,6 +1,4 @@
 package com.esi.userservice;
-/*
-
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,6 +26,4 @@ public class DatabaseInitializer {
         }
 
     }
-
 }
-*/

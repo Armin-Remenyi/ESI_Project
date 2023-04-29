@@ -7,34 +7,33 @@ import org.springframework.context.annotation.Configuration;
 import com.esi.userservice.users.model.User;
 import com.esi.userservice.users.repository.UserRepository;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
-/*
 @Configuration
 public class DataInitializer {
 
     @Bean
-    public CommandLineRunner loadProductsData(ProductRepository productRepository) {
+    public CommandLineRunner loadProductsData(UserRepository userRepository) {
         return args -> {
-            Product product1 = new Product();
-			product1.setId("01");
-            product1.setCode("p-109-09");
-			product1.setName("light vehicle");
-			product1.setDescription("Can also be used for light work");
-			product1.setPrice(BigDecimal.valueOf(1233));
+            User user1 = new User();
+			user1.setUserid(1);;
+            user1.setFirstName("Ingmar");
+			user1.setLastName("Bingmar");
+			user1.setPhoneNumber(123456);
+			user1.setEmail("ingbing@gmail.com");
+			user1.setCreated(LocalDate.of(2023, 1, 1));
 
-			productRepository.save(product1);
+			userRepository.save(user1);
 
-			Product product2 = new Product();
-			product2.setId("02");
-            product2.setCode("p-109-10");
-			product2.setName("new light vehicle");
-			product2.setDescription("Can also be used for light work");
-			product2.setPrice(BigDecimal.valueOf(1233));
+			User user2 = new User();
+			user2.setUserid(2);;
+            user2.setFirstName("Steve");
+			user2.setLastName("Noman");
+			user2.setPhoneNumber(121212);
+			user2.setEmail("steve123@gmail.com");
+			user2.setCreated(LocalDate.of(2022, 6, 22));
 
-			productRepository.save(product2);
+			userRepository.save(user2);
         };
     }
 }
-
-*/
