@@ -7,34 +7,33 @@ import org.springframework.context.annotation.Configuration;
 import com.esi.propertyservice.properties.model.Property;
 import com.esi.propertyservice.properties.repository.PropertyRepository;
 
-import java.math.BigDecimal;
-
-/*
 @Configuration
 public class DataInitializer {
 
     @Bean
-    public CommandLineRunner loadProductsData(ProductRepository productRepository) {
+    public CommandLineRunner loadProductsData(PropertyRepository propertyRepository) {
         return args -> {
-            Product product1 = new Product();
-			product1.setId("01");
-            product1.setCode("p-109-09");
-			product1.setName("light vehicle");
-			product1.setDescription("Can also be used for light work");
-			product1.setPrice(BigDecimal.valueOf(1233));
+            Property property1 = new Property();
+			property1.setPropertyid(1);
+            property1.setSize(44);
+			property1.setBalcony("No");
+			property1.setAddress("Tartu mnt 11");
+			property1.setFloor(8);
+			property1.setRooms(2);
+			property1.setParking("Street");
 
-			productRepository.save(product1);
+			propertyRepository.save(property1);
 
-			Product product2 = new Product();
-			product2.setId("02");
-            product2.setCode("p-109-10");
-			product2.setName("new light vehicle");
-			product2.setDescription("Can also be used for light work");
-			product2.setPrice(BigDecimal.valueOf(1233));
+			Property property2 = new Property();
+			property2.setPropertyid(2);
+            property2.setSize(120);
+			property2.setBalcony("Yes");
+			property2.setAddress("Tartu mnt 12");
+			property2.setFloor(4);
+			property2.setRooms(4);
+			property2.setParking("Garage");
 
-			productRepository.save(product2);
+			propertyRepository.save(property2);
         };
     }
 }
-
-*/

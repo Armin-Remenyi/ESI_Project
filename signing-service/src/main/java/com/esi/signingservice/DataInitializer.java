@@ -1,32 +1,40 @@
-package src.main.java.com.esi.signingservice;
+package com.esi.signingservice;
 
-// TODO: this is copy from other file.
-/*
+import java.time.LocalDate;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.esi.signingservice.signing.model.Signing;
+import com.esi.signingservice.signing.repository.SigningRepository;
+
 @Configuration
 public class DataInitializer {
 
     @Bean
-    public CommandLineRunner loadProductsData(SigningRepository productRepository) {
+    public CommandLineRunner loadProductsData(SigningRepository signingRepository) {
         return args -> {
-            Product product1 = new Product();
-			product1.setId("01");
-            product1.setCode("p-109-09");
-			product1.setName("light vehicle");
-			product1.setDescription("Can also be used for light work");
-			product1.setPrice(BigDecimal.valueOf(1233));
+            Signing signing1 = new Signing();
+			signing1.setSigningId(1);
+            signing1.setTenantSignDate(LocalDate.of(2022, 03, 14));
+			signing1.setLandlordSignDate(LocalDate.of(2022, 03, 14));
+			signing1.setDocument("pdf");
+			signing1.setTenantSign("Signed");
+			signing1.setLandlordSign("Signed");
 
-			productRepository.save(product1);
+			signingRepository.save(signing1);
 
-			Product product2 = new Product();
-			product2.setId("02");
-            product2.setCode("p-109-10");
-			product2.setName("new light vehicle");
-			product2.setDescription("Can also be used for light work");
-			product2.setPrice(BigDecimal.valueOf(1233));
+			Signing signing2 = new Signing();
+			signing2.setSigningId(2);
+            signing2.setTenantSignDate(LocalDate.of(2023, 03, 14));
+			signing2.setLandlordSignDate(LocalDate.of(2023, 01, 14));
+			signing2.setDocument("pdf");
+			signing2.setTenantSign("Signed");
+			signing2.setLandlordSign("Signed");
 
-			productRepository.save(product2);
+			signingRepository.save(signing2);
+
         };
     }
 }
-
- */

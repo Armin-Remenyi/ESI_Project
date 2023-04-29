@@ -1,7 +1,4 @@
-package src.main.java.com.esi.signingservice;
-
-// TODO: this is copy from other file.
-/*package com.esi.productservice;
+package com.esi.signingservice;
 
 
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +25,5 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             System.err.println("Database already exists");
         }
-
     }
-
 }
-*/

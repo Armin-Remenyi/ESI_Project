@@ -1,4 +1,4 @@
-package src.main.java.com.esi.signingservice.signing.model;
+package com.esi.signingservice.signing.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

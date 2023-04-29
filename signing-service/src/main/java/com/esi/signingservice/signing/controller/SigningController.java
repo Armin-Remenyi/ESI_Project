@@ -1,7 +1,7 @@
-package src.main.java.com.esi.signingservice.signing.controller;
+package com.esi.signingservice.signing.controller;
 
 import org.springframework.web.bind.annotation.*;
-import src.main.java.com.esi.signingservice.signing.model.Signing;
+import com.esi.signingservice.signing.model.Signing;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
