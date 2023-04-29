@@ -7,34 +7,35 @@ import org.springframework.context.annotation.Configuration;
 import com.esi.contractservice.contracts.model.Contract;
 import com.esi.contractservice.contracts.repository.ContractRepository;
 
-import java.math.BigDecimal;
-
-/*
 @Configuration
 public class DataInitializer {
 
     @Bean
-    public CommandLineRunner loadProductsData(ProductRepository productRepository) {
+    public CommandLineRunner loadProductsData(ContractRepository contractRepository) {
         return args -> {
-            Product product1 = new Product();
-			product1.setId("01");
-            product1.setCode("p-109-09");
-			product1.setName("light vehicle");
-			product1.setDescription("Can also be used for light work");
-			product1.setPrice(BigDecimal.valueOf(1233));
+            Contract contract1 = new Contract();
+			contract1.setContractid(1);
+			contract1.setTenantid(2);
+			contract1.setLandlordid(3);
+			contract1.setPropertyid(4);
+			contract1.setHandoverid(6);
+            contract1.setPets("No");
+			contract1.setStatus("Waiting");
+			contract1.setSigning("Waiting");
 
-			productRepository.save(product1);
+			contractRepository.save(contract1);
 
-			Product product2 = new Product();
-			product2.setId("02");
-            product2.setCode("p-109-10");
-			product2.setName("new light vehicle");
-			product2.setDescription("Can also be used for light work");
-			product2.setPrice(BigDecimal.valueOf(1233));
+			Contract contract2 = new Contract();
+			contract2.setContractid(2);
+			contract2.setTenantid(4);
+			contract2.setLandlordid(5);
+			contract2.setPropertyid(6);
+			contract2.setHandoverid(9);
+            contract2.setPets("Yes");
+			contract2.setStatus("Waiting");
+			contract2.setSigning("Signed");
 
-			productRepository.save(product2);
+			contractRepository.save(contract2);
         };
     }
 }
-
-*/

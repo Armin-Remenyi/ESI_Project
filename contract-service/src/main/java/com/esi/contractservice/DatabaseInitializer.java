@@ -1,4 +1,4 @@
-/*package com.esi.productservice;
+package com.esi.contractservice;
 
 
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +25,5 @@ public class DatabaseInitializer {
         } catch (Exception e) {
             System.err.println("Database already exists");
         }
-
     }
-
 }
-*/
