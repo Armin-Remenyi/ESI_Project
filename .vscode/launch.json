@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ContractServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.contractservice.ContractServiceApplication"
+        },
+        {
+            "type": "java",
             "name": "RentingApplication",
             "request": "launch",
             "mainClass": "com.renting.RentingApplication",
