@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,16 +26,21 @@ public class BackgroundCheckController
        new BackgroundCheck(5, LocalDate.of(2023, 4, 23) )
     ));
 
+    @Autowired
+    private BackgroundCheckService backgroundCheckService;
+
     @GetMapping("/backgroundChecks")
-    public List<BackgroundCheck> getAllBackgroundCheck()
+    public List<BackgroundCheck> getAllBackgroundChecks()
     {
-        return backgroundChecks;
+        //return backgroundChecks;
+        return backgroundCheckService.getAllBackgroundChecks();
     }
 
     @GetMapping("/backgroundChecks/{id}")
-    public BackgroundCheck getBackgroundCheck(@PathVariable Integer backgroundCheckid)
+    public Optional <BackgroundCheck> getBackgroundCheck(@PathVariable Integer backgroundCheckid)
     {
-        return backgroundChecks.stream().filter(bc->bc.getBackgroundCheckid().equals(backgroundCheckid)).findFirst().get();
+        //return backgroundChecks.stream().filter(bc->bc.getBackgroundCheckid().equals(backgroundCheckid)).findFirst().get();
+        return backgroundCheckService.getBackgroundCheck(backgroundCheckid);
     }
 
     @PostMapping("/backgroundChecks")

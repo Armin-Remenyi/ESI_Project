@@ -3,9 +3,19 @@ package com.renting.candidacy;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "candidacytable")
 public class Candidacy
 {
+    @Id
     private Integer candidacyid;
+
+    @Column
     private Integer tenantid;
     private Integer propertyid;
     private BigDecimal candidateScore; 
@@ -49,6 +59,9 @@ public class Candidacy
         this.status = status;
     }
     public Candidacy() {
+    }
+    public Candidacy(Integer candidacyid) {
+        this.candidacyid = candidacyid;
     }
     public Candidacy(Integer candidacyid, Integer tenantid, Integer propertyid, BigDecimal candidateScore,
             LocalDate date, String status) {
