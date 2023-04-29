@@ -26,7 +26,7 @@ public class CandidacyController
      ));
  
      @GetMapping("/candidacies")
-     public List<Candidacy> getAllCandidacy()
+     public List<Candidacy> getAllCandidacies()
      {
          return candidacies;
      }

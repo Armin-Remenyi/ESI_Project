@@ -2,9 +2,19 @@ package com.renting.handover;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "handovertable")
 public class Handover
 {
+    @Id
     private Integer handoverid;
+
+    @Column
     private LocalDate date; 
     private String keys;
     private String coldwater;
@@ -66,5 +76,7 @@ public class Handover
     }
     public Handover() {
     }
-
+    public Handover(Integer handoverid) {
+        this.handoverid = handoverid;
+    }
 }

@@ -20,26 +20,26 @@ public class HandoverController
         new Handover(1, LocalDate.of(2023, 1, 14), "yes", "yes", "yes", "Waiting", "Waiting")
      ));
  
-     @GetMapping("/properties")
-     public List<Handover> getAllProperty()
+     @GetMapping("/handovers")
+     public List<Handover> getAllHandovers()
      {
          return handovers;
      }
  
-     @GetMapping("/properties/{id}")
-     public Handover getProperty(@PathVariable Integer handoverid)
+     @GetMapping("/handovers/{id}")
+     public Handover getHandover(@PathVariable Integer handoverid)
      {
          return handovers.stream().filter(c->c.getHandoverid().equals(handoverid)).findFirst().get();
      }
  
-     @PostMapping("/properties")
-     public void addProperty(@RequestBody Handover handover)
+     @PostMapping("/handovers")
+     public void addHandover(@RequestBody Handover handover)
      {
         handovers.add(handover);    
      }
  
-     @PutMapping("/properties/{id}")
-     public void updateProperty(@RequestBody Handover handover, @PathVariable Integer handoverid)
+     @PutMapping("/handovers/{id}")
+     public void updateHandover(@RequestBody Handover handover, @PathVariable Integer handoverid)
      {
          for (int i = 0; i < handovers.size(); i++)
          {
@@ -50,8 +50,8 @@ public class HandoverController
          }
      }
  
-     @DeleteMapping("/properties/{id}")
-     public void deleteProperty(@PathVariable Integer handoverid)
+     @DeleteMapping("/handovers/{id}")
+     public void deleteHandover(@PathVariable Integer handoverid)
      {
         handovers.removeIf(c->c.getHandoverid().equals(handoverid));
      }   
