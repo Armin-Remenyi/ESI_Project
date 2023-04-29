@@ -1,20 +1,26 @@
-package com.renting.handover;
+package com.esi.handoverservice.handovers.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "handovertable")
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor 
+
 public class Handover
 {
     @Id
     private Integer handoverid;
-
-    @Column
     private LocalDate date; 
     private String keys;
     private String coldwater;
@@ -63,20 +69,5 @@ public class Handover
     }
     public void setParking(String signatures) {
         this.signatures = signatures;
-    }
-    public Handover(Integer handoverid, LocalDate date, String keys, String coldwater, String hotwater, String status,
-            String signatures) {
-        this.handoverid = handoverid;
-        this.date = date;
-        this.keys = keys;
-        this.coldwater = coldwater;
-        this.hotwater = hotwater;
-        this.status = status;
-        this.signatures = signatures;
-    }
-    public Handover() {
-    }
-    public Handover(Integer handoverid) {
-        this.handoverid = handoverid;
     }
 }
