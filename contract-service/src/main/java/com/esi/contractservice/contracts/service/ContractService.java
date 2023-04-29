@@ -34,7 +34,7 @@ private WebClient.Builder webClientBuilder;
     List<Contract> contracts =  new ArrayList<>();
     contractRepository.findAll().forEach(contracts::add);
     return contracts.stream().map(this::mapToContractDto).toList();
-    }    
+    }
 
     /* 
         private ContractDto mapToContractDto(Contract contract) {
@@ -52,7 +52,7 @@ private WebClient.Builder webClientBuilder;
             Optional<Contract> contract =  contractRepository.findById(contractid);
             return contract.map(this::mapToContractDto);
         }
-        
+
 
 // TBD
         public void addContract(ContractDto contractDto) {
