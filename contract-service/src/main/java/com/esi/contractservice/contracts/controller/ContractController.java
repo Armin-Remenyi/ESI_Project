@@ -23,7 +23,7 @@ import com.esi.productservice.products.service.ProductService;
 */
 
 //@RequestMapping("/api")
-public class ProductController {
+//public class ProductController {
 
 @RestController
 public class ContractController
