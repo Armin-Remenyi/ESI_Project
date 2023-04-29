@@ -1,4 +1,4 @@
-package src.main.java.com.esi.signingservice;
+package com.esi.signingservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +14,7 @@ public class SigningServiceApplication {
 
 
 	public static void main(String[] args) {
-		DatabaseInitializer.initialize("handoverservice_db");
+		DatabaseInitializer.initialize("signingservice_db");
 		SpringApplication.run(SigningServiceApplication.class, args);
 	}
 

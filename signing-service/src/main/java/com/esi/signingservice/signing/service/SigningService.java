@@ -1,10 +1,11 @@
-package src.main.java.com.esi.signingservice.signing.service;
+package com.esi.signingservice.signing.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.main.java.com.esi.signingservice.signing.model.Signing;
-import src.main.java.com.esi.signingservice.signing.repository.SigningRepository;
+import com.esi.signingservice.signing.model.Signing;
+import com.esi.signingservice.signing.repository.SigningRepository;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;

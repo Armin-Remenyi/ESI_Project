@@ -1,4 +1,4 @@
-package src.main.java.com.esi.signingservice.signing.dto;
+package com.esi.signingservice.signing.dto;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
