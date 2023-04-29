@@ -77,7 +77,7 @@ private WebClient.Builder webClientBuilder;
         log.info("contract {} is updated", contract.getId());
         }
 
-        public void deleteContract(String contractid) {
+        public void deleteContract(Integer contractid) {
         contractRepository.deleteById(contractid);
         log.info("A Contract has been deleted");
         }
