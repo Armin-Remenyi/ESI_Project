@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.esi.contractservice.contracts.model.Contract;
+
 /* 
 import com.esi.productservice.products.dto.ProductDto;
 import com.esi.productservice.products.dto.ProductQuantityDto;
