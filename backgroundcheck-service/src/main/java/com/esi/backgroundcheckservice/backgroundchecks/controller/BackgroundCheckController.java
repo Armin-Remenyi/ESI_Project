@@ -13,18 +13,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class BackgroundCheckController
 {
-    private  List<BackgroundCheck> backgroundChecks =  new ArrayList<>(Arrays.asList(
-       new BackgroundCheck(1, LocalDate.of(2023, 1, 13) ),
-       new BackgroundCheck(2, LocalDate.of(2022, 12, 13) ),
-       new BackgroundCheck(3, LocalDate.of(2022, 7, 1) ),
-       new BackgroundCheck(4, LocalDate.of(2021, 3, 8) ),
-       new BackgroundCheck(5, LocalDate.of(2023, 4, 23) )
-    ));
+    // private  List<BackgroundCheck> backgroundChecks =  new ArrayList<>(Arrays.asList(
+    //    new BackgroundCheck(1, LocalDate.of(2023, 1, 13) ),
+    //    new BackgroundCheck(2, LocalDate.of(2022, 12, 13) ),
+    //    new BackgroundCheck(3, LocalDate.of(2022, 7, 1) ),
+    //    new BackgroundCheck(4, LocalDate.of(2021, 3, 8) ),
+    //    new BackgroundCheck(5, LocalDate.of(2023, 4, 23) )
+    // ));
 
     @Autowired
     private BackgroundCheckService backgroundCheckService;
@@ -36,7 +38,7 @@ public class BackgroundCheckController
         return backgroundCheckService.getAllBackgroundChecks();
     }
 
-    @GetMapping("/backgroundChecks/{id}")
+    @GetMapping("/backgroundChecks/{backgroundCheckid}")
     public Optional <BackgroundCheck> getBackgroundCheck(@PathVariable Integer backgroundCheckid)
     {
         //return backgroundChecks.stream().filter(bc->bc.getBackgroundCheckid().equals(backgroundCheckid)).findFirst().get();
@@ -44,27 +46,21 @@ public class BackgroundCheckController
     }
 
     @PostMapping("/backgroundChecks")
-    public void addBackgrounCheck(@RequestBody BackgroundCheck backgroundCheck)
+    public void addBackgrounCheck(@RequestBody BackgroundCheckDto backgroundCheckDto)
     {
-        backgroundChecks.add(backgroundCheck);    
+        backgroundCheckService.addBackgrounCheck(backgroundCheckDto);
     }
 
-    @PutMapping("/backgroundChecks/{id}")
-    public void updateBackgroundCheck(@RequestBody BackgroundCheck backgroundCheck, @PathVariable Integer backgroundCheckid)
+    @PutMapping("/backgroundChecks/{backgroundCheckid}")
+    public void updateBackgroundCheck(@RequestBody BackgroundCheckDto backgroundCheckDto, @PathVariable Integer backgroundCheckid)
     {
-        for (int i = 0; i < backgroundChecks.size(); i++)
-        {
-            BackgroundCheck bc = backgroundChecks.get(i);
-            if (bc.getBackgroundCheckid().equals(backgroundCheckid)){
-                backgroundChecks.set(i, backgroundCheck);
-            return;}
-        }
+        backgroundCheckService.updateBackgroundCheck(backgroundCheckid, backgroundCheckDto);
     }
 
-    @DeleteMapping("/backgroundChecks/{id}")
+    @DeleteMapping("/backgroundChecks/{backgroundCheckid}")
     public void deleteBackgroundCheck(@PathVariable Integer backgroundCheckid)
     {
-        backgroundChecks.removeIf(bc->bc.getBackgroundCheckid().equals(backgroundCheckid));
+        backgroundCheckService.deleteBackgroundCheck(backgroundCheckid);
     }
 
 }
