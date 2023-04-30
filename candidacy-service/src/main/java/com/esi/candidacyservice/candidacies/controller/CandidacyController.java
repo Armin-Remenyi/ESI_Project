@@ -35,7 +35,7 @@ public class CandidacyController
         return candidacyService.getAllCandidacies();
      }
  
-     @GetMapping("/candidacies/{candidacyid}")
+     @GetMapping("/candidacies/{id}")
      public Optional <CandidacyDto> getCandidacy(@PathVariable Integer candidacyid)
      {
         return candidacyService.getCandidacy(candidacyid);
@@ -47,13 +47,13 @@ public class CandidacyController
         candidacyService.addCandidacy(candidacyDto);    
      }
  
-     @PutMapping("/candidacies/{candidacyid}")
+     @PutMapping("/candidacies/{id}")
      public void updateCandidacy(@RequestBody CandidacyDto candidacyDto, @PathVariable Integer candidacyid)
      {
         candidacyService.updateCandidacy(candidacyid, candidacyDto);   
      }
  
-     @DeleteMapping("/candidacies/{candidacyid}")
+     @DeleteMapping("/candidacies/{id}")
      public void deleteCandidacy(@PathVariable Integer candidacyid)
      {
         candidacyService.deleteContract(candidacyid);

@@ -37,7 +37,7 @@ public class PropertyController
         return propertyService.getAllProperties();
      }
  
-     @GetMapping("/properties/{propertyid}")
+     @GetMapping("/properties/{id}")
      public Optional <PropertyDto> getProperty(@PathVariable Integer propertyid)
      {
         return propertyService.getProperty(propertyid);
@@ -49,13 +49,13 @@ public class PropertyController
         propertyService.addProperty(propertyDto);    
      }
  
-     @PutMapping("/properties/{propertyid}")
+     @PutMapping("/properties/{id}")
      public void updateProperty(@RequestBody PropertyDto propertyDto, @PathVariable Integer propertyid)
      {
         propertyService.updateProperty(propertyid, propertyDto);
      }
  
-     @DeleteMapping("/properties/{propertyid}")
+     @DeleteMapping("/properties/{id}")
      public void deleteProperty(@PathVariable Integer propertyid)
      {
         propertyService.deleteProperty(propertyid);

@@ -38,7 +38,7 @@ public class ContractController
          return contractService.getAllContracts();
      }
  
-     @GetMapping("/contracts/{contractid}")
+     @GetMapping("/contracts/{id}")
      public Optional <ContractDto> getContract(@PathVariable Integer contractid)
      {
          return contractService.getContract(contractid);
@@ -50,13 +50,13 @@ public class ContractController
         contractService.addContract(contractDto);  
      }
  
-     @PutMapping("/contracts/{contractid}")
+     @PutMapping("/contracts/{id}")
      public void updateContract(@RequestBody ContractDto contractDto, @PathVariable Integer contractid)
      {
         contractService.updateContract(contractid, contractDto);
      }
  
-     @DeleteMapping("/contracts/{contractid}")
+     @DeleteMapping("/contracts/{id}")
      public void deleteContract(@PathVariable Integer contractid)
      {
         contractService.deleteContract(contractid);

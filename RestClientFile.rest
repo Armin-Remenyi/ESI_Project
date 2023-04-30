@@ -1,6 +1,6 @@
 ## Contract Service
 ### Fetch all contracts
-GET http://localhost:8082/api/contracts 
+GET http://localhost:8082/contracts 
 
 # ### Get a product with quantity
 # http://localhost:8082/api/contracts/02
@@ -13,7 +13,7 @@ POST http://localhost:8082/api/contracts HTTP/1.1
 content-type: application/json
 
 {
-    "contractid": 5,
+    "contractid": 2,
     "tenantid": 9,
     "landlordid": 12,
     "propertyid": 22,
@@ -24,7 +24,7 @@ content-type: application/json
 }
 
 ### Update a contract based on its id
-PUT http://localhost:8082/api/contracts/5 HTTP/1.1
+PUT http://localhost:8082/api/contracts/2 HTTP/1.1
 content-type: application/json
 
 {
@@ -44,7 +44,7 @@ DELETE http://localhost:8082/api/contracts/2
 
 ## Handover Service
 ### Fetch all handovers
-GET http://localhost:8082/api/handovers 
+GET http://localhost:8082/handovers 
 
 # ### Get a product with quantity
 # http://localhost:8082/api/contracts/02
@@ -67,7 +67,7 @@ content-type: application/json
 }
 
 ### Update a handover based on its id
-PUT http://localhost:8082/api/handovers/12 HTTP/1.1
+PUT http://localhost:8082/api/handovers/2 HTTP/1.1
 content-type: application/json
 
 {
@@ -86,20 +86,20 @@ DELETE http://localhost:8082/api/handovers/2
 
 ## Property Service
 ### Fetch all properties
-GET http://localhost:8082/api/properties 
+GET http://localhost:8082/properties 
 
 # ### Get a product with quantity
 # http://localhost:8082/api/contracts/02
 
 ### Fetch a property by its id
-GET http://localhost:8082/api/properties/2
+GET http://localhost:8082/api/properties/2 
 
 ### Create a new property
 POST http://localhost:8082/api/properties HTTP/1.1
 content-type: application/json
 
 {
-    "propertyid": 32,
+    "propertyid": 22,
     "size": 69,
     "balcony": "Yes",
     "address": "Here 4",
@@ -109,7 +109,7 @@ content-type: application/json
 }
 
 ### Update a property based on its id
-PUT http://localhost:8082/api/properties/32 HTTP/1.1
+PUT http://localhost:8082/api/properties/2 HTTP/1.1
 content-type: application/json
 
 {
@@ -123,7 +123,7 @@ content-type: application/json
 }
 
 ### Delete a property based on its id
-DELETE http://localhost:8082/api/properties/22
+DELETE http://localhost:8082/api/properties/2
 
 ## Background Check Service
 ### Fetch all background checks
@@ -158,7 +158,7 @@ DELETE http://localhost:8082/api/backgroundChecks/2
 
 ## Candidacy Service
 ### Fetch all candidacies
-GET http://localhost:8082/api/candidacies 
+GET http://localhost:8082/candidacies 
 
 # ### Get a product with quantity
 # http://localhost:8082/api/contracts/02
@@ -198,7 +198,7 @@ DELETE http://localhost:8082/api/candidacies/2
 
 ## Signing Service
 ### Fetch all signings
-GET http://localhost:8082/api/signings 
+GET http://localhost:8082/signings 
 
 # ### Get a product with quantity
 # http://localhost:8082/api/contracts/02
@@ -238,7 +238,7 @@ DELETE http://localhost:8082/api/signings/2
 
 ## User Service
 ### Fetch all users
-GET http://localhost:8082/api/users 
+GET http://localhost:8082/users 
 
 # ### Get a product with quantity
 # http://localhost:8082/api/contracts/02

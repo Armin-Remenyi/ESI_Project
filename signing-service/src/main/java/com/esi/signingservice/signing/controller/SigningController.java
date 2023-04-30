@@ -32,7 +32,7 @@ public class SigningController
         return signingService.getAllSignings();
     }
 
-    @GetMapping("/signings/{signingId}")
+    @GetMapping("/signings/{id}")
     public Optional <SigningDto> getSigning(@PathVariable Integer signingId) {
         return signingService.getSigning(signingId);
     }
@@ -42,12 +42,12 @@ public class SigningController
         signingService.addSigning(signingDto);
     }
 
-    @PutMapping("/signings/{signingId}")
+    @PutMapping("/signings/{id}")
     public void updateSigning(@RequestBody SigningDto signingDto, @PathVariable Integer signingId) {
         signingService.updateSigning(signingId, signingDto);
     }
 
-    @DeleteMapping("/signings/{signingId}")
+    @DeleteMapping("/signings/{id}")
     public void deleteSigning(@PathVariable Integer signingId) {
         signingService.deleteSigning(signingId);
     }
