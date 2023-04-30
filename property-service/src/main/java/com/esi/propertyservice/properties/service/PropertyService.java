@@ -25,26 +25,57 @@ public class PropertyService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public List<Property> getAlProperties()
-    {
-        List<Property> properties = new ArrayList<>();
+    public List<PropertyDto> getAllProperties(){
+        List<Property> properties =  new ArrayList<>();
         propertyRepository.findAll().forEach(properties::add);
-        return properties;
-    }
-    public Optional<Property> getProperty(Integer propertyid){
-        return propertyRepository.findById(propertyid);
-    }
-
-    public void addProperty(Property property) {
-        propertyRepository.save(property);
-    }
-
-    // To be solved by students
-    public void updateProperty(Integer propertyid, Property property) {
-
-    }
-
-    public void deleteProperty(Integer propertyid) {
-        propertyRepository.deleteById(propertyid);
-    }
-}
+        return properties.stream().map(this::mapToPropertyDto).toList();
+        }
+            private PropertyDto mapToPropertyDto(Property property){
+                    return PropertyDto.builder()
+                            .propertyid(property.getPropertyid())
+                            .size(property.getSize())
+                            .balcony(property.getBalcony())
+                            .address(property.getAddress())
+                            .floor(property.getFloor())
+                            .rooms(property.getRooms())
+                            .parking(property.getParking())
+                            .build();
+                }
+                public Optional<PropertyDto> getProperty(Integer propertyid){
+                Optional<Property> property = propertyRepository.findById(propertyid);
+                return property.map(this::mapToPropertyDto);
+            }
+    
+            public void addProperty(PropertyDto propertyDto) {
+                Property property = Property.builder()
+                .propertyid(propertyDto.getPropertyid())
+                .size(propertyDto.getSize())
+                .balcony(propertyDto.getBalcony())
+                .address(propertyDto.getAddress())
+                .floor(propertyDto.getFloor())
+                .rooms(propertyDto.getRooms())
+                .parking(propertyDto.getParking())
+                .build();
+                propertyRepository.save(property);
+            log.info("Property {} is added to the Database", property.getPropertyid());
+            }
+    
+            public void updateProperty(Integer propertyid, PropertyDto propertyDto) {
+                Property property = Property.builder()
+                .propertyid(propertyDto.getPropertyid())
+                .size(propertyDto.getSize())
+                .balcony(propertyDto.getBalcony())
+                .address(propertyDto.getAddress())
+                .floor(propertyDto.getFloor())
+                .rooms(propertyDto.getRooms())
+                .parking(propertyDto.getParking())
+                .build();
+            propertyRepository.save(property);
+            log.info("Property {} is updated", property.getPropertyid());
+            }
+    
+            public void deleteProperty(Integer propertyid) {
+                propertyRepository.deleteById(propertyid);
+            log.info("A Property has been deleted");
+            }
+};

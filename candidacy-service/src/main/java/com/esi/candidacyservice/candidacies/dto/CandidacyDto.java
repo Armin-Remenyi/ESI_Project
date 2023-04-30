@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class HandoverDto
+public class CandidacyDto
 {
     @Id
     private Integer candidacyid;
-    private String userid;
+    private Integer userid;
     private String property;
     private LocalDate date; 
     private String status;

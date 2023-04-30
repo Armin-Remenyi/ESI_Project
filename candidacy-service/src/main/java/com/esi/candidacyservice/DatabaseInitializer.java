@@ -1,4 +1,4 @@
-package com.esi.handoverservice;
+package com.esi.candidacyservice;
 
 
 import org.springframework.context.annotation.Configuration;

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor 
 
-public class Handover
+public class Candidacy
 {
     @Id
     private Integer candidacyid;
@@ -41,8 +41,8 @@ public class Handover
     public Integer getUser() {
         return userid;
     }
-    public void setUser(String user) {
-        this.userid = user;
+    public void setUser(Integer userid) {
+        this.userid = userid;
     }
     public String getProperty() {
         return property;
@@ -58,4 +58,4 @@ public class Handover
     public void setStatus(String status) {
         this.status = status;
     }
-
+}

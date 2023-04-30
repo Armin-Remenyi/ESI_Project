@@ -14,7 +14,7 @@ public class CandidacyServiceApplication {
 
 	public static void main(String[] args) {
 		DatabaseInitializer.initialize("candidacyservice_db");
-		SpringApplication.run(HandoverServiceApplication.class, args);
+		SpringApplication.run(CandidacyServiceApplication.class, args);
 	}
 
 }
