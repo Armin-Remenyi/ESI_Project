@@ -27,9 +27,9 @@ public class HandoverController
     @Autowired
     private HandoverService handoverService;
 
-    private List<Handover> handovers =  new ArrayList<>(Arrays.asList(
-        new Handover(1, LocalDate.of(2023, 1, 14), "yes", "yes", "yes", "Waiting", "Waiting")
-     ));
+    // private List<Handover> handovers =  new ArrayList<>(Arrays.asList(
+    //     new Handover(69, LocalDate.of(2023, 1, 14), "yes", "yes", "yes", "Waiting", "Waiting")
+    //  ));
  
      @GetMapping("/handovers")
      public List<HandoverDto> getAllHandovers()

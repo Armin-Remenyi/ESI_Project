@@ -81,5 +81,5 @@ private WebClient.Builder webClientBuilder;
         contractRepository.deleteById(contractid);
         log.info("A Contract has been deleted");
         }
-    };
+};
 

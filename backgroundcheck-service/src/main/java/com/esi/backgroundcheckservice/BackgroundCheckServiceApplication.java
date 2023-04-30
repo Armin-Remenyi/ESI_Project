@@ -13,7 +13,7 @@ public class BackgroundCheckServiceApplication {
 	}
 
 	public static void main(String[] args) {
-		DatabaseInitializer.initialize("backgroundcheckserviceservice_db");
+		DatabaseInitializer.initialize("backgroundcheckservice_db");
 		SpringApplication.run(BackgroundCheckServiceApplication.class, args);
 	}
 

@@ -57,19 +57,19 @@ private WebClient.Builder webClientBuilder;
         }
 
         public void updateCandidacy(Integer candidacyid, CandidacyDto candidacyDto) {
-            Candidacy candidacy = Candidacy.builder()
+        Candidacy candidacy = Candidacy.builder()
             .candidacyid(candidacyDto.getCandidacyid())
             .userid(candidacyDto.getUserid())
             .property(candidacyDto.getProperty())
             .date(candidacyDto.getDate())
             .status(candidacyDto.getStatus())
             .build();
-            candidacyRepository.save(candidacy);
-            log.info("Candidacy {} is updated", candidacy.getCandidacyid());
-            }
+        candidacyRepository.save(candidacy);
+        log.info("Candidacy {} is updated", candidacy.getCandidacyid());
+        }
     
         public void deleteContract(Integer candidacyid) {
         candidacyRepository.deleteById(candidacyid);
         log.info("A Candidcy has been deleted");
         }
-    };
+};

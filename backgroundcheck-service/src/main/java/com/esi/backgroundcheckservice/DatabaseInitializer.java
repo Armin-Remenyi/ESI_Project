@@ -1,4 +1,4 @@
-package com.esi.candidacyservice;
+package com.esi.backgroundcheckservice;
 
 
 import org.springframework.context.annotation.Configuration;

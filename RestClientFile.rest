@@ -21,11 +21,11 @@ content-type: application/json
 }
 
 ### Update a contract based on its id
-PUT http://localhost:8082/api/contracts/2 HTTP/1.1
+PUT http://localhost:8082/api/contracts/4 HTTP/1.1
 content-type: application/json
 
 {
-    "contractid": 2,
+    "contractid": 4,
     "tenantid": 9,
     "landlordid": 12,
     "propertyid": 22,
@@ -100,7 +100,7 @@ content-type: application/json
 }
 
 ### Update a property based on its id
-PUT http://localhost:8084/api/properties/2 HTTP/1.1
+PUT http://localhost:8084/api/properties/22 HTTP/1.1
 content-type: application/json
 
 {
@@ -157,24 +157,22 @@ content-type: application/json
 
 {
     "candidacyid": 4,
-    "tenantid": 9,
-    "propertyid": 8,
-    "candidateScore": 120,
+    "userid": 9,
+    "property": "House",
     "date": 2023-04-20,
     "status": "Waiting"
 }
 
 ### Update a candidacy based on its id
-PUT http://localhost:8081/api/candidacies/2 HTTP/1.1
+PUT http://localhost:8081/api/candidacies/4 HTTP/1.1
 content-type: application/json
 
 {
     "candidacyid": 4,
-    "tenantid": 9,
-    "propertyid": 8,
-    "candidateScore": 120,
+    "userid": 9,
+    "property": "House",
     "date": 2023-04-20,
-    "status": "Declined"
+    "status": "Accepted"
 }
 
 ### Delete a candidacy based on its id
@@ -202,7 +200,7 @@ content-type: application/json
 }
 
 ### Update a signing based on its id
-PUT http://localhost:8085/api/signings/2 HTTP/1.1
+PUT http://localhost:8085/api/signings/4 HTTP/1.1
 content-type: application/json
 
 {
@@ -239,7 +237,7 @@ content-type: application/json
 }
 
 ### Update a user based on its id
-PUT http://localhost:8086/api/users/1 HTTP/1.1
+PUT http://localhost:8086/api/users/4 HTTP/1.1
 content-type: application/json
 
 {
@@ -252,7 +250,7 @@ content-type: application/json
 }
 
 ### Delete a user based on its id
-DELETE http://localhost:8086/api/users/2
+DELETE http://localhost:8086/api/users/4
 
 
 ## Listing Service
@@ -267,7 +265,7 @@ POST http://localhost:8087/api/listing HTTP/1.1
 content-type: application/json
 
 {
-  "listingId": 2,
+  "listingId": 6,
   "propertyId": 2,
   "price": 450,
   "description": "Apartment available from 01.05",
@@ -276,11 +274,11 @@ content-type: application/json
 }
 
 ### Update a listing based on its id
-PUT http://localhost:8087/api/listing/2 HTTP/1.1
+PUT http://localhost:8087/api/listing/6 HTTP/1.1
 content-type: application/json
 
 {
-  "listingId": 2,
+  "listingId": 6,
   "propertyId": 2,
   "price": 5000000,
   "description": "Apartment available from 01.05",
@@ -289,4 +287,4 @@ content-type: application/json
 }
 
 ### Delete a listing based on its id
-DELETE http://localhost:8087/api/listing/2
+DELETE http://localhost:8087/api/listing/6

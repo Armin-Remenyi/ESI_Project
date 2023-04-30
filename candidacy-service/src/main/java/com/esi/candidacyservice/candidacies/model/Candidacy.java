@@ -1,6 +1,7 @@
 package com.esi.candidacyservice.candidacies.model;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -32,26 +33,24 @@ public class Candidacy
     public void setCandidacyid(Integer candidacyid) {
         this.candidacyid = candidacyid;
     }
+    public Integer getUser() {
+        return userid;
+    }
+    public String getProperty() {
+        return property;
+    }
+    public void setProperty(String property) {
+        this.property = property;
+    }
+    public void setUser(Integer userid) {
+        this.userid = userid;
+    }
     public LocalDate getDate() {
         return date;
     }
     public void setDate(LocalDate date) {
         this.date = date;
     }
-    public Integer getUser() {
-        return userid;
-    }
-    public void setUser(Integer userid) {
-        this.userid = userid;
-    }
-    public String getProperty() {
-        return property;
-    }
-
-    public void setProperty(String property) {
-        this.property = property;
-    }
-
     public String getStatus() {
         return status;
     }

@@ -59,7 +59,7 @@ public class HandoverService {
             .signatures(handoverDto.getSignatures())
             .build();
         handoverRepository.save(handover);
-        log.info("Contract {} is added to the Database", handover.getHandoverid());
+        log.info("Handover {} is added to the Database", handover.getHandoverid());
         }
 
         public void updateHandover(Integer handoverid, HandoverDto handoverDto) {
@@ -73,11 +73,11 @@ public class HandoverService {
             .signatures(handoverDto.getSignatures())
             .build();
         handoverRepository.save(handover);
-        log.info("Contract {} is updated", handover.getHandoverid());
+        log.info("Handover {} is updated", handover.getHandoverid());
         }
 
     public void deleteHandover(Integer handoverid) {
         handoverRepository.deleteById(handoverid);
-        log.info("A Contract has been deleted");
+        log.info("A Handover has been deleted");
     }
 };
