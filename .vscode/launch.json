@@ -2,6 +2,25 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BackgroundCheckServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.backgroundcheckservice.BackgroundCheckServiceApplication"
+        },
+        {
+            "type": "java",
+            "name": "CandidacyServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.backgroundcheckservice.CandidacyServiceApplication"
+        },
+        {
+            "type": "java",
+            "name": "CandidacyServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.candidacyservice.CandidacyServiceApplication",
+            "projectName": "handover-service"
+        },
+        {
+            "type": "java",
             "name": "HandoverServiceApplication",
             "request": "launch",
             "mainClass": "com.esi.handoverservice.HandoverServiceApplication",

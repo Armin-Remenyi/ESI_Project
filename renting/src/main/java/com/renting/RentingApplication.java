@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class RentingApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RentingApplication.class, args);
-	}
+	// public static void main(String[] args) {
+	// 	SpringApplication.run(RentingApplication.class, args);
+	// }
 
 	// @Bean
 	// public OpenAPI springRentOpenAPI(){

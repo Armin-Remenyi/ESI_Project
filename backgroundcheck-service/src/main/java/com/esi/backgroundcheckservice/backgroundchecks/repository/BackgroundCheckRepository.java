@@ -1,8 +1,8 @@
 package com.esi.backgroundcheckservice.backgroundchecks.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import com.esi.candidacyservice.candidacies.model.Candidacy;
+import com.esi.candidacyservice.candidacies.model.BackgroundCheck;
 
-public interface BackgroundCheckRepository extends CrudRepository<Candidacy, Integer>{
+public interface BackgroundCheckRepository extends CrudRepository<BackgroundCheck, Integer>{
     
 }
