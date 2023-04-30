@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SigningServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.signingservice.SigningServiceApplication",
+            "projectName": "signing-service"
+        },
+        {
+            "type": "java",
+            "name": "ListingServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.listingservice.ListingServiceApplication",
+            "projectName": "listing-service"
+        },
+        {
+            "type": "java",
             "name": "BackgroundCheckServiceApplication",
             "request": "launch",
             "mainClass": "com.esi.backgroundcheckservice.BackgroundCheckServiceApplication"

@@ -23,6 +23,7 @@ public class DataInitializer {
 			handover1.setColdwater("Yes");
 			handover1.setHotwater("No");
 			handover1.setStatus("Waiting");
+			handover1.setSignatures("Waiting");
 
 			handoverRepository.save(handover1);
 
@@ -33,6 +34,7 @@ public class DataInitializer {
 			handover2.setColdwater("Yes");
 			handover2.setHotwater("Yes");
 			handover2.setStatus("Waiting");
+			handover2.setSignatures("Waiting");
 
 			handoverRepository.save(handover2);
         };
