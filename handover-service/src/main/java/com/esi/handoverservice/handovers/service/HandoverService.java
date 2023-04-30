@@ -8,16 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.esi.handoverservice.handovers.dto.CandidacyDto;
+import com.esi.handoverservice.handovers.dto.HandoverDto;
 
-import com.esi.handoverservice.handovers.model.Candidacy;
+import com.esi.handoverservice.handovers.model.Handover;
 import com.esi.handoverservice.handovers.repository.HandoverRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class CandidacyService {
+public class HandoverService {
 
     @Autowired
     HandoverRepository handoverRepository;
@@ -25,22 +25,22 @@ public class CandidacyService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public List<Candidacy> getAllHandovers()
+    public List<Handover> getAllHandovers()
     {
-        List<Candidacy> handovers = new ArrayList<>();
+        List<Handover> handovers = new ArrayList<>();
         handoverRepository.findAll().forEach(handovers::add);
         return handovers;
     }
-    public Optional<Candidacy> getHandover(Integer handoverid){
+    public Optional<Handover> getHandover(Integer handoverid){
         return handoverRepository.findById(handoverid);
     }
 
-    public void addHandover(Candidacy handover) {
+    public void addHandover(Handover handover) {
         handoverRepository.save(handover);
     }
 
     // To be solved by students
-    public void updateHandover(Integer handoverid, Candidacy handover) {
+    public void updateHandover(Integer handoverid, Handover handover) {
 
     }
 

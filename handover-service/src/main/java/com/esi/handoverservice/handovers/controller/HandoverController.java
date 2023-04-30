@@ -23,29 +23,29 @@ public class HandoverController
      ));
  
      @GetMapping("/handovers")
-     public List<Candidacy> getAllHandovers()
+     public List<Handover> getAllHandovers()
      {
          return handovers;
      }
  
      @GetMapping("/handovers/{id}")
-     public Candidacy getHandover(@PathVariable Integer handoverid)
+     public Handover getHandover(@PathVariable Integer handoverid)
      {
          return handovers.stream().filter(c->c.getHandoverid().equals(handoverid)).findFirst().get();
      }
  
      @PostMapping("/handovers")
-     public void addHandover(@RequestBody Candidacy handover)
+     public void addHandover(@RequestBody Handover handover)
      {
         handovers.add(handover);    
      }
  
      @PutMapping("/handovers/{id}")
-     public void updateHandover(@RequestBody Candidacy handover, @PathVariable Integer handoverid)
+     public void updateHandover(@RequestBody Handover handover, @PathVariable Integer handoverid)
      {
          for (int i = 0; i < handovers.size(); i++)
          {
-            Candidacy c = handovers.get(i);
+            Handover c = handovers.get(i);
              if (c.getHandoverid().equals(handoverid)){
                 handovers.set(i, handover);
              return;}
