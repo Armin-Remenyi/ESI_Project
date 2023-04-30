@@ -25,26 +25,59 @@ public class HandoverService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public List<Handover> getAllHandovers()
+    public List<HandoverDto> getAllHandovers()
     {
         List<Handover> handovers = new ArrayList<>();
         handoverRepository.findAll().forEach(handovers::add);
-        return handovers;
-    }
-    public Optional<Handover> getHandover(Integer handoverid){
-        return handoverRepository.findById(handoverid);
+        return handovers.stream().map(this::mapToHandoverDto).toList();
     }
 
-    public void addHandover(Handover handover) {
+        private HandoverDto mapToHandoverDto(Handover handover){
+                return HandoverDto.builder()
+                        .handoverid(handover.getHandoverid())
+                        .date(handover.getDate())
+                        .keys(handover.getKeys())
+                        .coldwater(handover.getColdwater())
+                        .hotwater(handover.getHotwater())
+                        .status(handover.getStatus())
+                        .signatures(handover.getSignatures())
+                        .build();
+            }
+            public Optional<HandoverDto> getHandover(Integer handoverid){
+            Optional<Handover> handover = handoverRepository.findById(handoverid);
+            return handover.map(this::mapToHandoverDto);
+        }
+
+        public void addHandover(HandoverDto handoverDto) {
+            Handover handover = Handover.builder()
+            .handoverid(handoverDto.getHandoverid())
+            .date(handoverDto.getDate())
+            .keys(handoverDto.getKeys())
+            .coldwater(handoverDto.getColdwater())
+            .hotwater(handoverDto.getHotwater())
+            .status(handoverDto.getStatus())
+            .signatures(handoverDto.getSignatures())
+            .build();
         handoverRepository.save(handover);
-    }
+        log.info("Contract {} is added to the Database", handover.getHandoverid());
+        }
 
-    // To be solved by students
-    public void updateHandover(Integer handoverid, Handover handover) {
-
-    }
+        public void updateHandover(Integer handoverid, HandoverDto handoverDto) {
+        Handover handover = Handover.builder()
+            .handoverid(handoverDto.getHandoverid())
+            .date(handoverDto.getDate())
+            .keys(handoverDto.getKeys())
+            .coldwater(handoverDto.getColdwater())
+            .hotwater(handoverDto.getHotwater())
+            .status(handoverDto.getStatus())
+            .signatures(handoverDto.getSignatures())
+            .build();
+        handoverRepository.save(handover);
+        log.info("Contract {} is updated", handover.getHandoverid());
+        }
 
     public void deleteHandover(Integer handoverid) {
         handoverRepository.deleteById(handoverid);
+        log.info("A Contract has been deleted");
     }
-}
+};

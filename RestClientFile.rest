@@ -10,9 +10,9 @@ POST http://localhost:8082/api/contracts HTTP/1.1
 content-type: application/json
 
 {
-    "contractid": 2,
+    "contractid": 4,
     "tenantid": 9,
-    "landlordid": 12,
+    "landlordid": 11,
     "propertyid": 22,
     "handoverid": 44,
     "pets": "Yes",

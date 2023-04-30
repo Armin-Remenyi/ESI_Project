@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HandoverServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.handoverservice.HandoverServiceApplication",
+            "projectName": "handoverservice"
+        },
+        {
+            "type": "java",
+            "name": "UserserviceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.userservice.UserserviceApplication",
+            "projectName": "userservice"
+        },
+        {
+            "type": "java",
             "name": "PropertyServiceApplication",
             "request": "launch",
             "mainClass": "com.esi.propertyservice.PropertyServiceApplication",
