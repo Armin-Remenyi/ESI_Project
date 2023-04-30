@@ -159,7 +159,7 @@ content-type: application/json
     "candidacyid": 4,
     "userid": 9,
     "property": "House",
-    "date": 2023-04-20,
+    "date": 2023-01-01,
     "status": "Waiting"
 }
 
@@ -171,7 +171,7 @@ content-type: application/json
     "candidacyid": 4,
     "userid": 9,
     "property": "House",
-    "date": 2023-04-20,
+    "date": 2023-01-01,
     "status": "Accepted"
 }
 
