@@ -129,7 +129,7 @@ content-type: application/json
 
 {
     "backgroundCheckid": 4,
-    "date": 2023-04-29,
+    "date": 2023-04-29
 }
 
 ### Update a background check based on its id
@@ -138,7 +138,7 @@ content-type: application/json
 
 {
     "backgroundCheckid": 4,
-    "date": 2023-04-28,
+    "date": 2023-04-28
 }
 
 ### Delete a background check based on its id
@@ -149,7 +149,7 @@ DELETE http://localhost:8089/api/backgroundChecks/2
 GET http://localhost:8081/api/candidacies 
 
 ### Fetch a candidacy by its id
-GET http://localhost:8081/api/candidacies/2 
+GET http://localhost:8081/api/candidacies/1
 
 ### Create a new candidacy
 POST http://localhost:8081/api/candidacies HTTP/1.1
@@ -198,7 +198,7 @@ content-type: application/json
     "landlordSignDate": 2023-04-22,
     "document": "pdf",
     "tenantSign": "Yes",
-    "landlordSign": "Yes",
+    "landlordSign": "Yes"
 }
 
 ### Update a signing based on its id
@@ -211,7 +211,7 @@ content-type: application/json
     "landlordSignDate": 2023-04-22,
     "document": "doc",
     "tenantSign": "Yes",
-    "landlordSign": "Yes",
+    "landlordSign": "Yes"
 }
 
 ### Delete a signing based on its id
@@ -223,7 +223,7 @@ DELETE http://localhost:8085/api/signings/2
 GET http://localhost:8086/api/users 
 
 ### Fetch a user by its id
-GET http://localhost:8086/api/users/2 
+GET http://localhost:8086/api/users/2
 
 ### Create a new user
 POST http://localhost:8086/api/users HTTP/1.1
@@ -235,11 +235,11 @@ content-type: application/json
     "lastName": "Man",
     "phoneNumber": 1234567,
     "email": "notahero@gmail.com",
-    "created": 2018-12-12,
+    "created": 2018-12-12
 }
 
 ### Update a user based on its id
-PUT http://localhost:8086/api/users/2 HTTP/1.1
+PUT http://localhost:8086/api/users/1 HTTP/1.1
 content-type: application/json
 
 {
@@ -248,8 +248,45 @@ content-type: application/json
     "lastName": "Woman",
     "phoneNumber": 1234567,
     "email": "notahero@gmail.com",
-    "created": 2018-12-12,
+    "created": 2018-12-12
 }
 
 ### Delete a user based on its id
 DELETE http://localhost:8086/api/users/2
+
+
+## Listing Service
+### Fetch all listings
+GET http://localhost:8087/api/listing
+
+### Fetch a listing by its id
+GET http://localhost:8087/api/listing/2
+
+### Create a new listing
+POST http://localhost:8087/api/listing HTTP/1.1
+content-type: application/json
+
+{
+  "listingId": 2,
+  "propertyId": 2,
+  "price": 450,
+  "description": "Apartment available from 01.05",
+  "size": 34.2,
+  "status": "ACTIVE"
+}
+
+### Update a listing based on its id
+PUT http://localhost:8087/api/listing/2 HTTP/1.1
+content-type: application/json
+
+{
+  "listingId": 2,
+  "propertyId": 2,
+  "price": 5000000,
+  "description": "Apartment available from 01.05",
+  "size": 34.2,
+  "status": "NOT_ACTIVE"
+}
+
+### Delete a listing based on its id
+DELETE http://localhost:8087/api/listing/2
