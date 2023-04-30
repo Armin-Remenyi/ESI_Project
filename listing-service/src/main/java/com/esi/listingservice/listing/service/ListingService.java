@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.esi.listingservice.listing.dto.ListingDto;
 import com.esi.listingservice.listing.model.Listing;
 import com.esi.listingservice.listing.repository.ListingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +24,55 @@ public class ListingService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    public List<Listing> getAllListings() {
+    public List<ListingDto> getAllListings() {
         List<Listing> listings = new ArrayList<>();
         listingRepository.findAll().forEach(listings::add);
-        return listings;
+        return listings.stream().map(this::mapToListingDto).toList();
     }
 
-    public Optional<Listing> getListing(Integer listingId) {
-        return listingRepository.findById(listingId);
+    private ListingDto mapToListingDto(Listing listing){
+        return ListingDto.builder()
+                .listingId(listing.getListingId())
+                .propertyId(listing.getPropertyId())
+                .price(listing.getPrice())
+                .description(listing.getDescription())
+                .size(listing.getSize())
+                .status(listing.getStatus())
+                .build();
+    }
+    public Optional<ListingDto> getListing(Integer listingId){
+    Optional<Listing> listing = listingRepository.findById(listingId);
+    return listing.map(this::mapToListingDto);
     }
 
-    public void addListing(Listing listing) {
+    public void addListing(ListingDto listingDto) {
+        Listing listing = Listing.builder()
+        .listingId(listingDto.getListingId())
+        .propertyId(listingDto.getPropertyId())
+        .price(listingDto.getPrice())
+        .description(listingDto.getDescription())
+        .size(listingDto.getSize())
+        .status(listingDto.getStatus())
+        .build();
+    listingRepository.save(listing);
+    log.info("Listing {} is added to the Database", listing.getListingId());
+    }
+
+    public void updateListing(Integer listingId, ListingDto listingDto) {
+        Listing listing = Listing.builder()
+        .listingId(listingDto.getListingId())
+        .propertyId(listingDto.getPropertyId())
+        .price(listingDto.getPrice())
+        .description(listingDto.getDescription())
+        .size(listingDto.getSize())
+        .status(listingDto.getStatus())
+        .build();
         listingRepository.save(listing);
-    }
+        log.info("Listing {} is updated", listing.getListingId());
+        }
 
-    // To be solved by students
-    public void updateListing(Integer listingId, Listing listing) {
-
-    }
-
-    public void deleteHandover(Integer listingId) {
+    public void deleteListing(Integer listingId) {
         listingRepository.deleteById(listingId);
+        log.info("A Listing has been deleted");
     }
-}
+};

@@ -4,53 +4,60 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.esi.handoverservice.handovers.dto.HandoverDto;
 import com.esi.handoverservice.handovers.model.Handover;
+import com.esi.handoverservice.handovers.service.HandoverService;
 
 @RestController
 @RequestMapping("/api")
 public class HandoverController
-
 {
+    @Autowired
+    private HandoverService handoverService;
+
     private List<Handover> handovers =  new ArrayList<>(Arrays.asList(
         new Handover(1, LocalDate.of(2023, 1, 14), "yes", "yes", "yes", "Waiting", "Waiting")
      ));
  
      @GetMapping("/handovers")
-     public List<Handover> getAllHandovers()
+     public List<HandoverDto> getAllHandovers()
      {
-         return handovers;
+         return handoverService.getAllHandovers();
      }
  
-     @GetMapping("/handovers/{id}")
-     public Handover getHandover(@PathVariable Integer handoverid)
+     @GetMapping("/handovers/{handoverid}")
+     public Optional <HandoverDto> getHandover(@PathVariable Integer handoverid)
      {
-         return handovers.stream().filter(c->c.getHandoverid().equals(handoverid)).findFirst().get();
+         return handoverService.getHandover(handoverid);
      }
  
      @PostMapping("/handovers")
-     public void addHandover(@RequestBody Handover handover)
+     public void addHandover(@RequestBody HandoverDto handoverDto)
      {
-        handovers.add(handover);    
+        handoverService.addHandover(handoverDto);    
      }
  
-     @PutMapping("/handovers/{id}")
-     public void updateHandover(@RequestBody Handover handover, @PathVariable Integer handoverid)
+     @PutMapping("/handovers/{handoverid}")
+     public void updateHandover(@RequestBody HandoverDto handoverDto, @PathVariable Integer handoverid)
      {
-         for (int i = 0; i < handovers.size(); i++)
-         {
-            Handover c = handovers.get(i);
-             if (c.getHandoverid().equals(handoverid)){
-                handovers.set(i, handover);
-             return;}
-         }
+         handoverService.updateHandover(handoverid, handoverDto);
      }
  
-     @DeleteMapping("/handovers/{id}")
+     @DeleteMapping("/handovers/{handoverid}")
      public void deleteHandover(@PathVariable Integer handoverid)
      {
-        handovers.removeIf(c->c.getHandoverid().equals(handoverid));
+        handoverService.deleteHandover(handoverid);
      }   
 }
