@@ -10,11 +10,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.esi.contractservice.contracts.dto.ContractDto;
 
-/* 
-import com.esi.productservice.products.dto.ProductDto;
-import com.esi.productservice.products.dto.ProductQuantityDto;
-*/
-
 import com.esi.contractservice.contracts.model.Contract;
 import com.esi.contractservice.contracts.repository.ContractRepository;
 
@@ -30,51 +25,56 @@ private ContractRepository contractRepository;
 @Autowired
 private WebClient.Builder webClientBuilder;
 
-    public   List<ContractDto> getAllContracts(){
+    public List<ContractDto> getAllContracts(){
     List<Contract> contracts =  new ArrayList<>();
     contractRepository.findAll().forEach(contracts::add);
     return contracts.stream().map(this::mapToContractDto).toList();
     }
-
-    /* 
-        private ContractDto mapToContractDto(Contract contract) {
+        private ContractDto mapToContractDto(Contract contract){
                 return ContractDto.builder()
-                        .id(contract.getId())
-                        .name(contract.getName())
-                        .description(contract.getDescription())
-                        .price(contract.getPrice())
-                        .code(contract.getCode())
+                        .contractid(contract.getContractid())
+                        .tenantid(contract.getTenantid())
+                        .landlordid(contract.getLandlordid())
+                        .propertyid(contract.getPropertyid())
+                        .handoverid(contract.getHandoverid())
+                        .pets(contract.getPets())
+                        .status(contract.getStatus())
+                        .signing(contract.getSigning())
                         .build();
             }
-
-*/
-            public   Optional<ContractDto>  getContract(String id){
-            Optional<Contract> contract =  contractRepository.findById(contractid);
+            public Optional<ContractDto> getContract(Integer contractid){
+            Optional<Contract> contract = contractRepository.findById(contractid);
             return contract.map(this::mapToContractDto);
         }
 
-
-// TBD
         public void addContract(ContractDto contractDto) {
             Contract contract = Contract.builder()
-            .contractid(contractDto.getContractId())
-            .tenantid(contractDto.getTenantId())
-            .landlordid(contractDto.getLandlord())
-            .propertyid(contractDto.getDescription())
+            .contractid(contractDto.getContractid())
+            .tenantid(contractDto.getTenantid())
+            .landlordid(contractDto.getLandlordid())
+            .propertyid(contractDto.getPropertyid())
+            .handoverid(contractDto.getHandoverid())
+            .pets(contractDto.getPets())
+            .status(contractDto.getStatus())
+            .signing(contractDto.getSigning())
             .build();
         contractRepository.save(contract);
-        log.info("contract {} is added to the Database", contract.getContractId());
+        log.info("Contract {} is added to the Database", contract.getContractid());
         }
 
-        public void updateContract(String contractid, ContractDto contractdto) {
-            Contract product = Contract.builder()
-            contractid(contractDto.getContractId())
-            .tenantid(contractDto.getTenantId())
-            .landlordid(contractDto.getLandlord())
-            .propertyid(contractDto.getDescription())
+        public void updateContract(Integer contractid, ContractDto contractDto) {
+        Contract contract = Contract.builder()
+            .contractid(contractDto.getContractid())
+            .tenantid(contractDto.getTenantid())
+            .landlordid(contractDto.getLandlordid())
+            .propertyid(contractDto.getPropertyid())
+            .handoverid(contractDto.getHandoverid())
+            .pets(contractDto.getPets())
+            .status(contractDto.getStatus())
+            .signing(contractDto.getSigning())
             .build();
         contractRepository.save(contract);
-        log.info("contract {} is updated", contract.getId());
+        log.info("Contract {} is updated", contract.getContractid());
         }
 
         public void deleteContract(Integer contractid) {

@@ -1,60 +1,61 @@
-package com.esi.candidacyservice.candidacys.controller;
+package com.esi.candidacyservice.candidacies.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.esi.Candidacyservice.candidacies.model.Candidacy;
+import com.esi.candidacyservice.candidacies.model.Candidacy;
+
+import com.esi.candidacyservice.candidacies.dto.CandidacyDto;
+import com.esi.candidacyservice.candidacies.service.CandidacyService;
 
 @RestController
+@RequestMapping("/api")
 public class CandidacyController
 {
-    private List<Candidacy> candidacies =  new ArrayList<>(Arrays.asList(
-        new Candidacy(1, LocalDate.of(2023, 1, 14), "yes", "yes", "yes", "Waiting", "Waiting")
-     ));
+    @Autowired
+    private CandidacyService candidacyService;
+
+    // private List<Candidacy> candidacies =  new ArrayList<>(Arrays.asList(
+    //     new Candidacy(1, 3, "House", LocalDate.of(2023, 1, 14), "Waiting")
+    //  ));
  
      @GetMapping("/candidacies")
-     public List<Candidacy> getAllCandidaciess()
+     public List<CandidacyDto> getAllCandidacies()
      {
-         return candidacies;
+        return candidacyService.getAllCandidacies();
      }
  
      @GetMapping("/candidacies/{id}")
-     public Candidacy getCandidacy(@PathVariable Integer candidacyid)
+     public Optional <CandidacyDto> getCandidacy(@PathVariable Integer candidacyid)
      {
-         return candidacies.stream().filter(c->c.getCandidacyid().equals(candidacyid)).findFirst().get();
+        return candidacyService.getCandidacy(candidacyid);
      }
  
      @PostMapping("/candidacies")
-     public void addCandidacy(@RequestBody Candidacy candidacy)
+     public void addCandidacy(@RequestBody CandidacyDto candidacyDto)
      {
-        candidacies.add(candidacy);    
+        candidacyService.addCandidacy(candidacyDto);    
      }
  
      @PutMapping("/candidacies/{id}")
-     public void updateCandidacy(@RequestBody Candidacy candidacy, @PathVariable Integer candidacyid)
+     public void updateCandidacy(@RequestBody CandidacyDto candidacyDto, @PathVariable Integer candidacyid)
      {
-         for (int i = 0; i < candidacies.size(); i++)
-         {
-            Candidacy c = candidacies.get(i);
-             if (c.getCandidacyid().equals(candidacyid)){
-                candidacies.set(i, candidacy);
-             return;}
-         }
+        candidacyService.updateCandidacy(candidacyid, candidacyDto);   
      }
  
      @DeleteMapping("/candidacies/{id}")
      public void deleteCandidacy(@PathVariable Integer candidacyid)
      {
-        candidacies.removeIf(c->c.getCandidacyid().equals(candidacyid));
+        candidacyService.deleteContract(candidacyid);
      }   
 }

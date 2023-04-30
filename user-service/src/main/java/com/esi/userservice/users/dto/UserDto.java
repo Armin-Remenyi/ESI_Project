@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 
 public class UserDto {
     @Id
-    private Integer userid;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private Integer phoneNumber;
     private String email;
     private LocalDate created;
 
-    public UserDto(Integer userid)
+    public UserDto(Integer userId)
     {
-        this.userid = userid;
+        this.userId = userId;
     }
     
 }

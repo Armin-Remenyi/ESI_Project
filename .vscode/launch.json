@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PropertyServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.propertyservice.PropertyServiceApplication",
+            "projectName": "propertyservice"
+        },
+        {
+            "type": "java",
             "name": "ContractServiceApplication",
             "request": "launch",
             "mainClass": "com.esi.contractservice.ContractServiceApplication"
