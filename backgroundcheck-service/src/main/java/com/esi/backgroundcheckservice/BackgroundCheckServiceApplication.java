@@ -16,5 +16,4 @@ public class BackgroundCheckServiceApplication {
 		DatabaseInitializer.initialize("backgroundcheckservice_db");
 		SpringApplication.run(BackgroundCheckServiceApplication.class, args);
 	}
-
 }
