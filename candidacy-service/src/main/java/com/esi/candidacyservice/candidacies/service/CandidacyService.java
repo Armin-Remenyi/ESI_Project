@@ -89,6 +89,12 @@ public class CandidacyService {
                 .date(candidacyDto.getDate())
                 .status(candidacyDto.getStatus())
                 .build();
+
+        Optional<CandidacyDto> candidacyGet = candidacyRepository.findById(candidacyid).map(this::mapToCandidacyDto);
+        if (candidacyGet.isPresent() && !candidacyGet.get().getStatus().equals(candidacy.getStatus())) {
+            kafkaTemplate.send("candidacyStatusUpdateTopic", candidacyDto);
+        }
+
         candidacyRepository.save(candidacy);
         log.info("Candidacy {} is updated", candidacy.getCandidacyid());
     }
