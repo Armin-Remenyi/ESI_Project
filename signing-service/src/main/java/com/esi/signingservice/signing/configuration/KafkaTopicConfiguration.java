@@ -1,4 +1,4 @@
-package com.esi.backgroundcheckservice.backgroundchecks.configuration;
+package com.esi.signingservice.signing.configuration;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
@@ -9,9 +9,10 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfiguration {
 
     @Bean
-    public NewTopic BCCreationTopic(){
-    return TopicBuilder.name("bcCreationTopic")
+    public NewTopic SignatureCreationTopic(){
+    return TopicBuilder.name("signatureCreationTopic")
     .build();
     }
+
     
 }

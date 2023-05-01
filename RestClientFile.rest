@@ -121,7 +121,7 @@ DELETE http://localhost:8084/api/properties/2
 GET http://localhost:8089/api/backgroundChecks 
 
 ### Fetch a background check by its id
-GET http://localhost:8089/api/backgroundChecks/2 
+GET http://localhost:8089/api/backgroundChecks/1 
 
 ### Create a new background check
 POST http://localhost:8089/api/backgroundChecks HTTP/1.1
@@ -129,7 +129,7 @@ content-type: application/json
 
 {
     "backgroundCheckid": 4,
-    "date": 2023-04-29
+    "date":
 }
 
 ### Update a background check based on its id

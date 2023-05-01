@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CandidacyServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.candidacyservice.CandidacyServiceApplication",
+            "projectName": "candidacy-service"
+        },
+        {
+            "type": "java",
             "name": "BackgroundcheckServiceApplication",
             "request": "launch",
             "mainClass": "com.esi.backgroundcheckservice.BackgroundcheckServiceApplication"

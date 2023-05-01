@@ -9,16 +9,14 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfiguration {
 
     @Bean
-    public NewTopic CandidacyTopicCreation(){
-    return TopicBuilder.name("candidacyCreatedTopic")
+    public NewTopic CandidacyCreationTopic(){
+    return TopicBuilder.name("candidacyCreationTopic")
     .build();
     }
 
-    // @Bean
-    // public NewTopic PaymentTopicCreation(){
-    // return TopicBuilder.name("paymentTopic")
-    // .build();
-    // }
-
-    
+    @Bean
+    public NewTopic CandidacyStatusUpdateTopic(){
+    return TopicBuilder.name("candidacyStatusUpdateTopic")
+    .build();
+    } 
 }

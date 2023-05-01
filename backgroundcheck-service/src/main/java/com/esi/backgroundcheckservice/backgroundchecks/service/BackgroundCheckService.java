@@ -7,15 +7,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+
 
 import com.esi.backgroundcheckservice.backgroundchecks.dto.BackgroundCheckDto;
 import com.esi.backgroundcheckservice.backgroundchecks.model.BackgroundCheck;
 import com.esi.backgroundcheckservice.backgroundchecks.repository.BackgroundCheckRepository;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BackgroundCheckService {
 
     @Autowired
@@ -23,6 +28,18 @@ public class BackgroundCheckService {
 
     @Autowired
     private WebClient.Builder webClientBuilder;
+
+
+    //Code taken and modified from OderService.java, we need something similar but need to clean it up
+    // @KafkaListener(topics = "backgrouchCheckTopic", groupId = "backgrouchCheckGroup" )
+    // public void updateBackgroudCheckinfo(BackgroundCheckDto backgroundCheckDto){
+    //     BackgroundCheck backgroundCheck = BackgroundCheck.builder()
+    //     .backgroundCheckid(backgroundCheckDto.getBackgroundCheckid())
+    //     .date(backgroundCheckDto.getDate())
+    //     .build();
+    // backgroundCheckRepository.save(backgroundCheck);
+    // log.info("Candidacy {} payment status updated", backgroundCheck.getBackgroundCheckid());
+    // }
 
     public List<BackgroundCheckDto> getAllBackgroundChecks()
     {
