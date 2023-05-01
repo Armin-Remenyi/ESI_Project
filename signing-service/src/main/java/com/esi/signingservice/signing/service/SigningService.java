@@ -1,5 +1,6 @@
 package com.esi.signingservice.signing.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SigningService {
 
     @Autowired
@@ -22,6 +24,12 @@ public class SigningService {
 
     @Autowired
     private WebClient.Builder webClientBuilder;
+
+    // private final KafkaTemplate<String, OrderDto> kafkaTemplate;
+    // @KafkaListener(topics = "orderCreatedTopic", groupId = "orderEventGroup" )
+    // public void processpayment(OrderDto orderDto){
+    // log.info("Log message - recieved from order topic: {} ", orderDto.toString());
+
 
 
     public List<SigningDto> getAllSignings(){

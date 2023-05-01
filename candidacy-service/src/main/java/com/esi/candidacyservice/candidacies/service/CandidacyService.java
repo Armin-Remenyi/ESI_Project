@@ -7,23 +7,45 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+
 
 import com.esi.candidacyservice.candidacies.dto.CandidacyDto;
 
 import com.esi.candidacyservice.candidacies.model.Candidacy;
 import com.esi.candidacyservice.candidacies.repository.CandidacyRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CandidacyService {
 
 @Autowired
 private CandidacyRepository candidacyRepository;
 
+private final KafkaTemplate<String, CandidacyDto> kafkaTemplate;
+
 @Autowired
 private WebClient.Builder webClientBuilder;
+
+    //Code taken from OderService.java, we need something similar
+    @KafkaListener(topics = "backgrouchCheckTopic", groupId = "backgrouchCheckGroup" )
+    public void updateBackgroudCheckinfo(CandidacyDto candidacyDto){
+        Candidacy candidacy = Candidacy.builder()
+        .candidacyid(candidacy.getCandidacyid())
+        .userid(candidacy.getUserid())
+        .property(candidacy.getProperty())
+        .date(candidacy.getDate())
+        .status(candidacy.getStatus())
+        .build();
+        candidacyRepository.save(candidacy);
+    log.info("Candidacy {} payment status updated", candidacy.getCandidacyid());
+    }
+
 
     public List<CandidacyDto> getAllCandidacies(){
     List<Candidacy> candidacies = new ArrayList<>();

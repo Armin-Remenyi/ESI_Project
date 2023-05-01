@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -13,10 +15,12 @@ import com.esi.contractservice.contracts.dto.ContractDto;
 import com.esi.contractservice.contracts.model.Contract;
 import com.esi.contractservice.contracts.repository.ContractRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ContractService {
 
 @Autowired
@@ -25,6 +29,25 @@ private ContractRepository contractRepository;
 @Autowired
 private WebClient.Builder webClientBuilder;
 
+private final KafkaTemplate<String, ContractDto> kafkaTemplate;
+
+    @KafkaListener(topics = "signatureTopic", groupId = "contractSignatureGroup" )
+    public void updateSigninginfo(ContractDto contractDto){
+        Contract contract = Contract.builder()
+        .contractid(contractDto.getContractid())
+        .tenantid(contractDto.getTenantid())
+        .landlordid(contractDto.getLandlordid())
+        .propertyid(contractDto.getPropertyid())
+        .handoverid(contractDto.getHandoverid())
+        .pets(contractDto.getPets())
+        .status(contractDto.getStatus())
+        .signing(contractDto.getSigning())
+        .build();
+    contractRepository.save(contract);
+    log.info("Signing {} status updated", contract.getContractid());
+    }
+
+    
     public List<ContractDto> getAllContracts(){
     List<Contract> contracts =  new ArrayList<>();
     contractRepository.findAll().forEach(contracts::add);
