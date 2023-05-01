@@ -57,7 +57,7 @@ public class BackgroundCheckService {
         .date(backgroundCheckDto.getDate())
         .build();
         backgroundCheckRepository.save(backgroundCheck);
-        kafkaTemplate.send("bcCreationTopic", backgroundCheckDto);
+        kafkaTemplate.send("BackgroundCheckCompleted", backgroundCheckDto);
         log.info("Background Check {} is added to the Database", backgroundCheck.getBackgroundCheckid());
     }
 

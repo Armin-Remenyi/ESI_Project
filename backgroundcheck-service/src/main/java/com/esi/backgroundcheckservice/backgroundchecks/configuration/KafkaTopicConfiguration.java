@@ -9,8 +9,8 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfiguration {
 
     @Bean
-    public NewTopic BCCreationTopic(){
-    return TopicBuilder.name("bcCreationTopic")
+    public NewTopic BackgroundCheckCompleted(){
+    return TopicBuilder.name("BackgroundCheckCompleted")
     .build();
     }
     
