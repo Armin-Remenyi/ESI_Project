@@ -78,6 +78,12 @@ public class ListingService {
                 .status(listingDto.getStatus())
                 .build();
         listingRepository.save(listing);
+
+        Optional<ListingDto> listingGet = listingRepository.findById(listingId).map(this::mapToListingDto);
+        if (listingGet.isPresent() && !listingGet.get().getStatus().equals(listing.getStatus())) {
+            kafkaTemplate.send("ListingStatusChangingTopic", listingDto);
+        }
+
         log.info("Listing {} is updated", listing.getListingId());
     }
 

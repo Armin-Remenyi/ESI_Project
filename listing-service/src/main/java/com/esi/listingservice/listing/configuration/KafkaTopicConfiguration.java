@@ -15,5 +15,11 @@ public class KafkaTopicConfiguration {
                 .build();
     }
 
+    @Bean
+    public NewTopic ListingStatusChangingTopic(){
+        return TopicBuilder.name("ListingStatusChangingTopic")
+                .build();
+    }
+
     
 }
