@@ -10,19 +10,19 @@ public class KafkaTopicConfiguration {
 
     @Bean
     public NewTopic HandoverCreationTopic(){
-    return TopicBuilder.name("handoverCreationTopic")
+    return TopicBuilder.name("HandoverCreationTopic")
     .build();
     }
 
     @Bean
     public NewTopic HandoverStatusUpdateTopic(){
-    return TopicBuilder.name("handoverStatusUpdateTopic")
+    return TopicBuilder.name("HandoverStatusUpdateTopic")
     .build();
     } 
 
     @Bean
     public NewTopic HandoverSignUpdateTopic(){
-    return TopicBuilder.name("handoverSignUpdateTopic")
+    return TopicBuilder.name("HandoverSignUpdateTopic")
     .build();
     }   
 }

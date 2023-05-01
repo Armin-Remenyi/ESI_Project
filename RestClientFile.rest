@@ -70,7 +70,7 @@ content-type: application/json
     "keys": "yes",
     "coldwater": "Yes",
     "hotwater": "No",
-    "status": "Waiting",
+    "status": "SIGNED",
     "signatures": "Signed"
 }
 

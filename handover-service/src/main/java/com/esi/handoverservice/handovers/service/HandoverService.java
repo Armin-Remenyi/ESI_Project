@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -13,10 +14,12 @@ import com.esi.handoverservice.handovers.dto.HandoverDto;
 import com.esi.handoverservice.handovers.model.Handover;
 import com.esi.handoverservice.handovers.repository.HandoverRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class HandoverService {
 
     @Autowired
@@ -24,6 +27,9 @@ public class HandoverService {
 
     @Autowired
     private WebClient.Builder webClientBuilder;
+
+    private final KafkaTemplate<String, HandoverDto> kafkaTemplate;
+
 
     public List<HandoverDto> getAllHandovers()
     {
@@ -48,33 +54,46 @@ public class HandoverService {
             return handover.map(this::mapToHandoverDto);
         }
 
-        public void addHandover(HandoverDto handoverDto) {
-            Handover handover = Handover.builder()
-            .handoverid(handoverDto.getHandoverid())
-            .date(handoverDto.getDate())
-            .keys(handoverDto.getKeys())
-            .coldwater(handoverDto.getColdwater())
-            .hotwater(handoverDto.getHotwater())
-            .status(handoverDto.getStatus())
-            .signatures(handoverDto.getSignatures())
-            .build();
+    public void addHandover(HandoverDto handoverDto) {
+        Handover handover = Handover.builder()
+                .handoverid(handoverDto.getHandoverid())
+                .date(handoverDto.getDate())
+                .keys(handoverDto.getKeys())
+                .coldwater(handoverDto.getColdwater())
+                .hotwater(handoverDto.getHotwater())
+                .status(handoverDto.getStatus())
+                .signatures(handoverDto.getSignatures())
+                .build();
         handoverRepository.save(handover);
+        kafkaTemplate.send("HandoverCreationTopic", handoverDto);
         log.info("Handover {} is added to the Database", handover.getHandoverid());
+    }
+
+    public void updateHandover(Integer handoverid, HandoverDto handoverDto) {
+        Handover handover = Handover.builder()
+                .handoverid(handoverDto.getHandoverid())
+                .date(handoverDto.getDate())
+                .keys(handoverDto.getKeys())
+                .coldwater(handoverDto.getColdwater())
+                .hotwater(handoverDto.getHotwater())
+                .status(handoverDto.getStatus())
+                .signatures(handoverDto.getSignatures())
+                .build();
+
+        handoverRepository.save(handover);
+
+        Optional<HandoverDto> handoverGet = handoverRepository.findById(handoverid).map(this::mapToHandoverDto);
+        if (handoverGet.isPresent() && !handoverGet.get().getStatus().equals(handover.getStatus())) {
+            kafkaTemplate.send("HandoverStatusUpdateTopic", handoverDto);
         }
 
-        public void updateHandover(Integer handoverid, HandoverDto handoverDto) {
-        Handover handover = Handover.builder()
-            .handoverid(handoverDto.getHandoverid())
-            .date(handoverDto.getDate())
-            .keys(handoverDto.getKeys())
-            .coldwater(handoverDto.getColdwater())
-            .hotwater(handoverDto.getHotwater())
-            .status(handoverDto.getStatus())
-            .signatures(handoverDto.getSignatures())
-            .build();
-        handoverRepository.save(handover);
-        log.info("Handover {} is updated", handover.getHandoverid());
+        // Event when handover status only changed to SIGNED
+        if (handoverGet.isPresent() && !handoverGet.get().getSignatures().equals(handover.getSignatures())
+                && handover.getSignatures().equals("SIGNED")) {
+            kafkaTemplate.send("HandoverSignUpdateTopic", handoverDto);
         }
+        log.info("Handover {} is updated", handover.getHandoverid());
+    }
 
     public void deleteHandover(Integer handoverid) {
         handoverRepository.deleteById(handoverid);
