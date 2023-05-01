@@ -21,7 +21,7 @@ public class DataInitializer {
 			user1.setLastName("Bingmar");
 			user1.setPhoneNumber(123456);
 			user1.setEmail("ingbing@gmail.com");
-			user1.setCreated(LocalDate.of(2023, 1, 1));
+			user1.setCreated("2023-01-01");
 
 			userRepository.save(user1);
 
@@ -31,7 +31,7 @@ public class DataInitializer {
 			user2.setLastName("Noman");
 			user2.setPhoneNumber(121212);
 			user2.setEmail("steve123@gmail.com");
-			user2.setCreated(LocalDate.of(2022, 6, 22));
+			user2.setCreated("2022-06-02");
 
 			userRepository.save(user2);
         };

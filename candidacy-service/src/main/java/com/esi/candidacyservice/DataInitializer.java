@@ -18,7 +18,7 @@ public class DataInitializer {
         return args -> {
             Candidacy candidacy1 = new Candidacy();
 			candidacy1.setCandidacyid(1);
-			candidacy1.setDate(LocalDate.of(2023, 03, 14));
+			candidacy1.setDate("2022-03-14");
             candidacy1.setUser(2);
 			candidacy1.setStatus("Approved");
 			candidacy1.setProperty("ABCD");

@@ -1,7 +1,5 @@
 package com.esi.backgroundcheckservice.backgroundchecks.dto;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +16,7 @@ public class BackgroundCheckDto {
     @Id      
     private Integer backgroundCheckid;
 
-    private LocalDate date;
+    private String date;
     
     public BackgroundCheckDto(Integer backgroundCheckid) {
         this.backgroundCheckid = backgroundCheckid;

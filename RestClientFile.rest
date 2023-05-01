@@ -52,7 +52,7 @@ content-type: application/json
 
 {
     "handoverid": 12,
-    "date": 2022-12-12,
+    "date": "2022-12-12",
     "keys": "yes",
     "coldwater": "Yes",
     "hotwater": "No",
@@ -66,7 +66,7 @@ content-type: application/json
 
 {
     "handoverid": 12,
-    "date": 2022-12-12,
+    "date": "2022-12-12",
     "keys": "yes",
     "coldwater": "Yes",
     "hotwater": "No",
@@ -129,7 +129,7 @@ content-type: application/json
 
 {
     "backgroundCheckid": 4,
-    "date":
+    "date": "2023-04-26"
 }
 
 ### Update a background check based on its id
@@ -138,7 +138,7 @@ content-type: application/json
 
 {
     "backgroundCheckid": 4,
-    "date": 2023-04-28
+    "date": "2023-04-28"
 }
 
 ### Delete a background check based on its id
@@ -159,7 +159,7 @@ content-type: application/json
     "candidacyid": 4,
     "userid": 9,
     "property": "House",
-    "date": 2023-01-01,
+    "date": "2023-12-20",
     "status": "Waiting"
 }
 
@@ -171,7 +171,7 @@ content-type: application/json
     "candidacyid": 4,
     "userid": 9,
     "property": "House",
-    "date": 2023-01-01,
+    "date": "2023-01-01",
     "status": "Accepted"
 }
 
@@ -192,8 +192,8 @@ content-type: application/json
 
 {
     "signingid": 4,
-    "tenantSignDate": 2023-04-20,
-    "landlordSignDate": 2023-04-22,
+    "tenantSignDate": "2023-03-20",
+    "landlordSignDate": "2023-03-20",
     "document": "pdf",
     "tenantSign": "Yes",
     "landlordSign": "Yes"
@@ -205,8 +205,8 @@ content-type: application/json
 
 {
     "signingid": 4,
-    "tenantSignDate": 2023-04-20,
-    "landlordSignDate": 2023-04-22,
+    "tenantSignDate": "2023-04-20",
+    "landlordSignDate": "2023-03-20",
     "document": "doc",
     "tenantSign": "Yes",
     "landlordSign": "Yes"
@@ -233,7 +233,7 @@ content-type: application/json
     "lastName": "Man",
     "phoneNumber": 1234567,
     "email": "notahero@gmail.com",
-    "created": 2018-12-12
+    "created": "2023-01-01"
 }
 
 ### Update a user based on its id
@@ -246,7 +246,7 @@ content-type: application/json
     "lastName": "Woman",
     "phoneNumber": 1234567,
     "email": "notahero@gmail.com",
-    "created": 2018-12-12
+    "created": "2023-01-01"
 }
 
 ### Delete a user based on its id

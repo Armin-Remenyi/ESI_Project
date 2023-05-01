@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import com.esi.backgroundcheckservice.backgroundchecks.model.BackgroundCheck;
 import com.esi.backgroundcheckservice.backgroundchecks.repository.BackgroundCheckRepository;
 
-import java.time.LocalDate;
-
 
 @Configuration
 public class DataInitializer {
@@ -18,7 +16,7 @@ public class DataInitializer {
         return args -> {
             BackgroundCheck backgroundcheck1 = new BackgroundCheck();
 			backgroundcheck1.setBackgroundCheckid(1);
-			backgroundcheck1.setDate(LocalDate.of(2023, 03, 14));
+			backgroundcheck1.setDate("2023-03-14");
 			
             backgroundcheckRepository.save(backgroundcheck1);
 

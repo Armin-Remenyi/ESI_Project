@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import com.esi.handoverservice.handovers.model.Handover;
 import com.esi.handoverservice.handovers.repository.HandoverRepository;
 
-import java.time.LocalDate;
-
 
 @Configuration
 public class DataInitializer {
@@ -18,7 +16,7 @@ public class DataInitializer {
         return args -> {
             Handover handover1 = new Handover();
 			handover1.setHandoverid(1);
-			handover1.setDate(LocalDate.of(2023, 03, 14));
+			handover1.setDate("2023-03-14");
             handover1.setKeys("Yes");
 			handover1.setColdwater("Yes");
 			handover1.setHotwater("No");
@@ -29,7 +27,7 @@ public class DataInitializer {
 
 			Handover handover2 = new Handover();
 			handover2.setHandoverid(2);
-			handover2.setDate(LocalDate.of(2023, 01, 22));
+			handover2.setDate("2023-02-14");
             handover2.setKeys("No");
 			handover2.setColdwater("Yes");
 			handover2.setHotwater("Yes");

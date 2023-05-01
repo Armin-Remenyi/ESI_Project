@@ -1,7 +1,5 @@
 package com.esi.backgroundcheckservice.backgroundchecks.model;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -21,7 +19,7 @@ public class BackgroundCheck
 {
     @Id
     private Integer backgroundCheckid;
-    private LocalDate date;
+    private String date;
     
     
     public Integer getBackgroundCheckid() {
@@ -30,10 +28,10 @@ public class BackgroundCheck
     public void setBackgroundCheckid(Integer backgroundCheckid) {
         this.backgroundCheckid = backgroundCheckid;
     }
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Builder
 @Data
 @AllArgsConstructor
@@ -17,8 +15,8 @@ public class SigningDto {
 
     @Id
     private Integer signingId;
-    private LocalDate tenantSignDate;
-    private LocalDate landlordSignDate;
+    private String tenantSignDate;
+    private String landlordSignDate;
     private String document;
     private String tenantSign;
     private String landlordSign;

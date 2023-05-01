@@ -1,7 +1,5 @@
 package com.esi.candidacyservice.candidacies.dto;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +17,7 @@ public class CandidacyDto
     private Integer candidacyid;
     private Integer userid;
     private String property;
-    private LocalDate date; 
+    private String date; 
     private String status;
 
     
