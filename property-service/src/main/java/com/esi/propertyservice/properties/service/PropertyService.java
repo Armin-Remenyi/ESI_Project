@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -15,8 +16,11 @@ import com.esi.propertyservice.properties.repository.PropertyRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PropertyService {
 
     @Autowired
@@ -24,6 +28,10 @@ public class PropertyService {
     
     @Autowired
     private WebClient.Builder webClientBuilder;
+
+
+    private final KafkaTemplate<String, PropertyDto> kafkaTemplate;
+
 
     public List<PropertyDto> getAllProperties(){
         List<Property> properties =  new ArrayList<>();
@@ -57,6 +65,7 @@ public class PropertyService {
                 .parking(propertyDto.getParking())
                 .build();
                 propertyRepository.save(property);
+                kafkaTemplate.send("PropertyCreationTopic", propertyDto);
             log.info("Property {} is added to the Database", property.getPropertyid());
             }
     
