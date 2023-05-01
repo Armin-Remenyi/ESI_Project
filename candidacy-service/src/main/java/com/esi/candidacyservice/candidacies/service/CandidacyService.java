@@ -77,7 +77,7 @@ public class CandidacyService {
                 .status(candidacyDto.getStatus())
                 .build();
         candidacyRepository.save(candidacy);
-        kafkaTemplate.send("candidacyStatusUpdateTopic", candidacyDto);
+        kafkaTemplate.send("candidacyCreationTopic", candidacyDto);
         log.info("Candidacy {} is added to the Database", candidacy.getCandidacyid());
     }
 
