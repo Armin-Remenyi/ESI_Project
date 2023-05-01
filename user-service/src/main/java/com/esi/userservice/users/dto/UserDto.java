@@ -1,5 +1,7 @@
 package com.esi.userservice.users.dto;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +20,7 @@ public class UserDto {
     private String lastName;
     private Integer phoneNumber;
     private String email;
-    private String created;
+    private LocalDate created;
 
     public UserDto(Integer userId)
     {
