@@ -33,30 +33,13 @@ public class ListingService {
 
     private final KafkaTemplate<String, ListingDto> kafkaTemplate;
 
-    @KafkaListener(topics = "listingTopic", groupId = "listingGroup" )
-    public void updateListinginfo(ListingDto listingDto){
-        Listing listing = Listing.builder()
-                .listingId(listingDto.getListingId())
-                .propertyId(listingDto.getPropertyId())
-
-                .price(listingDto.getPrice())
-                .description(listingDto.getDescription())
-                .size(listingDto.getSize())
-                .status(listingDto.getStatus())
-                .build();
-
-        listingRepository.save(listing);
-        kafkaTemplate.send("ListingCreationTopic", listingDto);
-        log.info("Signing {} status updated", listing.getListingId());
-    }
-
     public List<ListingDto> getAllListings() {
         List<Listing> listings = new ArrayList<>();
         listingRepository.findAll().forEach(listings::add);
         return listings.stream().map(this::mapToListingDto).toList();
     }
 
-    private ListingDto mapToListingDto(Listing listing){
+    private ListingDto mapToListingDto(Listing listing) {
         return ListingDto.builder()
                 .listingId(listing.getListingId())
                 .propertyId(listing.getPropertyId())
@@ -66,36 +49,37 @@ public class ListingService {
                 .status(listing.getStatus())
                 .build();
     }
-    public Optional<ListingDto> getListing(Integer listingId){
-    Optional<Listing> listing = listingRepository.findById(listingId);
-    return listing.map(this::mapToListingDto);
+    public Optional<ListingDto> getListing(Integer listingId) {
+        Optional<Listing> listing = listingRepository.findById(listingId);
+        return listing.map(this::mapToListingDto);
     }
 
     public void addListing(ListingDto listingDto) {
         Listing listing = Listing.builder()
-        .listingId(listingDto.getListingId())
-        .propertyId(listingDto.getPropertyId())
-        .price(listingDto.getPrice())
-        .description(listingDto.getDescription())
-        .size(listingDto.getSize())
-        .status(listingDto.getStatus())
-        .build();
-    listingRepository.save(listing);
-    log.info("Listing {} is added to the Database", listing.getListingId());
+                .listingId(listingDto.getListingId())
+                .propertyId(listingDto.getPropertyId())
+                .price(listingDto.getPrice())
+                .description(listingDto.getDescription())
+                .size(listingDto.getSize())
+                .status(listingDto.getStatus())
+                .build();
+        listingRepository.save(listing);
+        kafkaTemplate.send("ListingCreationTopic", listingDto);
+        log.info("Listing {} is added to the Database", listing.getListingId());
     }
 
     public void updateListing(Integer listingId, ListingDto listingDto) {
         Listing listing = Listing.builder()
-        .listingId(listingDto.getListingId())
-        .propertyId(listingDto.getPropertyId())
-        .price(listingDto.getPrice())
-        .description(listingDto.getDescription())
-        .size(listingDto.getSize())
-        .status(listingDto.getStatus())
-        .build();
+                .listingId(listingDto.getListingId())
+                .propertyId(listingDto.getPropertyId())
+                .price(listingDto.getPrice())
+                .description(listingDto.getDescription())
+                .size(listingDto.getSize())
+                .status(listingDto.getStatus())
+                .build();
         listingRepository.save(listing);
         log.info("Listing {} is updated", listing.getListingId());
-        }
+    }
 
     public void deleteListing(Integer listingId) {
         listingRepository.deleteById(listingId);
