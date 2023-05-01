@@ -73,8 +73,8 @@ public class UserService {
             .email(userDto.getEmail())
             .created(userDto.getCreated())
             .build();
-        userRepository.save(user);
-        log.info("User {} is updated", user.getUserId());
+            userRepository.save(user);
+            log.info("User {} is updated", user.getUserId());
         }
 
         public void deleteUser(Integer userId) {
