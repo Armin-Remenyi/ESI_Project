@@ -25,7 +25,7 @@ public class User {
     private String lastName;
     private Integer phoneNumber;
     private String email;
-    private LocalDate created;
+    private String created;
 
     public Integer getUserId() {
         return userid;
@@ -64,7 +64,7 @@ public class User {
     }
 
     // NOTE: we don't need setCreated, because 'created' initializing onc during user creation
-    public LocalDate getCreated() {
+    public String getCreated() {
         return created;
     }
 }

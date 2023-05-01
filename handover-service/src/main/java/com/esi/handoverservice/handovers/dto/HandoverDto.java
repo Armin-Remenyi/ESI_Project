@@ -1,6 +1,5 @@
 package com.esi.handoverservice.handovers.dto;
 
-import java.time.LocalDate;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ public class HandoverDto
 {
     @Id
     private Integer handoverid;
-    private LocalDate date; 
+    private String date; 
     private String keys;
     private String coldwater;
     private String hotwater;

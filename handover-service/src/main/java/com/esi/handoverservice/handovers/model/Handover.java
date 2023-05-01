@@ -21,7 +21,7 @@ public class Handover
 {
     @Id
     private Integer handoverid;
-    private LocalDate date; 
+    private String date; 
     private String keys;
     private String coldwater;
     private String hotwater;
@@ -34,10 +34,10 @@ public class Handover
     public void setHandoverid(Integer handoverid) {
         this.handoverid = handoverid;
     }
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
     public String getKeys() {

@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "signingtable")
 @Builder
@@ -21,8 +19,8 @@ public class Signing {
 
     @Id
     private Integer signingId;
-    private LocalDate tenantSignDate;
-    private LocalDate landlordSignDate;
+    private String tenantSignDate;
+    private String landlordSignDate;
     private String document;
     private String tenantSign;
     private String landlordSign;
@@ -35,19 +33,19 @@ public class Signing {
         this.signingId = signingId;
     }
 
-    public LocalDate getTenantSignDate() {
+    public String getTenantSignDate() {
         return tenantSignDate;
     }
 
-    public void setTenantSignDate(LocalDate tenantSignDate) {
+    public void setTenantSignDate(String tenantSignDate) {
         this.tenantSignDate = tenantSignDate;
     }
 
-    public LocalDate getLandlordSignDate() {
+    public String getLandlordSignDate() {
         return landlordSignDate;
     }
 
-    public void setLandlordSignDate(LocalDate landlordSignDate) {
+    public void setLandlordSignDate(String landlordSignDate) {
         this.landlordSignDate = landlordSignDate;
     }
 

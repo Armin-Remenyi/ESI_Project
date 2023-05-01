@@ -24,7 +24,7 @@ public class Candidacy
     private Integer candidacyid;
     private Integer userid;
     private String property;
-    private LocalDate date; 
+    private String date; 
     private String status;
 
     public Integer getCandidacyid() {
@@ -45,10 +45,10 @@ public class Candidacy
     public void setUser(Integer userid) {
         this.userid = userid;
     }
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
     public String getStatus() {
