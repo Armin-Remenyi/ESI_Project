@@ -6,8 +6,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.esi.backgroundcheckservice.backgroundchecks.dto.BackgroundCheckDto;
+import com.esi.backgroundcheckservice.backgroundchecks.model.BackgroundCheck;
+import com.esi.backgroundcheckservice.backgroundchecks.repository.BackgroundCheckRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j

@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.esi.backgroundcheckservice.backgroundchecks.dto.BackgroundCheckDto;
+import com.esi.backgroundcheckservice.backgroundchecks.model.BackgroundCheck;
+import com.esi.backgroundcheckservice.backgroundchecks.service.BackgroundCheckService;
+
 @RestController
 @RequestMapping("/api")
 public class BackgroundCheckController
@@ -32,14 +36,14 @@ public class BackgroundCheckController
     private BackgroundCheckService backgroundCheckService;
 
     @GetMapping("/backgroundChecks")
-    public List<BackgroundCheck> getAllBackgroundChecks()
+    public List<BackgroundCheckDto> getAllBackgroundChecks()
     {
         //return backgroundChecks;
         return backgroundCheckService.getAllBackgroundChecks();
     }
 
     @GetMapping("/backgroundChecks/{backgroundCheckid}")
-    public Optional <BackgroundCheck> getBackgroundCheck(@PathVariable Integer backgroundCheckid)
+    public Optional <BackgroundCheckDto> getBackgroundCheck(@PathVariable Integer backgroundCheckid)
     {
         //return backgroundChecks.stream().filter(bc->bc.getBackgroundCheckid().equals(backgroundCheckid)).findFirst().get();
         return backgroundCheckService.getBackgroundCheck(backgroundCheckid);
@@ -48,7 +52,7 @@ public class BackgroundCheckController
     @PostMapping("/backgroundChecks")
     public void addBackgrounCheck(@RequestBody BackgroundCheckDto backgroundCheckDto)
     {
-        backgroundCheckService.addBackgrounCheck(backgroundCheckDto);
+        backgroundCheckService.addBackgroundCheck(backgroundCheckDto);
     }
 
     @PutMapping("/backgroundChecks/{backgroundCheckid}")
