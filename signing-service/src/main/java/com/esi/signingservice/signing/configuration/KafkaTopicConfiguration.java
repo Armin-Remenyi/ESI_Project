@@ -8,11 +8,10 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaTopicConfiguration {
 
-    @Bean
-    public NewTopic SignatureCreationTopic(){
-    return TopicBuilder.name("signatureCreationTopic")
-    .build();
-    }
 
-    
+    @Bean
+    public NewTopic SignatureCreationTopic() {
+        return TopicBuilder.name("SignatureCreationTopic")
+                .build();
+    }
 }

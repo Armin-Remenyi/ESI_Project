@@ -17,7 +17,6 @@ import com.esi.listingservice.listing.dto.ListingDto;
 import lombok.extern.slf4j.Slf4j;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j

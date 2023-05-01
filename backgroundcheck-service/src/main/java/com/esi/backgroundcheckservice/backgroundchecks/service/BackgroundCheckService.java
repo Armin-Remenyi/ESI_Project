@@ -29,17 +29,9 @@ public class BackgroundCheckService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
+    private final KafkaTemplate<String, BackgroundCheckDto> kafkaTemplate;
 
-    //Code taken and modified from OderService.java, we need something similar but need to clean it up
-    // @KafkaListener(topics = "backgrouchCheckTopic", groupId = "backgrouchCheckGroup" )
-    // public void updateBackgroudCheckinfo(BackgroundCheckDto backgroundCheckDto){
-    //     BackgroundCheck backgroundCheck = BackgroundCheck.builder()
-    //     .backgroundCheckid(backgroundCheckDto.getBackgroundCheckid())
-    //     .date(backgroundCheckDto.getDate())
-    //     .build();
-    // backgroundCheckRepository.save(backgroundCheck);
-    // log.info("Candidacy {} payment status updated", backgroundCheck.getBackgroundCheckid());
-    // }
+
 
     public List<BackgroundCheckDto> getAllBackgroundChecks()
     {
@@ -64,8 +56,9 @@ public class BackgroundCheckService {
         .backgroundCheckid(backgroundCheckDto.getBackgroundCheckid())
         .date(backgroundCheckDto.getDate())
         .build();
-    backgroundCheckRepository.save(backgroundCheck);
-    log.info("Background Check {} is added to the Database", backgroundCheck.getBackgroundCheckid());
+        backgroundCheckRepository.save(backgroundCheck);
+        kafkaTemplate.send("bcCreationTopic", backgroundCheckDto);
+        log.info("Background Check {} is added to the Database", backgroundCheck.getBackgroundCheckid());
     }
 
     public void updateBackgroundCheck(Integer backgroundCheckid, BackgroundCheckDto backgroundCheckDto) {

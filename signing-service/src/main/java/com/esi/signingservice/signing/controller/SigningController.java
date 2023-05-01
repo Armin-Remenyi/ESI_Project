@@ -1,6 +1,5 @@
 package com.esi.signingservice.signing.controller;
 import com.esi.signingservice.signing.dto.SigningDto;
-import com.esi.signingservice.signing.model.Signing;
 import com.esi.signingservice.signing.service.SigningService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +21,6 @@ public class SigningController
 {
     @Autowired
     private SigningService signingService;
-
-    // private List<Signing> signings = new ArrayList<>(Arrays.asList(
-    //         new Signing(1, LocalDate.of(2023, 1, 14), LocalDate.of(2023, 1, 14), "www.pdf.ee", "signatureTenant", "signatureLandlord")
-    // ));
 
     @GetMapping("/signings")
     public List<SigningDto> getAllSignings() {
