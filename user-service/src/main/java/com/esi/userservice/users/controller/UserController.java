@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public void addUser(@PathVariable UserDto userDto) {
+    public void addUser(@RequestBody UserDto userDto) {
         userService.addUser(userDto);
     }
 
