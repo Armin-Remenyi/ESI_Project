@@ -1,19 +1,26 @@
 package com.esi.backgroundcheckservice.backgroundchecks.model;
 
 import java.time.LocalDate;
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "backgroundchecktable")
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor 
+
 public class BackgroundCheck
 {
     @Id
     private Integer backgroundCheckid;
-
-    @Column(name = "date")
     private LocalDate date;
     
     
@@ -29,16 +36,4 @@ public class BackgroundCheck
     public void setDate(LocalDate date) {
         this.date = date;
     }
-    public BackgroundCheck() {
-    }
-    public BackgroundCheck(Integer backgroundCheckid) {
-        this.backgroundCheckid = backgroundCheckid;
-    }
-    public BackgroundCheck(Integer backgroundCheckid, LocalDate date) {
-        this.backgroundCheckid = backgroundCheckid;
-        this.date = date;
-    }
-
-    
-    
 }

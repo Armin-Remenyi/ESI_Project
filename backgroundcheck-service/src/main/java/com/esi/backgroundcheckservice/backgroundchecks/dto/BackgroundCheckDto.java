@@ -1,5 +1,7 @@
 package com.esi.backgroundcheckservice.backgroundchecks.dto;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
