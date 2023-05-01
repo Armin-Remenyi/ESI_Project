@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.esi.listingservice.listing.dto.ListingDto;
 import com.esi.listingservice.listing.model.Listing;
 import com.esi.listingservice.listing.repository.ListingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.esi.listingservice.listing.dto.ListingDto;
 
+import lombok.extern.slf4j.Slf4j;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ListingService {
 
     @Autowired
@@ -23,6 +29,26 @@ public class ListingService {
 
     @Autowired
     private WebClient.Builder webClientBuilder;
+
+
+    private final KafkaTemplate<String, ListingDto> kafkaTemplate;
+
+    @KafkaListener(topics = "listingTopic", groupId = "listingGroup" )
+    public void updateListinginfo(ListingDto listingDto){
+        Listing listing = Listing.builder()
+                .listingId(listingDto.getListingId())
+                .propertyId(listingDto.getPropertyId())
+
+                .price(listingDto.getPrice())
+                .description(listingDto.getDescription())
+                .size(listingDto.getSize())
+                .status(listingDto.getStatus())
+                .build();
+
+        listingRepository.save(listing);
+        kafkaTemplate.send("ListingCreationTopic", listingDto);
+        log.info("Signing {} status updated", listing.getListingId());
+    }
 
     public List<ListingDto> getAllListings() {
         List<Listing> listings = new ArrayList<>();

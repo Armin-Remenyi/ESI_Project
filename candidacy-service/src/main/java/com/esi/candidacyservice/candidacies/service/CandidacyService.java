@@ -36,11 +36,11 @@ private WebClient.Builder webClientBuilder;
     @KafkaListener(topics = "backgrouchCheckTopic", groupId = "backgrouchCheckGroup" )
     public void updateBackgroudCheckinfo(CandidacyDto candidacyDto){
         Candidacy candidacy = Candidacy.builder()
-        .candidacyid(candidacy.getCandidacyid())
-        .userid(candidacy.getUserid())
-        .property(candidacy.getProperty())
-        .date(candidacy.getDate())
-        .status(candidacy.getStatus())
+        .candidacyid(candidacyDto.getCandidacyid())
+        .userid(candidacyDto.getUserid())
+        .property(candidacyDto.getProperty())
+        .date(candidacyDto.getDate())
+        .status(candidacyDto.getStatus())
         .build();
         candidacyRepository.save(candidacy);
     log.info("Candidacy {} payment status updated", candidacy.getCandidacyid());
