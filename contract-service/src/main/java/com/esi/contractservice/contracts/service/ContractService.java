@@ -81,24 +81,37 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
             .status(contractDto.getStatus())
             .signing(contractDto.getSigning())
             .build();
-        contractRepository.save(contract);
-        log.info("Contract {} is added to the Database", contract.getContractid());
+            contractRepository.save(contract);
+            kafkaTemplate.send("ContractCreationTopic", contractDto);
+            log.info("Contract {} is added to the Database", contract.getContractid());
         }
 
-        public void updateContract(Integer contractid, ContractDto contractDto) {
+    public void updateContract(Integer contractid, ContractDto contractDto) {
         Contract contract = Contract.builder()
-            .contractid(contractDto.getContractid())
-            .tenantid(contractDto.getTenantid())
-            .landlordid(contractDto.getLandlordid())
-            .propertyid(contractDto.getPropertyid())
-            .handoverid(contractDto.getHandoverid())
-            .pets(contractDto.getPets())
-            .status(contractDto.getStatus())
-            .signing(contractDto.getSigning())
-            .build();
+                .contractid(contractDto.getContractid())
+                .tenantid(contractDto.getTenantid())
+                .landlordid(contractDto.getLandlordid())
+                .propertyid(contractDto.getPropertyid())
+                .handoverid(contractDto.getHandoverid())
+                .pets(contractDto.getPets())
+                .status(contractDto.getStatus())
+                .signing(contractDto.getSigning())
+                .build();
         contractRepository.save(contract);
-        log.info("Contract {} is updated", contract.getContractid());
+
+
+        Optional<ContractDto> contractGet = contractRepository.findById(contractid).map(this::mapToContractDto);
+        if (contractGet.isPresent() && !contractGet.get().getStatus().equals(contract.getStatus())) {
+            kafkaTemplate.send("ContractStatusUpdateTopic", contractDto);
         }
+
+        // Event when contract status only changed to SIGNED
+        if (contractGet.isPresent() && !contractGet.get().getSigning().equals(contract.getSigning())) {
+            kafkaTemplate.send("ContractSignUpdateTopic", contractDto);
+        }
+
+        log.info("Contract {} is updated", contract.getContractid());
+    }
 
         public void deleteContract(Integer contractid) {
         contractRepository.deleteById(contractid);

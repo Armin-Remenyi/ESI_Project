@@ -10,19 +10,19 @@ public class KafkaTopicConfiguration {
  
     @Bean
     public NewTopic ContractCreationTopic(){
-    return TopicBuilder.name("contractCreationTopic")
+    return TopicBuilder.name("ContractCreationTopic")
     .build();
     }
 
     @Bean
     public NewTopic ContractStatusUpdateTopic(){
-    return TopicBuilder.name("contractStatusUpdateTopic")
+    return TopicBuilder.name("ContractStatusUpdateTopic")
     .build();
     } 
 
     @Bean
     public NewTopic ContractSignUpdateTopic(){
-    return TopicBuilder.name("contractSignUpdateTopic")
+    return TopicBuilder.name("ContractSignUpdateTopic")
     .build();
     }
 }
