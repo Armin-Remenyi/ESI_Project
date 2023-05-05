@@ -26,35 +26,4 @@ public class Candidacy
     private String property;
     private String date; 
     private String status;
-
-    public Integer getCandidacyid() {
-        return candidacyid;
-    }
-    public void setCandidacyid(Integer candidacyid) {
-        this.candidacyid = candidacyid;
-    }
-    public Integer getUser() {
-        return userid;
-    }
-    public String getProperty() {
-        return property;
-    }
-    public void setProperty(String property) {
-        this.property = property;
-    }
-    public void setUser(Integer userid) {
-        this.userid = userid;
-    }
-    public String getDate() {
-        return date;
-    }
-    public void setDate(String date) {
-        this.date = date;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

@@ -26,45 +26,4 @@ public class User {
     private Integer phoneNumber;
     private String email;
     private LocalDate created;
-
-    public Integer getUserId() {
-        return userid;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Integer getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    // NOTE: we don't need setCreated, because 'created' initializing onc during user creation
-    public LocalDate getCreated() {
-        return created;
-    }
 }
