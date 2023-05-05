@@ -27,7 +27,7 @@ public class UserService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    private final KafkaTemplate<String, UserDto> kafkaTemplate;
+    private final KafkaTemplate<String, UserDto> kafkaTemplate; //class provided by the Spring Kafka library that is used to send messages to Kafka topics
 
     public List<UserDto> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -36,7 +36,7 @@ public class UserService {
     }
         private UserDto mapToUserDto(User user){
                 return UserDto.builder()
-                        .userId(user.getUserid())
+                        .userId(user.getUserId())
                         .firstName(user.getFirstName())
                         .lastName(user.getLastName())
                         .phoneNumber(user.getPhoneNumber())
@@ -59,8 +59,8 @@ public class UserService {
             .created(userDto.getCreated())
             .build();
             userRepository.save(user);
-            kafkaTemplate.send("UserDataTopic", userDto);
-        log.info("User {} is added to the Database", user.getUserid());
+            kafkaTemplate.send("UserDataTopic", userDto);   
+        log.info("User {} is added to the Database", user.getUserId());
         }
 
 
@@ -73,8 +73,8 @@ public class UserService {
             .email(userDto.getEmail())
             .created(userDto.getCreated())
             .build();
-            userRepository.save(user);
-            log.info("User {} is updated", user.getUserid());
+        userRepository.save(user);
+        log.info("User {} is updated", user.getUserId());
         }
 
         public void deleteUser(Integer userId) {

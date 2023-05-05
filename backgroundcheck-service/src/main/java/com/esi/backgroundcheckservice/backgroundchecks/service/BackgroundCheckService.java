@@ -7,13 +7,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
 
 
 import com.esi.backgroundcheckservice.backgroundchecks.dto.BackgroundCheckDto;
+import com.esi.backgroundcheckservice.backgroundchecks.dto.CandidacyDto;
 import com.esi.backgroundcheckservice.backgroundchecks.model.BackgroundCheck;
 import com.esi.backgroundcheckservice.backgroundchecks.repository.BackgroundCheckRepository;
+
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +34,14 @@ public class BackgroundCheckService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    private final KafkaTemplate<String, BackgroundCheckDto> kafkaTemplate;
+    private final KafkaTemplate<String, CandidacyDto> kafkaTemplate;
 
 
+    public void backgroundCheckComplete(CandidacyDto candidacyDto){
+        
+        log.info("Log message - received from Background Check topic: {} ", candidacyDto.toString());
+
+    }
 
     public List<BackgroundCheckDto> getAllBackgroundChecks()
     {
