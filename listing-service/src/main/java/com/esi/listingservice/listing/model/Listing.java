@@ -26,53 +26,53 @@ public class Listing
     private Double size;
     private String status;
 
-    public Integer getListingId() {
-        return listingId;
-    }
+    // public Integer getListingId() {
+    //     return listingId;
+    // }
 
-    public void setListingId(Integer listingId) {
-        this.listingId = listingId;
-    }
+    // public void setListingId(Integer listingId) {
+    //     this.listingId = listingId;
+    // }
 
-    public Integer getPropertyId() {
-        return propertyId;
-    }
+    // public Integer getPropertyId() {
+    //     return propertyId;
+    // }
 
-    public void setPropertyId(Integer propertyId) {
-        this.propertyId = propertyId;
-    }
+    // public void setPropertyId(Integer propertyId) {
+    //     this.propertyId = propertyId;
+    // }
 
-    public Integer getPrice() {
-        return price;
-    }
+    // public Integer getPrice() {
+    //     return price;
+    // }
 
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
+    // public void setPrice(Integer price) {
+    //     this.price = price;
+    // }
 
-    public String getDescription() {
-        return description;
-    }
+    // public String getDescription() {
+    //     return description;
+    // }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    // public void setDescription(String description) {
+    //     this.description = description;
+    // }
 
-    public Double getSize() {
-        return size;
-    }
+    // public Double getSize() {
+    //     return size;
+    // }
 
-    public void setSize(Double size) {
-        this.size = size;
-    }
+    // public void setSize(Double size) {
+    //     this.size = size;
+    // }
 
-    public String getStatus() {
-        return status;
-    }
+    // public String getStatus() {
+    //     return status;
+    // }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    // public void setStatus(String status) {
+    //     this.status = status;
+    // }
 
 
 }

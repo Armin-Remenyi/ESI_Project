@@ -20,18 +20,4 @@ public class BackgroundCheck
     @Id
     private Integer backgroundCheckid;
     private String date;
-    
-    
-    public Integer getBackgroundCheckid() {
-        return backgroundCheckid;
-    }
-    public void setBackgroundCheckid(Integer backgroundCheckid) {
-        this.backgroundCheckid = backgroundCheckid;
-    }
-    public String getDate() {
-        return date;
-    }
-    public void setDate(String date) {
-        this.date = date;
-    }
 }

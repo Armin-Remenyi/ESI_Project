@@ -7,9 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import com.esi.candidacyservice.candidacies.model.Candidacy;
 import com.esi.candidacyservice.candidacies.repository.CandidacyRepository;
 
-import java.time.LocalDate;
-
-
 @Configuration
 public class DataInitializer {
 
@@ -19,7 +16,7 @@ public class DataInitializer {
             Candidacy candidacy1 = new Candidacy();
 			candidacy1.setCandidacyid(1);
 			candidacy1.setDate("2022-03-14");
-            candidacy1.setUser(2);
+            candidacy1.setUserid(2);
 			candidacy1.setStatus("Approved");
 			candidacy1.setProperty("ABCD");
 	
