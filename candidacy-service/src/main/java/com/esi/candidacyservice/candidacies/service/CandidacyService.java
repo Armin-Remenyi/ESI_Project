@@ -43,7 +43,7 @@ public class CandidacyService {
                 .status(candidacyDto.getStatus())
                 .build();
         candidacyRepository.save(candidacy);
-        log.info("Candidacy {} payment status updated", candidacy.getCandidacyid());
+        log.info("Candidacy info sent", candidacy.getCandidacyid());
     }
 
 

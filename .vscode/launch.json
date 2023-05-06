@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SigningServiceApplication",
+            "request": "launch",
+            "mainClass": "com.esi.signingservice.SigningServiceApplication",
+            "projectName": "com.esi-signing-service"
+        },
+        {
+            "type": "java",
             "name": "CandidacyServiceApplication",
             "request": "launch",
             "mainClass": "com.esi.candidacyservice.CandidacyServiceApplication",

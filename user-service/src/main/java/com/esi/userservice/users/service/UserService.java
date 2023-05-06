@@ -36,7 +36,7 @@ public class UserService {
     }
         private UserDto mapToUserDto(User user){
                 return UserDto.builder()
-                        .userId(user.getUserId())
+                        .userId(user.getUserid())
                         .firstName(user.getFirstName())
                         .lastName(user.getLastName())
                         .phoneNumber(user.getPhoneNumber())
@@ -60,7 +60,7 @@ public class UserService {
             .build();
             userRepository.save(user);
             kafkaTemplate.send("UserDataTopic", userDto);   
-        log.info("User {} is added to the Database", user.getUserId());
+        log.info("User {} is added to the Database", user.getUserid());
         }
 
 
@@ -74,7 +74,7 @@ public class UserService {
             .created(userDto.getCreated())
             .build();
         userRepository.save(user);
-        log.info("User {} is updated", user.getUserId());
+        log.info("User {} is updated", user.getUserid());
         }
 
         public void deleteUser(Integer userId) {
