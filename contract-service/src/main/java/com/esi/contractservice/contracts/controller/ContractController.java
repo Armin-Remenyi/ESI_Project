@@ -16,11 +16,6 @@ public class ContractController
 {
     @Autowired
     private ContractService contractService;
-
-    // private  List<Contract> contracts =  new ArrayList<>(Arrays.asList(
-    //     new Contract(12, 12, 32, 4, 5, "No", "Complete", "Signed"),
-    //     new Contract(144, 1, 2, 6, 9, "Yes", "Waiting", "Waiting")
-    //  ));
  
      @GetMapping("/contracts")
      public List<ContractDto> getAllContracts()
