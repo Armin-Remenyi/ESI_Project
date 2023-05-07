@@ -158,11 +158,12 @@ POST http://localhost:8081/api/candidacies HTTP/1.1
 content-type: application/json
 
 {
-    "candidacyid": 4,
-    "userid": 9,
-    "property": "House",
+    "candidacyid": 7,
+    "listingid": 1,
+    "userid": 8,
+    "property": "lalala",
     "date": "2023-12-20",
-    "status": "Waiting"
+    "status": "APPROVED"
 }
 
 ### Update a candidacy based on its id

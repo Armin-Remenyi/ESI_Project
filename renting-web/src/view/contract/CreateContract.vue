@@ -11,6 +11,21 @@
               </div>
             </header>
 
+            <div v-if="this.showError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                 role="alert">
+              <strong class="font-bold">Error!</strong>
+              <span class="block sm:inline"> Please fill rent amount, pets and select tenant</span>
+              <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 20 20">
+        <title>Close</title>
+        <path
+            d="M14.348 5.652a1 1 0 00-1.414 0L10 8.586 6.066 4.652a1 1 0 00-1.414 1.414L8.586 10l-3.934 3.934a1 1 0 101.414 1.414L10 11.414l3.934 3.934a1 1 0 001.414-1.414L11.414 10l3.934-3.934a1 1 0 000-1.414z"
+            clip-rule="evenodd" fill-rule="evenodd"></path>
+      </svg>
+    </span>
+            </div>
+
             <div class="my-5 text-sm">
               <label for="price" class="block text-black">Rent amount</label>
               <input type="number" autofocus id="price"
@@ -40,14 +55,50 @@
                      v-model="contract.propertyid"/>
             </div>
 
-            // TODO: Modal to select tenant
             <div class="my-5 text-sm">
               <label for="tenantid" class="block text-black">Tenant Id</label>
               <input type="number" autofocus id="tenantid"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="tenantid"
+                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-200 w-full" placeholder="tenantid"
+                     :disabled="true"
                      v-model="contract.tenantid"/>
             </div>
-
+            <div class="flex flex-col">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                  <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                      <thead class="bg-gray-50 dark:bg-gray-800">
+                      <tr>
+                        <TableHeaderCellElement value="Candidate Id"/>
+                        <TableHeaderCellElement value="User Id"/>
+                        <TableHeaderCellElement value="Candidacy date"/>
+                        <TableHeaderCellElement value="Status"/>
+                        <TableHeaderCellElement value=""/>
+                      </tr>
+                      </thead>
+                      <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                             v-for="candidate in candidates" :key="candidate.candidacyid">
+                      <tr>
+                        <TableDataCellElement :value="candidate.candidacyid"/>
+                        <TableDataCellElement :value="candidate.userid"/>
+                        <TableDataCellElement :value="candidate.date"/>
+                        <TableDataCellElement :value="candidate.status"/>
+                        <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
+                          <button
+                              v-if="candidate.status === 'APPROVED'"
+                              type="button"
+                              class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                              @click="this.selectTenant(candidate.userid)">
+                            select as tenant
+                          </button>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="my-5 text-sm">
               <label for="handoverid" class="block text-black">Handover Id</label>
               <input type="number" autofocus id="handoverid"
@@ -104,10 +155,15 @@
 
 <script>
 
+import TableDataCellElement from "@/Components/TableDataCellElement";
+import TableHeaderCellElement from "@/Components/TableHeaderCellElement";
+
 export default {
   name: "AllContract",
   data() {
     return {
+      showError: false,
+      candidates: [],
       listing: {
         listingId: "",
         propertyId: "",
@@ -131,7 +187,24 @@ export default {
       },
     };
   },
+  components: {
+    TableDataCellElement,
+    TableHeaderCellElement
+  },
   methods: {
+    selectTenant(userid) {
+      this.contract.tenantid = userid;
+    },
+    fetchListingCandidates() {
+      fetch(`http://localhost:8081/api/candidacies/listing/` + this.$route.params.id)
+          .then((response) => response.json())
+          .then((response) => {
+            console.log("response", response)
+            return response;
+          })
+          .then((data) => this.candidates = data)
+          .catch((err) => console.log(err.message));
+    },
     fetchListing() {
       fetch(`http://localhost:8087/api/listing/` + this.$route.params.id)
           .then((response) => response.json())
@@ -139,7 +212,6 @@ export default {
             const newContractId = Math.floor(Math.random() * 100) + 1;
 
             this.contract.contractid = newContractId
-            this.contract.tenantid = Math.floor(Math.random() * 100) + 1 // TODO: change to tenant selection.
             this.contract.landlordid = (Math.floor(Math.random() * 100) + 1).toString() // TODO: change to auth user id.
             this.contract.propertyid = data.propertyId // NOTE: in Listing 'propertyId' where 'Id' with upper case.
             this.contract.listingid = this.$route.params.id
@@ -158,6 +230,13 @@ export default {
       this.$router.push("/api/allcontracts");
     },
     create() {
+      if (!this.contract.tenantid || !this.contract.pets || !this.contract.price) {
+        this.showError = true;
+        return;
+      } else {
+        this.showError = false;
+      }
+
       fetch(`http://localhost:8082/api/contracts`, {
         method: "POST",
         headers: {
@@ -188,6 +267,7 @@ export default {
   },
   mounted() {
     this.fetchListing();
+    this.fetchListingCandidates();
   },
 };
 </script>
