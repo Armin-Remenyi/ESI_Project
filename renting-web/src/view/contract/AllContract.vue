@@ -6,15 +6,7 @@
           <header class="pb-10">
             <div class="flex justify-between">
               <div class="container mx-auto w-30">
-                <h1 class="text-3xl font-bold">All listings</h1>
-              </div>
-              <div class="text-right">
-                <button
-                    type="button"
-                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                    @click="this.create()">
-                  new
-                </button>
+                <h1 class="text-3xl font-bold">All contracts</h1>
               </div>
             </div>
           </header>
@@ -25,31 +17,37 @@
                   <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>
-                      <TableHeaderCellElement value="Listing Id"/>
-                      <TableHeaderCellElement value="Property Id"/>
                       <TableHeaderCellElement value="Contract Id"/>
-                      <TableHeaderCellElement value="Price"/>
-                      <TableHeaderCellElement value="Size"/>
+                      <TableHeaderCellElement value="Tenant Id"/>
+                      <TableHeaderCellElement value="Landlord id"/>
+                      <TableHeaderCellElement value="Property id"/>
+                      <TableHeaderCellElement value="Handover id"/>
+                      <TableHeaderCellElement value="Listing id"/>
+                      <TableHeaderCellElement value="Pets"/>
+                      <TableHeaderCellElement value="Rent amount"/>
                       <TableHeaderCellElement value="Status"/>
-                      <TableHeaderCellElement value="Description"/>
+                      <TableHeaderCellElement value="Signing"/>
                       <TableHeaderCellElement value=""/>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
-                           v-for="listing in listings" :key="listing.listingId">
+                           v-for="contract in contracts" :key="contract.contractid">
                     <tr>
-                      <TableDataCellElement :value="listing.listingId"/>
-                      <TableDataCellElement :value="listing.propertyId"/>
-                      <TableDataCellElement :value="listing.contractId"/>
-                      <TableDataCellElement :value="listing.price"/>
-                      <TableDataCellElement :value="listing.size"/>
-                      <TableDataCellElement :value="listing.status"/>
-                      <TableDataCellElement :value="listing.description"/>
+                      <TableDataCellElement :value="contract.contractid"/>
+                      <TableDataCellElement :value="contract.tenantid"/>
+                      <TableDataCellElement :value="contract.landlordid"/>
+                      <TableDataCellElement :value="contract.propertyid"/>
+                      <TableDataCellElement :value="contract.handoverid"/>
+                      <TableDataCellElement :value="contract.listingid"/>
+                      <TableDataCellElement :value="contract.pets"/>
+                      <TableDataCellElement :value="contract.price"/>
+                      <TableDataCellElement :value="contract.status"/>
+                      <TableDataCellElement :value="contract.signing"/>
                       <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
                         <button
                             type="button"
                             class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.open(listing.listingId)">
+                            @click="this.open(contract.contractid)">
                           open
                         </button>
                       </td>
@@ -72,10 +70,10 @@ import TableDataCellElement from "@/Components/TableDataCellElement";
 import TableHeaderCellElement from "@/Components/TableHeaderCellElement";
 
 export default {
-  name: "AllListings",
+  name: "AllContracts",
   data() {
     return {
-      listings: [],
+      contracts: [],
     };
   },
   components: {
@@ -83,35 +81,38 @@ export default {
     TableHeaderCellElement
   },
   methods: {
-    fetchListings() {
-      fetch(`http://localhost:8087/api/listing`)
+    fetchContracts() {
+      fetch(`http://localhost:8082/api/contracts`)
           .then((response) => response.json())
-          .then((data) => (this.listings = data))
+          .then((data) => (this.contracts = data))
           .catch((err) => console.log(err.message));
     },
     delete(id) {
-      fetch(`http://localhost:8087/api/listing/${id}`, {
+      fetch(`http://localhost:8082/api/contracts/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       })
           .then(() => {
-            this.fetchListings();
+            this.fetchContracts();
           })
           .catch((e) => {
             console.log(e);
           });
     },
     open(id) {
-      this.$router.push("/api/listing/" + id);
+      this.$router.push("/api/contract/" + id);
+    },
+    update(id) {
+      this.$router.push("/api/updatecontract/" + id);
     },
     create() {
-      this.$router.push("/api/createlisting");
-    }
+      this.$router.push("/api/createcontract");
+    },
   },
   mounted() {
-    this.fetchListings();
+    this.fetchContracts();
   },
 };
 </script>
