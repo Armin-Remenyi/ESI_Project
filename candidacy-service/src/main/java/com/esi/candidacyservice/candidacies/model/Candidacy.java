@@ -24,6 +24,7 @@ public class Candidacy
     private Integer candidacyid;
     private Integer userid;
     private String property;
-    private String date; 
+    private Integer listingid;
+    private String date;
     private String status;
 }

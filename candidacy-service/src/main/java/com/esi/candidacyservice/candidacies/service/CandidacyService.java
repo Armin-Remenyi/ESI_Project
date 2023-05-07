@@ -33,12 +33,13 @@ public class CandidacyService {
     private WebClient.Builder webClientBuilder;
 
     //Code taken from OderService.java, we need something similar
-    @KafkaListener(topics = "backgrouchCheckTopic", groupId = "backgrouchCheckGroup" )
-    public void updateBackgroudCheckinfo(CandidacyDto candidacyDto){
+    @KafkaListener(topics = "backgrouchCheckTopic", groupId = "backgrouchCheckGroup")
+    public void updateBackgroudCheckinfo(CandidacyDto candidacyDto) {
         Candidacy candidacy = Candidacy.builder()
                 .candidacyid(candidacyDto.getCandidacyid())
                 .userid(candidacyDto.getUserid())
                 .property(candidacyDto.getProperty())
+                .listingid(candidacyDto.getListingid())
                 .date(candidacyDto.getDate())
                 .status(candidacyDto.getStatus())
                 .build();
@@ -53,11 +54,17 @@ public class CandidacyService {
         return candidacies.stream().map(this::mapToCandidacyDto).toList();
     }
 
+    public List<CandidacyDto> getAllCandidaciesByListingId(Integer listingid) {
+        List<Candidacy> candidacies = new ArrayList<>(candidacyRepository.findByListingid(listingid));
+        return candidacies.stream().map(this::mapToCandidacyDto).toList();
+    }
+
     private CandidacyDto mapToCandidacyDto(Candidacy candidacy) {
         return CandidacyDto.builder()
                 .candidacyid(candidacy.getCandidacyid())
                 .userid(candidacy.getUserid())
                 .property(candidacy.getProperty())
+                .listingid(candidacy.getListingid())
                 .date(candidacy.getDate())
                 .status(candidacy.getStatus())
                 .build();
@@ -73,6 +80,7 @@ public class CandidacyService {
                 .candidacyid(candidacyDto.getCandidacyid())
                 .userid(candidacyDto.getUserid())
                 .property(candidacyDto.getProperty())
+                .listingid(candidacyDto.getListingid())
                 .date(candidacyDto.getDate())
                 .status(candidacyDto.getStatus())
                 .build();
@@ -86,6 +94,7 @@ public class CandidacyService {
                 .candidacyid(candidacyDto.getCandidacyid())
                 .userid(candidacyDto.getUserid())
                 .property(candidacyDto.getProperty())
+                .listingid(candidacyDto.getListingid())
                 .date(candidacyDto.getDate())
                 .status(candidacyDto.getStatus())
                 .build();
