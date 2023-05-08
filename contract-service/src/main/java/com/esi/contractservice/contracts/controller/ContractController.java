@@ -28,6 +28,11 @@ public class ContractController
      {
          return contractService.getContract(contractid);
      }
+
+    @GetMapping("/contracts/listing/{listingid}")
+    public List<ContractDto> getAllContractsByListingId(@PathVariable Integer listingid) {
+        return contractService.getAllContractsByListingId(listingid);
+    }
  
      @PostMapping("/contracts")
      public void addContract(@RequestBody ContractDto contractDto)

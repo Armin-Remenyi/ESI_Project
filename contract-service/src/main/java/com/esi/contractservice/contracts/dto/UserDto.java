@@ -1,4 +1,4 @@
-package com.esi.userservice.users.dto;
+package com.esi.contractservice.contracts.dto;
 
 import java.time.LocalDate;
 

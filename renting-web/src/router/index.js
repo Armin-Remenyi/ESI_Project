@@ -15,6 +15,7 @@ import User from "@/view/user/User";
 import CreateUser from "@/view/user/CreateUser";
 import UpdateUser from "@/view/user/UpdateUser";
 //import DeleteUser from "@/view/user/DeleteUser";
+import CreateCandidate from "@/view/candicacy/CreateCandidate";
 
 const listingPages = [
     {
@@ -106,6 +107,11 @@ const usersPages = [
     //     name: "DeleteUser",
     //     component: DeleteUser,
     // },
+    {
+        path: "/api/createcandidate/:id",
+        name: "CreateCandidate",
+        component: CreateCandidate,
+    },
 ]
 
 const routes = [
@@ -113,6 +119,7 @@ const routes = [
     ...contractPages,
     ...propertiesPages,
     ...usersPages,
+    ...candidacyPages,
 ]
 
 
