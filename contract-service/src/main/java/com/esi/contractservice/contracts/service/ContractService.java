@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.esi.contractservice.contracts.dto.ContractDto;
+import com.esi.contractservice.contracts.dto.UserDto;
 
 import com.esi.contractservice.contracts.model.Contract;
 import com.esi.contractservice.contracts.repository.ContractRepository;
@@ -47,6 +48,17 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
     log.info("Signing {} status updated", contract.getContractid());
     }
 
+    @KafkaListener(topics = "UserDataTopic", groupId = "UserDataGroup" )
+    public void updateSigninginfo(UserDto userDto){
+        log.info("User data is saved: {}", userDto);   
+        Contract contract = Contract.builder() // Build contract table
+        .tenantid(userDto.getUserId()) // add the user id as tenant id
+        .build();
+    contractRepository.save(contract);
+    log.info("Signing {} status updated", contract.getContractid());
+    }
+
+
     
     public List<ContractDto> getAllContracts(){
     List<Contract> contracts =  new ArrayList<>();
@@ -72,7 +84,6 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
 
         public void addContract(ContractDto contractDto) {
             Contract contract = Contract.builder()
-            .contractid(contractDto.getContractid())
             .tenantid(contractDto.getTenantid())
             .landlordid(contractDto.getLandlordid())
             .propertyid(contractDto.getPropertyid())
@@ -82,7 +93,6 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
             .signing(contractDto.getSigning())
             .build();
             contractRepository.save(contract);
-            kafkaTemplate.send("ContractCreationTopic", contractDto);
             log.info("Contract {} is added to the Database", contract.getContractid());
         }
 
