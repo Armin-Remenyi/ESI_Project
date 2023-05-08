@@ -11,6 +11,7 @@
             <NavBarButtonElement value="Properties Page" link="/api/allproperties"/>
             <NavBarButtonElement value="Listings Page" link="/api/alllistings"/>
             <NavBarButtonElement value="Contract Page" link="/api/allcontracts"/>
+            <NavBarButtonElement value="My User Profile" link="/api/user/2"/>
           </ul>
         </div>
       </div>

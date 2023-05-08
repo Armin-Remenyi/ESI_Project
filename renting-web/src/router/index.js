@@ -11,6 +11,10 @@ import AllProperties from "@/view/property/AllProperties";
 import Property from "@/view/property/Property";
 import CreateProperty from "@/view/property/CreateProperty";
 import UpdateProperty from "@/view/property/UpdateProperty";
+import User from "@/view/user/User";
+import CreateUser from "@/view/user/CreateUser";
+import UpdateUser from "@/view/user/UpdateUser";
+//import DeleteUser from "@/view/user/DeleteUser";
 
 const listingPages = [
     {
@@ -81,10 +85,34 @@ const propertiesPages = [
     },
 ]
 
+const usersPages = [
+    {
+        path: "/api/user/:id",
+        name: "User",
+        component: User,
+    },
+    {
+        path: "/api/createuser",
+        name: "CreateUser",
+        component: CreateUser,
+    },
+    {
+        path: "/api/updateuser/:id",
+        name: "UpdateUser",
+        component: UpdateUser,
+    },
+    // {
+    //     path: "/api/deleteuser/:id",
+    //     name: "DeleteUser",
+    //     component: DeleteUser,
+    // },
+]
+
 const routes = [
     ...listingPages,
     ...contractPages,
     ...propertiesPages,
+    ...usersPages,
 ]
 
 
