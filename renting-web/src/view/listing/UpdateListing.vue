@@ -12,7 +12,8 @@
             <div class="my-5 text-sm">
               <label for="propertyId" class="block text-black">Property Id</label>
               <input type="number" autofocus id="propertyId"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="Username"
+                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-200 w-full" placeholder="Username"
+                     :disabled="true"
                      v-model="listing.propertyId"/>
             </div>
 
@@ -90,7 +91,7 @@ export default {
           .catch((err) => console.log(err.message));
     },
     cancel() {
-      this.$router.push("/api/alllistings");
+      this.$router.push("/api/listing/" + this.$route.params.id);
     },
     update(id) {
       fetch(`http://localhost:8087/api/listing/${id}`, {
