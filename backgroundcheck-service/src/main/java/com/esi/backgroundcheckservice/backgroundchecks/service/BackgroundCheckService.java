@@ -34,12 +34,12 @@ public class BackgroundCheckService {
     @Autowired
     private WebClient.Builder webClientBuilder;
 
-    private final KafkaTemplate<String, CandidacyDto> kafkaTemplate;
+    private final KafkaTemplate<String, BackgroundCheckDto> kafkaTemplate;
 
 
-    public void backgroundCheckComplete(CandidacyDto candidacyDto){
+    public void backgroundCheckComplete(BackgroundCheckDto backgroundCheckDto){
         
-        log.info("Log message - received from Background Check topic: {} ", candidacyDto.toString());
+        log.info("Log message - received from Background Check topic: {} ", backgroundCheckDto.toString());
 
     }
 

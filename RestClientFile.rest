@@ -10,14 +10,16 @@ POST http://localhost:8082/api/contracts HTTP/1.1
 content-type: application/json
 
 {
-    "contractid": 4,
-    "tenantid": 9,
-    "landlordid": 11,
-    "propertyid": 22,
-    "handoverid": 44,
-    "pets": "Yes",
-    "status": "Waiting",
-    "signing": "Waiting"
+  "contractid": 4,
+  "tenantid": 9,
+  "landlordid": 11,
+  "propertyid": 22,
+  "listingid": 22,
+  "handoverid": 44,
+  "pets": "Yes",
+  "status": "Waiting",
+  "signing": "Waiting",
+  "price": 400
 }
 
 ### Update a contract based on its id
@@ -156,11 +158,12 @@ POST http://localhost:8081/api/candidacies HTTP/1.1
 content-type: application/json
 
 {
-    "candidacyid": 4,
-    "userid": 9,
-    "property": "House",
+    "candidacyid": 7,
+    "listingid": 1,
+    "userid": 8,
+    "property": "lalala",
     "date": "2023-12-20",
-    "status": "Waiting"
+    "status": "APPROVED"
 }
 
 ### Update a candidacy based on its id
@@ -280,6 +283,7 @@ content-type: application/json
 {
   "listingId": 6,
   "propertyId": 2,
+  "contractId": 2,
   "price": 5000000,
   "description": "Apartment available from 01.05",
   "size": 34.2,

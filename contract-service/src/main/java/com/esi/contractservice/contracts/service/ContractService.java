@@ -39,10 +39,12 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
         .tenantid(contractDto.getTenantid())
         .landlordid(contractDto.getLandlordid())
         .propertyid(contractDto.getPropertyid())
+        .listingid(contractDto.getListingid())
         .handoverid(contractDto.getHandoverid())
         .pets(contractDto.getPets())
         .status(contractDto.getStatus())
         .signing(contractDto.getSigning())
+        .price(contractDto.getPrice())
         .build();
     contractRepository.save(contract);
     log.info("Signing {} status updated", contract.getContractid());
@@ -65,25 +67,30 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
     contractRepository.findAll().forEach(contracts::add);
     return contracts.stream().map(this::mapToContractDto).toList();
     }
-        private ContractDto mapToContractDto(Contract contract){
-                return ContractDto.builder()
-                        .contractid(contract.getContractid())
-                        .tenantid(contract.getTenantid())
-                        .landlordid(contract.getLandlordid())
-                        .propertyid(contract.getPropertyid())
-                        .handoverid(contract.getHandoverid())
-                        .pets(contract.getPets())
-                        .status(contract.getStatus())
-                        .signing(contract.getSigning())
-                        .build();
-            }
-            public Optional<ContractDto> getContract(Integer contractid){
-            Optional<Contract> contract = contractRepository.findById(contractid);
-            return contract.map(this::mapToContractDto);
-        }
+
+    private ContractDto mapToContractDto(Contract contract) {
+        return ContractDto.builder()
+                .contractid(contract.getContractid())
+                .tenantid(contract.getTenantid())
+                .landlordid(contract.getLandlordid())
+                .propertyid(contract.getPropertyid())
+                .listingid(contract.getListingid())
+                .handoverid(contract.getHandoverid())
+                .pets(contract.getPets())
+                .status(contract.getStatus())
+                .signing(contract.getSigning())
+                .price(contract.getPrice())
+                .build();
+    }
+
+    public Optional<ContractDto> getContract(Integer contractid) {
+        Optional<Contract> contract = contractRepository.findById(contractid);
+        return contract.map(this::mapToContractDto);
+    }
 
         public void addContract(ContractDto contractDto) {
             Contract contract = Contract.builder()
+            .contractid(contractDto.getContractid())
             .tenantid(contractDto.getTenantid())
             .landlordid(contractDto.getLandlordid())
             .propertyid(contractDto.getPropertyid())
@@ -93,6 +100,7 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
             .signing(contractDto.getSigning())
             .build();
             contractRepository.save(contract);
+            kafkaTemplate.send("ContractCreationTopic", contractDto);
             log.info("Contract {} is added to the Database", contract.getContractid());
         }
 
@@ -102,10 +110,12 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
                 .tenantid(contractDto.getTenantid())
                 .landlordid(contractDto.getLandlordid())
                 .propertyid(contractDto.getPropertyid())
+                .listingid(contractDto.getListingid())
                 .handoverid(contractDto.getHandoverid())
                 .pets(contractDto.getPets())
                 .status(contractDto.getStatus())
                 .signing(contractDto.getSigning())
+                .price(contractDto.getPrice())
                 .build();
         contractRepository.save(contract);
 
@@ -124,6 +134,7 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
     }
 
         public void deleteContract(Integer contractid) {
+        // TODO: Delete contractId from listing.
         contractRepository.deleteById(contractid);
         log.info("A Contract has been deleted");
         }

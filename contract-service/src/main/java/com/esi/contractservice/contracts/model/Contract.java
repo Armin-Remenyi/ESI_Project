@@ -29,8 +29,11 @@ public class Contract
     private Integer tenantid;
     private Integer landlordid;
     private Integer propertyid;
+    private Integer listingid;
+    @Nullable
     private Integer handoverid;
     private String pets;
     private String status;
     private String signing;
+    private Integer price;
 }
