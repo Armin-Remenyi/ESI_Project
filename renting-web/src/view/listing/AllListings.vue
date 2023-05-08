@@ -8,14 +8,6 @@
               <div class="container mx-auto w-30">
                 <h1 class="text-3xl font-bold">All listings</h1>
               </div>
-              <div class="text-right">
-                <button
-                    type="button"
-                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                    @click="this.create()">
-                  new
-                </button>
-              </div>
             </div>
           </header>
           <div class="flex flex-col">
@@ -106,9 +98,6 @@ export default {
     open(id) {
       this.$router.push("/api/listing/" + id);
     },
-    create() {
-      this.$router.push("/api/createlisting");
-    }
   },
   mounted() {
     this.fetchListings();

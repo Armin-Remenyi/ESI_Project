@@ -263,6 +263,9 @@ GET http://localhost:8087/api/listing
 ### Fetch a listing by its id
 GET http://localhost:8087/api/listing/2
 
+### Fetch a listing by property id
+GET http://localhost:8087/api/listing/properties/1
+
 ### Create a new listing
 POST http://localhost:8087/api/listing HTTP/1.1
 content-type: application/json
