@@ -114,6 +114,14 @@ const usersPages = [
     },
 ]
 
+const candidacyPages = [
+    {
+        path: "/api/createcandidate/:id",
+        name: "CreateCandidate",
+        component: CreateCandidate,
+    },
+]
+
 const routes = [
     ...listingPages,
     ...contractPages,
