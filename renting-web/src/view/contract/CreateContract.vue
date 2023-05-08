@@ -192,16 +192,13 @@ export default {
       fetch(`http://localhost:8087/api/listing/` + this.$route.params.id)
           .then((response) => response.json())
           .then((data) => {
-            //const newContractId = Math.floor(Math.random() * 100) + 1;
-
-            //this.contract.contractid = newContractId
-            this.contract.landlordid = (Math.floor(Math.random() * 100) + 1).toString() // TODO: change to auth user id.
+            this.contract.landlordid = (Math.floor(Math.random() * 100) + 1) // TODO: change to auth user id.
             this.contract.propertyid = data.propertyId // NOTE: in Listing 'propertyId' where 'Id' with upper case.
-            this.contract.listingid = this.$route.params.id
+            this.contract.listingid = Number(this.$route.params.id)
             this.contract.pets = "NO"
             this.contract.status = "DRAFT"
             this.contract.signing = "NOT_SIGNED"
-            this.contract.price = data.price
+            this.contract.price = Number(data.price)
 
             this.listing = data;
           })
@@ -217,6 +214,8 @@ export default {
       } else {
         this.showError = false;
       }
+
+      console.log("JSON.stringify(this.contract)", JSON.stringify(this.contract))
 
       fetch(`http://localhost:8082/api/contracts`, {
         method: "POST",

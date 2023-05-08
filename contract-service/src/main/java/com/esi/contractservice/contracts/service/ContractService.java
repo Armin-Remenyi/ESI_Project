@@ -98,6 +98,8 @@ public class ContractService {
                 .tenantid(contractDto.getTenantid())
                 .landlordid(contractDto.getLandlordid())
                 .propertyid(contractDto.getPropertyid())
+                .listingid(contractDto.getListingid())
+                .price(contractDto.getPrice())
                 .handoverid(contractDto.getHandoverid())
                 .pets(contractDto.getPets())
                 .status(contractDto.getStatus())
