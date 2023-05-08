@@ -105,11 +105,6 @@ const usersPages = [
         name: "UpdateUser",
         component: UpdateUser,
     },
-    // {
-    //     path: "/api/deleteuser/:id",
-    //     name: "DeleteUser",
-    //     component: DeleteUser,
-    // },
     {
         path: "/api/createcandidate/:id",
         name: "CreateCandidate",
