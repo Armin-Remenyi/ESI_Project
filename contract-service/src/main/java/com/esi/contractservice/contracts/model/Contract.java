@@ -1,7 +1,7 @@
 package com.esi.contractservice.contracts.model;
 
 
-import jakarta.annotation.Generated;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,13 +18,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @AllArgsConstructor
-@NoArgsConstructor 
+@NoArgsConstructor
 
 
-public class Contract
-{
-    @Id 
-    @GeneratedValue (strategy = GenerationType.AUTO) // Auto generate key
+public class Contract {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) // Auto generate key
     private Integer contractid;
     private Integer tenantid;
     private Integer landlordid;

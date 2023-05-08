@@ -24,48 +24,47 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ContractService {
 
-@Autowired
-private ContractRepository contractRepository;
+    @Autowired
+    private ContractRepository contractRepository;
 
-@Autowired
-private WebClient.Builder webClientBuilder;
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
-private final KafkaTemplate<String, ContractDto> kafkaTemplate;
+    private final KafkaTemplate<String, ContractDto> kafkaTemplate;
 
-    @KafkaListener(topics = "signatureTopic", groupId = "contractSignatureGroup" )
-    public void updateSigninginfo(ContractDto contractDto){
+    @KafkaListener(topics = "signatureTopic", groupId = "contractSignatureGroup")
+    public void updateSigninginfo(ContractDto contractDto) {
         Contract contract = Contract.builder()
-        .contractid(contractDto.getContractid())
-        .tenantid(contractDto.getTenantid())
-        .landlordid(contractDto.getLandlordid())
-        .propertyid(contractDto.getPropertyid())
-        .listingid(contractDto.getListingid())
-        .handoverid(contractDto.getHandoverid())
-        .pets(contractDto.getPets())
-        .status(contractDto.getStatus())
-        .signing(contractDto.getSigning())
-        .price(contractDto.getPrice())
-        .build();
-    contractRepository.save(contract);
-    log.info("Signing {} status updated", contract.getContractid());
+                .contractid(contractDto.getContractid())
+                .tenantid(contractDto.getTenantid())
+                .landlordid(contractDto.getLandlordid())
+                .propertyid(contractDto.getPropertyid())
+                .listingid(contractDto.getListingid())
+                .handoverid(contractDto.getHandoverid())
+                .pets(contractDto.getPets())
+                .status(contractDto.getStatus())
+                .signing(contractDto.getSigning())
+                .price(contractDto.getPrice())
+                .build();
+        contractRepository.save(contract);
+        log.info("Signing {} status updated", contract.getContractid());
     }
 
-    @KafkaListener(topics = "UserDataTopic", groupId = "UserDataGroup" )
-    public void updateSigninginfo(UserDto userDto){
-        log.info("User data is saved: {}", userDto);   
+    @KafkaListener(topics = "UserDataTopic", groupId = "UserDataGroup")
+    public void updateSigninginfo(UserDto userDto) {
+        log.info("User data is saved: {}", userDto);
         Contract contract = Contract.builder() // Build contract table
-        .tenantid(userDto.getUserId()) // add the user id as tenant id
-        .build();
-    contractRepository.save(contract);
-    log.info("Signing {} status updated", contract.getContractid());
+                .tenantid(userDto.getUserId()) // add the user id as tenant id
+                .build();
+        contractRepository.save(contract);
+        log.info("Signing {} status updated", contract.getContractid());
     }
 
 
-    
-    public List<ContractDto> getAllContracts(){
-    List<Contract> contracts =  new ArrayList<>();
-    contractRepository.findAll().forEach(contracts::add);
-    return contracts.stream().map(this::mapToContractDto).toList();
+    public List<ContractDto> getAllContracts() {
+        List<Contract> contracts = new ArrayList<>();
+        contractRepository.findAll().forEach(contracts::add);
+        return contracts.stream().map(this::mapToContractDto).toList();
     }
 
     private ContractDto mapToContractDto(Contract contract) {
@@ -88,21 +87,26 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
         return contract.map(this::mapToContractDto);
     }
 
-        public void addContract(ContractDto contractDto) {
-            Contract contract = Contract.builder()
-            .contractid(contractDto.getContractid())
-            .tenantid(contractDto.getTenantid())
-            .landlordid(contractDto.getLandlordid())
-            .propertyid(contractDto.getPropertyid())
-            .handoverid(contractDto.getHandoverid())
-            .pets(contractDto.getPets())
-            .status(contractDto.getStatus())
-            .signing(contractDto.getSigning())
-            .build();
-            contractRepository.save(contract);
-            kafkaTemplate.send("ContractCreationTopic", contractDto);
-            log.info("Contract {} is added to the Database", contract.getContractid());
-        }
+    public List<ContractDto> getAllContractsByListingId(Integer listingid) {
+        List<Contract> contracts = new ArrayList<>(contractRepository.findByListingid(listingid));
+        return contracts.stream().map(this::mapToContractDto).toList();
+    }
+
+    public void addContract(ContractDto contractDto) {
+        Contract contract = Contract.builder()
+                .contractid(contractDto.getContractid())
+                .tenantid(contractDto.getTenantid())
+                .landlordid(contractDto.getLandlordid())
+                .propertyid(contractDto.getPropertyid())
+                .handoverid(contractDto.getHandoverid())
+                .pets(contractDto.getPets())
+                .status(contractDto.getStatus())
+                .signing(contractDto.getSigning())
+                .build();
+        contractRepository.save(contract);
+        kafkaTemplate.send("ContractCreationTopic", contractDto);
+        log.info("Contract {} is added to the Database", contract.getContractid());
+    }
 
     public void updateContract(Integer contractid, ContractDto contractDto) {
         Contract contract = Contract.builder()
@@ -133,10 +137,10 @@ private final KafkaTemplate<String, ContractDto> kafkaTemplate;
         log.info("Contract {} is updated", contract.getContractid());
     }
 
-        public void deleteContract(Integer contractid) {
+    public void deleteContract(Integer contractid) {
         // TODO: Delete contractId from listing.
         contractRepository.deleteById(contractid);
         log.info("A Contract has been deleted");
-        }
-};
+    }
+}
 
