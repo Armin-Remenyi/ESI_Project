@@ -59,9 +59,9 @@
                         <button
                             v-if="!property.contractId"
                             type="button"
-                            class="border border-gray-700 bg-red-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
                             @click="this.createListing(property.propertyid)">
-                          create contract
+                          create listing
                         </button>
                       </td>
                       <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
@@ -137,7 +137,7 @@ export default {
       this.$router.push("/api/allproperties");
     },
     createListing(id) {
-      this.$router.push("/api/createcontract/" + id);
+      this.$router.push("/api/createlisting/" + id);
     },
     openContract(id) {
       this.$router.push("/api/contract/" + id);
