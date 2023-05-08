@@ -16,11 +16,6 @@ public class PropertyController
 {
     @Autowired
     private PropertyService propertyService;
-
-    // private List<Property> properties =  new ArrayList<>(Arrays.asList(
-    //     new Property(1, 20, "yes", "Neverland", 3, 1, "Street"),
-    //     new Property(2, 40, "no", "Hereandthere", 7, 3, "None")
-    //  ));
  
      @GetMapping("/properties")
      public List<PropertyDto> getAllProperties()

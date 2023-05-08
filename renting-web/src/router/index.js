@@ -7,6 +7,9 @@ import CreateListing from "@/view/listing/CreateListing";
 import AllContract from "@/view/contract/AllContract";
 import CreateContract from "@/view/contract/CreateContract";
 import UpdateContract from "@/view/contract/UpdateContract";
+import AllProperties from "@/view/property/AllProperties";
+import Property from "@/view/property/Property";
+import CreateProperty from "@/view/property/CreateProperty";
 
 const listingPages = [
     {
@@ -54,9 +57,28 @@ const contractPages = [
     },
 ]
 
+const propertiesPages = [
+    {
+        path: "/api/allproperties",
+        name: "AllProperties",
+        component: AllProperties,
+    },
+    {
+        path: "/api/property/:id",
+        name: "Property",
+        component: Property,
+    },
+    {
+        path: "/api/createproperty",
+        name: "CreateProperty",
+        component: CreateProperty,
+    },
+]
+
 const routes = [
     ...listingPages,
     ...contractPages,
+    ...propertiesPages,
 ]
 
 
