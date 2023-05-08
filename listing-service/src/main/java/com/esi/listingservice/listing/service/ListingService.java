@@ -54,6 +54,11 @@ public class ListingService {
         return listing.map(this::mapToListingDto);
     }
 
+    public List<ListingDto> getAllListingsByPropertyId(Integer propertyId) {
+        List<Listing> listings = new ArrayList<>(listingRepository.findByPropertyId(propertyId));
+        return listings.stream().map(this::mapToListingDto).toList();
+    }
+
     public void addListing(ListingDto listingDto) {
         Listing listing = Listing.builder()
                 .listingId(listingDto.getListingId())

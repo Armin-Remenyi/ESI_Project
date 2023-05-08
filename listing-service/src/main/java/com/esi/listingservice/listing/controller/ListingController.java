@@ -23,8 +23,13 @@ public class ListingController {
     }
 
     @GetMapping("/listing/{listingId}")
-    public Optional <ListingDto> getListing(@PathVariable Integer listingId) {
+    public Optional<ListingDto> getListing(@PathVariable Integer listingId) {
         return listingService.getListing(listingId);
+    }
+
+    @GetMapping("/listing/properties/{propertyId}")
+    public List<ListingDto> getAllListingsByPropertyId(@PathVariable Integer propertyId) {
+        return listingService.getAllListingsByPropertyId(propertyId);
     }
 
     @PostMapping("/listing")
