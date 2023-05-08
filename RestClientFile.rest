@@ -3,7 +3,10 @@
 GET http://localhost:8082/api/contracts 
 
 ### Fetch a contract by its id
-GET http://localhost:8082/api/contracts/2 
+GET http://localhost:8082/api/contracts/2
+
+### Fetch a contarcts by listing id
+GET http://localhost:8082/api/contracts/listing/3
 
 ### Create a new contract
 POST http://localhost:8082/api/contracts HTTP/1.1
