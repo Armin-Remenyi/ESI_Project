@@ -60,25 +60,64 @@
                   change
                 </button>
                 <button
-                    v-if="!contract.handoverid"
-                    type="button"
-                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                    @click="this.createHandover(contract.contractid)">
-                  create handover
-                </button>
-                <button
-                    v-if="contract.handoverid"
-                    type="button"
-                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                    @click="this.openHandover(contract.handoverid)">
-                  open handover
-                </button>
-                <button
                     type="button"
                     class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
                     @click="this.delete(contract.contractid)">
                   delete
                 </button>
+              </div>
+            </div>
+            <header class="pb-10 pt-10">
+              <div class="flex justify-between">
+                <div class="container mx-auto w-30">
+                  <h1 class="text-3xl font-bold">Related handover</h1>
+                </div>
+              </div>
+            </header>
+            <div class="flex flex-col">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                  <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                      <thead class="bg-gray-50 dark:bg-gray-800">
+                      <tr>
+                        <TableHeaderCellElement value="Handover Id"/>
+                        <TableHeaderCellElement value="Date"/>
+                        <TableHeaderCellElement value="Keys"/>
+                        <TableHeaderCellElement value="Cold water"/>
+                        <TableHeaderCellElement value="Hot water"/>
+                        <TableHeaderCellElement value="Status"/>
+                        <TableHeaderCellElement value="Signatures"/>
+                      </tr>
+                      </thead>
+                      <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                      <tr>
+                        <TableDataCellElement :value="handover.handoverid"/>
+                        <TableDataCellElement :value="handover.date"/>
+                        <TableDataCellElement :value="handover.keys"/>
+                        <TableDataCellElement :value="handover.coldwater"/>
+                        <TableDataCellElement :value="handover.hotwater"/>
+                        <TableDataCellElement :value="handover.status"/>
+                        <TableDataCellElement :value="handover.signatures"/>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <button
+                      v-if="!contract.handoverid"
+                      type="button"
+                      class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 mt-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                      @click="this.createHandover(contract.contractid)">
+                    create handover
+                  </button>
+                  <button
+                      v-if="contract.handoverid"
+                      type="button"
+                      class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 mt-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                      @click="this.openHandover(contract.handoverid)">
+                    open handover
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -109,6 +148,15 @@ export default {
         signing: "",
         price: ""
       },
+      handover: {
+        handoverid: "",
+        date: "",
+        keys: "",
+        coldwater: "",
+        hotwater: "",
+        status: "",
+        signatures: "",
+      },
     };
   },
   components: {
@@ -119,7 +167,19 @@ export default {
     fetchContract() {
       fetch(`http://localhost:8082/api/contracts/` + this.$route.params.id)
           .then((response) => response.json())
-          .then((data) => (this.contract = data))
+          .then((data) => {
+            this.contract = data;
+
+            if (this.contract.handoverid) {
+              this.fetchHandover(this.contract.handoverid)
+            }
+          })
+          .catch((err) => console.log(err.message));
+    },
+    fetchHandover(handoverId) {
+      fetch(`http://localhost:8083/api/handovers/` + handoverId)
+          .then((response) => response.json())
+          .then((data) => (this.handover = data))
           .catch((err) => console.log(err.message));
     },
     createHandover(id) {
