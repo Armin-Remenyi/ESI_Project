@@ -24,7 +24,7 @@ const listingPages = [
         component: UpdateListing,
     },
     {
-        path: "/api/createlisting",
+        path: "/api/createlisting/:id",
         name: "CreateListing",
         component: CreateListing,
     },

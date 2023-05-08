@@ -9,17 +9,25 @@
                 <h1 class="text-3xl font-bold">Create new listing</h1>
               </div>
             </header>
+
+            <div v-if="this.showError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                 role="alert">
+              <strong class="font-bold">Error!</strong>
+              <span class="block sm:inline"> Please fill all listing information</span>
+            </div>
             <div class="my-5 text-sm">
               <label for="listingId" class="block text-black">Listing Id</label>
               <input type="number" autofocus id="listingId"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="listingId"
+                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-200 w-full" placeholder="listingId"
+                     :disabled="true"
                      v-model="listing.listingId"/>
             </div>
 
             <div class="my-5 text-sm">
               <label for="propertyId" class="block text-black">Property Id</label>
               <input type="number" autofocus id="propertyId"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="Username"
+                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-200 w-full" placeholder="propertyId"
+                     :disabled="true"
                      v-model="listing.propertyId"/>
             </div>
 
@@ -40,14 +48,14 @@
             <div class="my-5 text-sm">
               <label for="status" class="block text-black">Status</label>
               <input type="status" autofocus id="status"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="Size"
+                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="status"
                      v-model="listing.status"/>
             </div>
 
             <div class="my-5 text-sm">
               <label for="description" class="block text-black">Description</label>
               <input type="description" autofocus id="description"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="Size"
+                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="description"
                      v-model="listing.description"/>
             </div>
 
@@ -78,9 +86,11 @@ export default {
   name: "CreateListing",
   data() {
     return {
+      showError: false,
       listing: {
         listingId: "",
         propertyId: "",
+        contractId: null,
         price: "",
         size: "",
         status: "",
@@ -92,7 +102,32 @@ export default {
     cancel() {
       this.$router.push("/api/alllistings");
     },
+    fetchProperty() {
+      fetch(`http://localhost:8084/api/properties/` + this.$route.params.id)
+          .then((response) => response.json())
+          .then((data) => {
+            this.listing.listingId = Math.floor(Math.random() * 100) + 1
+            this.listing.propertyId = this.$route.params.id
+            this.listing.price = data.price
+            this.listing.size = data.size
+            this.listing.status = "ACTIVE"
+          })
+          .catch((err) => console.log(err.message));
+    },
     create() {
+      if (
+          !this.listing.listingId
+          || !this.listing.propertyId
+          || !this.listing.price
+          || !this.listing.size
+          || !this.listing.status
+          || !this.listing.description
+      ) {
+        this.showError = true;
+        return;
+      } else {
+        this.showError = false;
+      }
       fetch(`http://localhost:8087/api/listing`, {
         method: "POST",
         headers: {
@@ -108,6 +143,9 @@ export default {
           });
 
     },
+  },
+  mounted() {
+    this.fetchProperty();
   },
 };
 </script>
