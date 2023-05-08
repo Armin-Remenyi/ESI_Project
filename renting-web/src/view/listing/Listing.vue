@@ -32,9 +32,6 @@
                       <TableHeaderCellElement value="Size"/>
                       <TableHeaderCellElement value="Status"/>
                       <TableHeaderCellElement value="Description"/>
-                      <TableHeaderCellElement value=""/>
-                      <TableHeaderCellElement value=""/>
-                      <TableHeaderCellElement value=""/>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
@@ -46,43 +43,36 @@
                       <TableDataCellElement :value="listing.size"/>
                       <TableDataCellElement :value="listing.status"/>
                       <TableDataCellElement :value="listing.description"/>
-                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
-                        <button
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.update(listing.listingId)">
-                          change
-                        </button>
-                      </td>
-                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
-
-                        <button
-                            v-if="!listing.contractId"
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.createContract(listing.listingId)">
-                          create contract
-                        </button>
-                        <button
-                            v-else
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.openContract(listing.contractId)">
-                          open contract
-                        </button>
-                      </td>
-                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
-                        <button
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.delete(listing.listingId)">
-                          delete
-                        </button>
-                      </td>
                     </tr>
                     </tbody>
                   </table>
                 </div>
+                <button
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 mt-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.update(listing.listingId)">
+                  change
+                </button>
+                <button
+                    v-if="!listing.contractId"
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.createContract(listing.listingId)">
+                  create contract
+                </button>
+                <button
+                    v-else
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.openContract(listing.contractId)">
+                  open contract
+                </button>
+                <button
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.delete(listing.listingId)">
+                  delete
+                </button>
               </div>
             </div>
           </div>
@@ -141,6 +131,46 @@
               </div>
             </div>
           </div>
+          <header class="pb-10 pt-10">
+            <div class="flex justify-between">
+              <div class="container mx-auto w-30">
+                <h1 class="text-3xl font-bold">Applied candidates</h1>
+              </div>
+            </div>
+          </header>
+          <div class="flex flex-col">
+            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-800">
+                    <tr>
+                      <TableHeaderCellElement value="Candidate Id"/>
+                      <TableHeaderCellElement value="User Id"/>
+                      <TableHeaderCellElement value="Candidacy date"/>
+                      <TableHeaderCellElement value="Status"/>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
+                           v-for="candidate in relatedCandidates" :key="candidate.contractid">
+                    <tr>
+                      <TableDataCellElement :value="candidate.candidacyid"/>
+                      <TableDataCellElement :value="candidate.userid"/>
+                      <TableDataCellElement :value="candidate.date"/>
+                      <TableDataCellElement :value="candidate.status"/>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <button
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 mt-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.apply(listing.listingId)">
+                  apply
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -156,6 +186,7 @@ export default {
   name: "ListingView",
   data() {
     return {
+      relatedCandidates: [],
       relatedContracts: [],
       listing: {
         listingId: "",
@@ -195,6 +226,16 @@ export default {
           .then((data) => (this.relatedContracts = data))
           .catch((err) => console.log(err.message));
     },
+    fetchListingCandidates() {
+      fetch(`http://localhost:8081/api/candidacies/listing/` + this.$route.params.id)
+          .then((response) => response.json())
+          .then((response) => {
+            console.log("response", response)
+            return response;
+          })
+          .then((data) => this.relatedCandidates = data)
+          .catch((err) => console.log(err.message));
+    },
     delete(id) {
       console.log("id", id)
       fetch(`http://localhost:8087/api/listing/${id}`, {
@@ -213,6 +254,9 @@ export default {
     update(id) {
       this.$router.push("/api/updatelisting/" + id);
     },
+    apply(id) {
+      this.$router.push("/api/createcandidate/" + id);
+    },
     all() {
       this.$router.push("/api/alllistings");
     },
@@ -226,6 +270,7 @@ export default {
   mounted() {
     this.fetchListing();
     this.fetchAllContractRelatedToListing();
+    this.fetchListingCandidates();
   },
 };
 </script>

@@ -11,6 +11,7 @@ import AllProperties from "@/view/property/AllProperties";
 import Property from "@/view/property/Property";
 import CreateProperty from "@/view/property/CreateProperty";
 import UpdateProperty from "@/view/property/UpdateProperty";
+import CreateCandidate from "@/view/candicacy/CreateCandidate";
 
 const listingPages = [
     {
@@ -81,10 +82,19 @@ const propertiesPages = [
     },
 ]
 
+const candidacyPages = [
+    {
+        path: "/api/createcandidate/:id",
+        name: "CreateCandidate",
+        component: CreateCandidate,
+    },
+]
+
 const routes = [
     ...listingPages,
     ...contractPages,
     ...propertiesPages,
+    ...candidacyPages,
 ]
 
 
