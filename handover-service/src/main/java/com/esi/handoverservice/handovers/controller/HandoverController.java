@@ -16,10 +16,6 @@ public class HandoverController
 {
     @Autowired
     private HandoverService handoverService;
-
-    // private List<Handover> handovers =  new ArrayList<>(Arrays.asList(
-    //     new Handover(69, LocalDate.of(2023, 1, 14), "yes", "yes", "yes", "Waiting", "Waiting")
-    //  ));
  
      @GetMapping("/handovers")
      public List<HandoverDto> getAllHandovers()
@@ -34,9 +30,8 @@ public class HandoverController
      }
  
      @PostMapping("/handovers")
-     public void addHandover(@RequestBody HandoverDto handoverDto)
-     {
-        handoverService.addHandover(handoverDto);    
+     public Integer addHandover(@RequestBody HandoverDto handoverDto) {
+        return handoverService.addHandover(handoverDto);
      }
  
      @PutMapping("/handovers/{handoverid}")

@@ -54,7 +54,7 @@ public class HandoverService {
             return handover.map(this::mapToHandoverDto);
         }
 
-    public void addHandover(HandoverDto handoverDto) {
+    public Integer addHandover(HandoverDto handoverDto) {
         Handover handover = Handover.builder()
                 .handoverid(handoverDto.getHandoverid())
                 .date(handoverDto.getDate())
@@ -66,7 +66,10 @@ public class HandoverService {
                 .build();
         handoverRepository.save(handover);
         kafkaTemplate.send("HandoverCreationTopic", handoverDto);
+
+        // TODO: Update contract.handoverId
         log.info("Handover {} is added to the Database", handover.getHandoverid());
+        return handover.getHandoverid();
     }
 
     public void updateHandover(Integer handoverid, HandoverDto handoverDto) {

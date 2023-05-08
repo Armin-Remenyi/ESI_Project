@@ -92,7 +92,7 @@ public class ContractService {
         return contracts.stream().map(this::mapToContractDto).toList();
     }
 
-    public void addContract(ContractDto contractDto) {
+    public Integer addContract(ContractDto contractDto) {
         Contract contract = Contract.builder()
                 .contractid(contractDto.getContractid())
                 .tenantid(contractDto.getTenantid())
@@ -106,6 +106,7 @@ public class ContractService {
         contractRepository.save(contract);
         kafkaTemplate.send("ContractCreationTopic", contractDto);
         log.info("Contract {} is added to the Database", contract.getContractid());
+        return contract.getContractid();
     }
 
     public void updateContract(Integer contractid, ContractDto contractDto) {
