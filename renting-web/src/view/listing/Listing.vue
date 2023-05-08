@@ -54,20 +54,6 @@
                   change
                 </button>
                 <button
-                    v-if="!listing.contractId"
-                    type="button"
-                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                    @click="this.createContract(listing.listingId)">
-                  create contract
-                </button>
-                <button
-                    v-else
-                    type="button"
-                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                    @click="this.openContract(listing.contractId)">
-                  open contract
-                </button>
-                <button
                     type="button"
                     class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
                     @click="this.delete(listing.listingId)">
@@ -100,7 +86,6 @@
                       <TableHeaderCellElement value="Rent amount"/>
                       <TableHeaderCellElement value="Status"/>
                       <TableHeaderCellElement value="Signing"/>
-                      <TableHeaderCellElement value=""/>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900"
@@ -116,18 +101,24 @@
                       <TableDataCellElement :value="contract.price"/>
                       <TableDataCellElement :value="contract.status"/>
                       <TableDataCellElement :value="contract.signing"/>
-                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
-                        <button
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.openContract(contract.contractid)">
-                          open
-                        </button>
-                      </td>
                     </tr>
                     </tbody>
                   </table>
                 </div>
+                <button
+                    v-if="!listing.contractId"
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 mt-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.createContract(listing.listingId)">
+                  create contract
+                </button>
+                <button
+                    v-else
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 mt-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.openContract(listing.contractId)">
+                  open contract
+                </button>
               </div>
             </div>
           </div>
@@ -213,17 +204,24 @@ export default {
     fetchListing() {
       fetch(`http://localhost:8087/api/listing/` + this.$route.params.id)
           .then((response) => response.json())
-          .then((data) => (this.listing = data))
+          .then((data) => {
+            this.listing = data
+            this.fetchAllContractRelatedToListing();
+          })
           .catch((err) => console.log(err.message));
     },
     fetchAllContractRelatedToListing() {
-      fetch(`http://localhost:8082/api/contracts/listing/` + this.$route.params.id)
+      if (!this.listing.contractId) return;
+
+      const url = `http://localhost:8082/api/contracts/` + this.listing.contractId;
+      console.log("url", url)
+      fetch(url)
           .then((response) => response.json())
           .then((respose) => {
             console.log("respose", respose)
             return respose;
           })
-          .then((data) => (this.relatedContracts = data))
+          .then((data) => (this.relatedContracts = [data]))
           .catch((err) => console.log(err.message));
     },
     fetchListingCandidates() {
@@ -269,7 +267,6 @@ export default {
   },
   mounted() {
     this.fetchListing();
-    this.fetchAllContractRelatedToListing();
     this.fetchListingCandidates();
   },
 };
