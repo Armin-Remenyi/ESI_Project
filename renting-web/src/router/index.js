@@ -10,6 +10,7 @@ import UpdateContract from "@/view/contract/UpdateContract";
 import AllProperties from "@/view/property/AllProperties";
 import Property from "@/view/property/Property";
 import CreateProperty from "@/view/property/CreateProperty";
+import UpdateProperty from "@/view/property/UpdateProperty";
 
 const listingPages = [
     {
@@ -72,6 +73,11 @@ const propertiesPages = [
         path: "/api/createproperty",
         name: "CreateProperty",
         component: CreateProperty,
+    },
+    {
+        path: "/api/updateproperty/:id",
+        name: "UpdateProperty",
+        component: UpdateProperty,
     },
 ]
 

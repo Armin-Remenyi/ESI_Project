@@ -89,20 +89,6 @@ export default {
           .then((data) => (this.properties = data))
           .catch((err) => console.log(err.message));
     },
-    delete(id) {
-      fetch(`http://localhost:8084/api/listing/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-          .then(() => {
-            this.fetchProperties();
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-    },
     open(id) {
       this.$router.push("/api/property/" + id);
     },
