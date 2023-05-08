@@ -39,14 +39,6 @@
                      class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-100 w-full" placeholder="pets"
                      v-model="contract.pets"/>
             </div>
-
-            <div class="my-5 text-sm">
-              <label for="contractid" class="block text-black">Contract Id</label>
-              <input type="number" autofocus id="contractid"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-200 w-full" placeholder="contractid"
-                     :disabled="true"
-                     v-model="contract.contractid"/>
-            </div>
             <div class="my-5 text-sm">
               <label for="propertyid" class="block text-black">Property Id</label>
               <input type="number" autofocus id="propertyid"
@@ -99,14 +91,6 @@
                 </div>
               </div>
             </div>
-            <div class="my-5 text-sm">
-              <label for="handoverid" class="block text-black">Handover Id</label>
-              <input type="number" autofocus id="handoverid"
-                     class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-200 w-full" placeholder="handoverid"
-                     :disabled="true"
-                     v-model="contract.handoverid"/>
-            </div>
-
             <div class="my-5 text-sm">
               <label for="listingid" class="block text-black">Listing Id</label>
               <input type="number" autofocus id="listingid"
@@ -174,12 +158,11 @@ export default {
         description: "",
       },
       contract: {
-        contractid: "",
         tenantid: "",
         landlordid: "",
         propertyid: "",
         listingid: "",
-        handoverid: "",
+        handoverid: null,
         pets: "",
         status: "",
         signing: "",
@@ -209,20 +192,18 @@ export default {
       fetch(`http://localhost:8087/api/listing/` + this.$route.params.id)
           .then((response) => response.json())
           .then((data) => {
-            const newContractId = Math.floor(Math.random() * 100) + 1;
+            //const newContractId = Math.floor(Math.random() * 100) + 1;
 
-            this.contract.contractid = newContractId
+            //this.contract.contractid = newContractId
             this.contract.landlordid = (Math.floor(Math.random() * 100) + 1).toString() // TODO: change to auth user id.
             this.contract.propertyid = data.propertyId // NOTE: in Listing 'propertyId' where 'Id' with upper case.
             this.contract.listingid = this.$route.params.id
-            this.contract.handoverid = (Math.floor(Math.random() * 100) + 1).toString() // TODO: change to handover creation selection.
             this.contract.pets = "NO"
             this.contract.status = "DRAFT"
             this.contract.signing = "NOT_SIGNED"
             this.contract.price = data.price
 
             this.listing = data;
-            this.listing.contractId = newContractId
           })
           .catch((err) => console.log(err.message));
     },
@@ -244,7 +225,10 @@ export default {
         },
         body: JSON.stringify(this.contract),
       })
-          .then(() => {
+          .then(async (test) => {
+            const contractid = await test.json();
+            this.listing.contractId = contractid
+
             fetch(`http://localhost:8087/api/listing/${this.$route.params.id}`, {
               method: "PUT",
               headers: {
@@ -253,7 +237,7 @@ export default {
               body: JSON.stringify(this.listing),
             })
                 .then(() => {
-                  this.$router.push("/api/contract/" + this.contract.contractid);
+                  this.$router.push("/api/contract/" + contractid);
                 })
                 .catch((e) => {
                   console.log(e);

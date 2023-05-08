@@ -35,8 +35,6 @@
                       <TableHeaderCellElement value="Status"/>
                       <TableHeaderCellElement value="Signing"/>
                       <TableHeaderCellElement value="Price"/>
-                      <TableHeaderCellElement value=""/>
-                      <TableHeaderCellElement value=""/>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
@@ -51,26 +49,36 @@
                       <TableDataCellElement :value="contract.status"/>
                       <TableDataCellElement :value="contract.signing"/>
                       <TableDataCellElement :value="contract.price"/>
-                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
-                        <button
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.update(contract.contractid)">
-                          change
-                        </button>
-                      </td>
-                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
-                        <button
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.delete(contract.contractid)">
-                          delete
-                        </button>
-                      </td>
                     </tr>
                     </tbody>
                   </table>
                 </div>
+                <button
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 mt-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.update(contract.contractid)">
+                  change
+                </button>
+                <button
+                    v-if="!contract.handoverid"
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.createHandover(contract.contractid)">
+                  create handover
+                </button>
+                <button
+                    v-if="contract.handoverid"
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.openHandover(contract.handoverid)">
+                  open handover
+                </button>
+                <button
+                    type="button"
+                    class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 ml-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                    @click="this.delete(contract.contractid)">
+                  delete
+                </button>
               </div>
             </div>
           </div>
@@ -113,6 +121,12 @@ export default {
           .then((response) => response.json())
           .then((data) => (this.contract = data))
           .catch((err) => console.log(err.message));
+    },
+    createHandover(id) {
+      this.$router.push("/api/createhandover/" + id);
+    },
+    openHandover(id) {
+      this.$router.push("/api/handover/" + id);
     },
     delete(id) {
       fetch(`http://localhost:8082/api/contracts/${id}`, {

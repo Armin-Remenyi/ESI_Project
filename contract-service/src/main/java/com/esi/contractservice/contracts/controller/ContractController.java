@@ -35,9 +35,8 @@ public class ContractController
     }
  
      @PostMapping("/contracts")
-     public void addContract(@RequestBody ContractDto contractDto)
-     {
-        contractService.addContract(contractDto);  
+     public Integer addContract(@RequestBody ContractDto contractDto) {
+        return contractService.addContract(contractDto);
      }
  
      @PutMapping("/contracts/{contractid}")

@@ -16,6 +16,9 @@ import CreateUser from "@/view/user/CreateUser";
 import UpdateUser from "@/view/user/UpdateUser";
 //import DeleteUser from "@/view/user/DeleteUser";
 import CreateCandidate from "@/view/candicacy/CreateCandidate";
+import CreateHandover from "@/view/handover/CreateHandover";
+import Handover from "@/view/handover/Handover";
+import UpdateHandover from "@/view/handover/UpdateHandover";
 
 const listingPages = [
     {
@@ -122,12 +125,31 @@ const candidacyPages = [
     },
 ]
 
+const handoverPages = [
+    {
+        path: "/api/createhandover/:id",
+        name: "CreateHandover",
+        component: CreateHandover,
+    },
+    {
+        path: "/api/handover/:id",
+        name: "Handover",
+        component: Handover,
+    },
+    {
+        path: "/api/updatehandover/:id",
+        name: "UpdateHandover",
+        component: UpdateHandover,
+    },
+]
+
 const routes = [
     ...listingPages,
     ...contractPages,
     ...propertiesPages,
     ...usersPages,
     ...candidacyPages,
+    ...handoverPages,
 ]
 
 

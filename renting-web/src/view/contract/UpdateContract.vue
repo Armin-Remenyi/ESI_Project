@@ -110,6 +110,7 @@ export default {
   name: "UpdateContract",
   data() {
     return {
+      showError: false,
       contract: {
         contractid: "",
         tenantid: "",
@@ -132,9 +133,16 @@ export default {
           .catch((err) => console.log(err.message));
     },
     cancel() {
-      this.$router.push("/api/allcontracts");
+      this.$router.push("/api/contract/" + this.$route.params.id);
     },
     update(id) {
+      if (!this.contract.tenantid || !this.contract.pets || !this.contract.price) {
+        this.showError = true;
+        return;
+      } else {
+        this.showError = false;
+      }
+
       fetch(`http://localhost:8082/api/contracts/${id}`, {
         method: "PUT",
         headers: {
