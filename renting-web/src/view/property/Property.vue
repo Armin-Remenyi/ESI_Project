@@ -49,8 +49,8 @@
                       <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
                         <button
                             type="button"
-                            class="border border-gray-700 bg-red-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.update(property.listingId)">
+                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                            @click="this.update(property.propertyid)">
                           change
                         </button>
                       </td>
@@ -67,7 +67,7 @@
                       <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
                         <button
                             type="button"
-                            class="border border-gray-700 bg-red-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
                             @click="this.delete(property.propertyid)">
                           delete
                         </button>
@@ -110,14 +110,14 @@ export default {
     TableHeaderCellElement
   },
   methods: {
-    fetchListing() {
+    fetchProperty() {
       fetch(`http://localhost:8084/api/properties/` + this.$route.params.id)
           .then((response) => response.json())
           .then((data) => (this.property = data))
           .catch((err) => console.log(err.message));
     },
     delete(id) {
-      fetch(`http://localhost:8084/api/listing/${id}`, {
+      fetch(`http://localhost:8084/api/properties/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +131,7 @@ export default {
           });
     },
     update(id) {
-      this.$router.push("/api/updatelisting/" + id);
+      this.$router.push("/api/updateproperty/" + id);
     },
     all() {
       this.$router.push("/api/allproperties");
@@ -144,7 +144,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchListing();
+    this.fetchProperty();
   },
 };
 </script>
