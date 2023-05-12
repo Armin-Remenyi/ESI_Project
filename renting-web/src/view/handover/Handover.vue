@@ -107,7 +107,7 @@ export default {
           });
     },
     update(id) {
-      this.$router.push("/api/allcontracts/" + id);
+      this.$router.push("/api/updatehandover/" + id);
     },
   },
   mounted() {
