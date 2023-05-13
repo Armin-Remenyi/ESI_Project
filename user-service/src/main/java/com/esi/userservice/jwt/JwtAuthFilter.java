@@ -42,7 +42,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             // Getting the overall userDetails
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             // Validating the token
-            if (jwtService.validateToken(token, userDetails)) {
+
+            if (jwtService.validateToken(token)) {
+                //if (jwtService.validateToken(token, userDetails)) {
                 // UsernamePasswordAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities)
                 // We are passing the userDetails,  credentials are not none yet (null), then we get the authorities from the userDetails
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,  null, userDetails.getAuthorities());

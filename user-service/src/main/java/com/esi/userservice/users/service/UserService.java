@@ -39,59 +39,66 @@ public class UserService {
         userRepository.findAll().forEach(users::add);
         return users.stream().map(this::mapToUserDto).toList();
     }
-        private UserDto mapToUserDto(User user){
-                return UserDto.builder()
-                        .userId(user.getUserId())
-                        .firstName(user.getFirstName())
-                        .lastName(user.getLastName())
-                        .phoneNumber(user.getPhoneNumber())
-                        .email(user.getEmail())
-                        .created(user.getCreated())
-                        .build();
-            }
-            public Optional<UserDto> getUser(UUID userid){
-            Optional<User> user = userRepository.findById(userid);
-            return user.map(this::mapToUserDto);
-        }
 
-        public User addUser(UserDto userDto) {
-            log.info("AAAAAAAAAAAAAAAAAAAAAAAAA {}", userDto.getUserId());
+    private UserDto mapToUserDto(User user) {
+        return UserDto.builder()
+                .userId(user.getUserId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
+                .created(user.getCreated())
+                .build();
+    }
 
-            User user = User.builder()
-            .userId(userDto.getUserId())
-            .firstName(userDto.getFirstName())
-            .lastName(userDto.getLastName())
-            .phoneNumber(userDto.getPhoneNumber())
-            .email(userDto.getEmail())
-            .password(userDto.getPassword())
-            .created(userDto.getCreated())
-            .build();
+    public Optional<UserDto> getUser(UUID userid) {
+        Optional<User> user = userRepository.findById(userid);
+        return user.map(this::mapToUserDto);
+    }
 
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public Optional<UserDto> getUserByFirstName(String firstName) {
+        Optional<User> user = userRepository.findByFirstName(firstName);
+        return user.map(this::mapToUserDto);
+    }
 
-            userRepository.save(user);
-            kafkaTemplate.send("UserDataTopic", userDto);
-            log.info("User {} is added to the Database", user.getUserId());
+    public User addUser(UserDto userDto) {
+        log.info("AAAAAAAAAAAAAAAAAAAAAAAAA {}", userDto.getUserId());
 
-            return user;
-        }
-
-
-        public void updateUser(UserDto userDto, UUID userId) {
         User user = User.builder()
-            .userId(userDto.getUserId())
-            .firstName(userDto.getFirstName())
-            .lastName(userDto.getLastName())
-            .phoneNumber(userDto.getPhoneNumber())
-            .email(userDto.getEmail())
-            .created(userDto.getCreated())
-            .build();
+                .userId(userDto.getUserId())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .phoneNumber(userDto.getPhoneNumber())
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
+                .created(userDto.getCreated())
+                .build();
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        userRepository.save(user);
+        kafkaTemplate.send("UserDataTopic", userDto);
+        log.info("User {} is added to the Database", user.getUserId());
+
+        return user;
+    }
+
+
+    public void updateUser(UserDto userDto, UUID userId) {
+        User user = User.builder()
+                .userId(userDto.getUserId())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .phoneNumber(userDto.getPhoneNumber())
+                .email(userDto.getEmail())
+                .created(userDto.getCreated())
+                .build();
         userRepository.save(user);
         log.info("User {} is updated", user.getUserId());
-        }
+    }
 
-        public void deleteUser(UUID userId) {
+    public void deleteUser(UUID userId) {
         userRepository.deleteById(userId);
         log.info("A User has been deleted");
-        }
+    }
 };

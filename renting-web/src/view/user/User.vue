@@ -86,6 +86,7 @@
 
 import TableHeaderCellElement from "@/Components/TableHeaderCellElement";
 import TableDataCellElement from "@/Components/TableDataCellElement";
+import auth from "@/auth";
 
 export default {
   name: "UserView",
@@ -107,7 +108,19 @@ export default {
   },
   methods: {
     fetchUser() {
-      fetch(`http://localhost:8086/api/users/` + this.$route.params.id)
+      console.log("localStorage.getItem('jwtToken')", localStorage.getItem('jwtToken'))
+      console.log("aaaaaa", localStorage.getItem('firstName'));
+
+
+      const url = `http://localhost:8086/api/users/firstName/` + auth.getFirstName();
+      console.log("url", url)
+      fetch(url, {
+        method: "GET",
+        headers: {
+          'Authorization': 'Bearer' +  localStorage.getItem('jwtToken'),
+          "Content-Type": "application/json",
+        },
+      })
           .then((response) => response.json())
           .then((data) => (this.user = data))
           .catch((err) => console.log(err.message));

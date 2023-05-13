@@ -19,6 +19,9 @@ import CreateCandidate from "@/view/candicacy/CreateCandidate";
 import CreateHandover from "@/view/handover/CreateHandover";
 import Handover from "@/view/handover/Handover";
 import UpdateHandover from "@/view/handover/UpdateHandover";
+import LogIn from "@/view/session/LogIn";
+import auth from "../auth";
+
 
 const listingPages = [
     {
@@ -91,9 +94,17 @@ const propertiesPages = [
 
 const usersPages = [
     {
-        path: "/api/user/:id",
+        path: "/api/user",
         name: "User",
         component: User,
+        beforeEnter: async(to, from, next) => {
+            let authResult = await auth.authenticated();
+            if (!authResult) {
+                next('/login')
+            } else {
+                next();
+            }
+        }
     },
     {
         path: "/api/createuser",
@@ -138,6 +149,14 @@ const handoverPages = [
     },
 ]
 
+const sessionPages = [
+    {
+        path: "/login",
+        name: "LogIn",
+        component: LogIn,
+    },
+]
+
 const routes = [
     ...listingPages,
     ...contractPages,
@@ -145,6 +164,7 @@ const routes = [
     ...usersPages,
     ...candidacyPages,
     ...handoverPages,
+    ...sessionPages,
 ]
 
 

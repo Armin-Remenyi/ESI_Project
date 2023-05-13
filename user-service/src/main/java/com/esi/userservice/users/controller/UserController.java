@@ -1,7 +1,9 @@
 package com.esi.userservice.users.controller;
 
 import com.esi.userservice.jwt.JwtService;
+import com.esi.userservice.users.dto.LoginDto;
 import com.esi.userservice.users.model.User;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +18,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-//@CrossOrigin(origins = "*")
+import lombok.extern.slf4j.Slf4j;
+
+@CrossOrigin(origins = "*")
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -36,8 +41,30 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    public Optional <UserDto> getUser(@PathVariable UUID userId) {
+    public Optional<UserDto> getUser(@PathVariable UUID userId) {
         return userService.getUser(userId);
+    }
+
+    @GetMapping("/users/firstName/{firstName}")
+    public Optional<UserDto> getUserByFirstname(@PathVariable String firstName, @RequestHeader("Authorization") String header) {
+
+        String token = header.replace("Bearer ", "");
+        log.info(" authenticate - token {} ", token);
+        log.info("AAAAAAAAAAAAAAa");
+        if (!jwtService.validateToken(token)) {
+            log.info("BBBBBB");
+
+            throw new UsernameNotFoundException("The user cannot be authinticated!");
+        }
+
+        return userService.getUserByFirstName(firstName);
+    }
+
+    @GetMapping("/authenticate")
+    public Boolean authenticate(@RequestHeader("Authorization") String header) {
+        String token = header.replace("Bearer ", "");
+        log.info(" authenticate function - token {} ", token);
+        return jwtService.validateToken(token);
     }
 
     @PostMapping("/users")
@@ -47,7 +74,7 @@ public class UserController {
 
     @PutMapping("/users/{userId}")
     public void updateUser(@RequestBody UserDto userDto, @PathVariable UUID userId) {
-       userService.updateUser(userDto, userId);
+        userService.updateUser(userDto, userId);
     }
 
     @DeleteMapping("/users/{userId}")
@@ -58,28 +85,26 @@ public class UserController {
 
     // an end point for signing up new users
     @PostMapping("/signup")
-    public User signupUser(@RequestBody UserDto user){
+    public User signupUser(@RequestBody UserDto user) {
         return userService.addUser(user);
     }
 
+    @PostMapping("/login")
+    public String logInAndGetToken(@RequestBody LoginDto loginDto) {
 
-    // a new end-point that allows users to authenticate themselves and generate the jwt token
-    //This endpoint will receive the userDto, authenticate her/him with existing users in the database, then if authenticated, it will create the jwt
-    @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody UserDto userDto) {
+        if (loginDto.getFirstName() == null || loginDto.getPassword() == null) {
+            throw new UsernameNotFoundException("UserName or Password is Empty");
+        }
 
-        // authenticationManager.authenticate attempts to authenticate the passed Authentication object, returning a fully populated Authentication object (including granted authorities) if successful.
-        // UsernamePasswordAuthenticationToken can be used by the authenticationManager and we are passing the user name and password to it.
-        // To use the authenticationManager, you need to define a Bean for it, check SecurityConfig.java, it is defined there.
-        // Note that verifying the user is a required before generating the token, otherwise, we will be generating tokens for users that we cannot authenticate
-
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDto.getFirstName(), userDto.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getFirstName(), loginDto.getPassword()));
         // If the user is authenticated we generate the token, otherwise, we throw an exception
+        //log.info("authentication.isAuthenticated()  {} ", authentication);
 
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(userDto.getFirstName());
+            log.info("jwtService.generateToken(authRequest.getName())  {} ", jwtService.generateToken(loginDto.getFirstName()).toString());
+            return jwtService.generateToken(loginDto.getFirstName());
         } else {
-            throw new UsernameNotFoundException("The user cannot be authenticated");
+            throw new UsernameNotFoundException("The user cannot be authinticated!");
         }
     }
 

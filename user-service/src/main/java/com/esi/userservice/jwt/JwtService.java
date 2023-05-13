@@ -2,6 +2,7 @@ package com.esi.userservice.jwt;
 
 import com.esi.userservice.config.MyUserDetailsService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -116,10 +117,15 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    // A funtion to validate the token, it takes the token and userDetails as input, and check username and whther the token is not expiered
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        log.info("extractRoles  {} ", extractRoles(token));
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    public boolean validateToken(String token) {
+        try {
+            // verify the integrity of the JWT token
+            Jwts.parserBuilder().setSigningKey(signingKey()).build().parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException e) {
+            // JwtException can be thrown if the token is invalid or has expired
+            // IllegalArgumentException can be thrown if the token is empty or null
+            return false;
+        }
     }
 }
