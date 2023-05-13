@@ -1,6 +1,7 @@
 package com.esi.userservice.users.dto;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -15,16 +16,13 @@ import lombok.NoArgsConstructor;
 
 public class UserDto {
 
-    private Integer userId;
+    @Id
+    private UUID userId;
     private String firstName;
     private String lastName;
     private Integer phoneNumber;
     private String email;
     private LocalDate created;
-
-    public UserDto(Integer userId)
-    {
-        this.userId = userId;
-    }
+    private String password;
     
 }

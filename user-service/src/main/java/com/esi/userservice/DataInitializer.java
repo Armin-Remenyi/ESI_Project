@@ -16,24 +16,24 @@ public class DataInitializer {
     public CommandLineRunner loadProductsData(UserRepository userRepository) {
         return args -> {
             User user1 = new User();
-			user1.setUserid(1);;
             user1.setFirstName("Ingmar");
-			user1.setLastName("Bingmar");
-			user1.setPhoneNumber(123456);
-			user1.setEmail("ingbing@gmail.com");
-			user1.setCreated(LocalDate.of(2023, 1, 1));
+            user1.setLastName("Bingmar");
+            user1.setPhoneNumber(123456);
+            user1.setEmail("ingbing@gmail.com");
+            user1.setPassword("Ingmar");
+            user1.setCreated(LocalDate.of(2023, 1, 1));
 
-			userRepository.save(user1);
+            userRepository.save(user1);
 
-			User user2 = new User();
-			user2.setUserid(2);;
+            User user2 = new User();
             user2.setFirstName("Steve");
-			user2.setLastName("Noman");
-			user2.setPhoneNumber(121212);
-			user2.setEmail("steve123@gmail.com");
-			user2.setCreated(LocalDate.of(2022, 6, 22));
+            user2.setLastName("Noman");
+            user2.setPhoneNumber(121212);
+            user2.setEmail("steve123@gmail.com");
+            user2.setPassword("Steve");
+            user2.setCreated(LocalDate.of(2022, 6, 22));
 
-			userRepository.save(user2);
+            userRepository.save(user2);
         };
     }
 }

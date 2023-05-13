@@ -1,14 +1,13 @@
 package com.esi.userservice.users.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "usertable")
@@ -20,10 +19,15 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    private Integer userid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userid")
+    private UUID userId;
+    @Column(unique = true)
     private String firstName;
     private String lastName;
     private Integer phoneNumber;
     private String email;
     private LocalDate created;
+    private String password;
+    private String roles;
 }
