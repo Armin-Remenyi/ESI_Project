@@ -26,32 +26,25 @@
                     <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>
                       <TableHeaderCellElement value="User Id"/>
-                      <TableHeaderCellElement value="First Name"/>
-                      <TableHeaderCellElement value="Last Name"/>
-                      <TableHeaderCellElement value="Phone number"/>
-                      <TableHeaderCellElement value="Email"/>
-                      <TableHeaderCellElement value="Created On"/>
-                      <TableHeaderCellElement value=""/>
+                      <TableHeaderCellElement value="Username"/>
+                      <TableHeaderCellElement value="Roles"/>
                       <TableHeaderCellElement value=""/>
                       <TableHeaderCellElement value=""/>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     <tr>
-                      <TableDataCellElement :value="user.userId"/>
-                      <TableDataCellElement :value="user.firstName"/>
-                      <TableDataCellElement :value="user.lastName"/>
-                      <TableDataCellElement :value="user.phoneNumber"/>
-                      <TableDataCellElement :value="user.email"/>
-                      <TableDataCellElement :value="user.created"/>
-                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
-                        <button
-                            type="button"
-                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.update(user.userId)">
-                          Update
-                        </button>
-                      </td>
+                      <TableDataCellElement :value="user.id"/>
+                      <TableDataCellElement :value="user.username"/>
+                      <TableDataCellElement :value="user.roles"/>
+<!--                      <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">-->
+<!--                        <button-->
+<!--                            type="button"-->
+<!--                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"-->
+<!--                            @click="this.update(user.id)">-->
+<!--                          Update-->
+<!--                        </button>-->
+<!--                      </td>-->
                       <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
                         <!-- <button
                             v-if="!user.userId"
@@ -64,9 +57,9 @@
                       <td class="px-4 py-4 text-md font-medium font-bold text-gray-500 text-left dark:text-gray-300 whitespace-nowrap">
                         <button
                             type="button"
-                            class="border border-gray-700 bg-red-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
-                            @click="this.delete(user.userId)">
-                          delete (button working, but do not delete user please)
+                            class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 uppercase transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+                            @click="this.delete(user.id)">
+                          delete
                         </button>
                       </td>
                     </tr>
@@ -86,18 +79,15 @@
 
 import TableHeaderCellElement from "@/Components/TableHeaderCellElement";
 import TableDataCellElement from "@/Components/TableDataCellElement";
+import auth from "@/auth";
 
 export default {
   name: "UserView",
   data() {
     return {
       user: {
-        userId: "",
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        email: "",
-        created: "",
+        username: "",
+        roles: "",
       },
     };
   },
@@ -107,28 +97,31 @@ export default {
   },
   methods: {
     fetchUser() {
-      fetch(`http://localhost:8086/api/users/` + this.$route.params.id)
+      const headers = auth.getHeader();
+
+      fetch(`http://localhost:8080/api/auth/user/` + auth.getUser().username, { headers })
           .then((response) => response.json())
           .then((data) => (this.user = data))
           .catch((err) => console.log(err.message));
     },
     delete(id) {
-      fetch(`http://localhost:8086/api/users/${id}`, {
+      const headers = auth.getHeader();
+
+      fetch(`http://localhost:8080/api/auth/user/${id}`, {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: headers,
       })
           .then(() => {
-            this.$router.push("/api/allproperties");
+            auth.logout();
+            this.$router.go()
           })
           .catch((e) => {
             console.log(e);
           });
     },
-    update(id) {
-      this.$router.push("/api/updateuser/" + id);
-    },
+    // update(id) {
+    //   this.$router.push("/api/updateuser/" + id);
+    // },
     createUser(id) {
       this.$router.push("/api/createuser/" + id);
     },

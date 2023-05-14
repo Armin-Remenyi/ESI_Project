@@ -16,7 +16,6 @@ public class DataInitializer {
     public CommandLineRunner loadProductsData(UserRepository userRepository) {
         return args -> {
             User user1 = new User();
-			user1.setUserid(1);;
             user1.setFirstName("Ingmar");
 			user1.setLastName("Bingmar");
 			user1.setPhoneNumber(123456);
@@ -26,7 +25,6 @@ public class DataInitializer {
 			userRepository.save(user1);
 
 			User user2 = new User();
-			user2.setUserid(2);;
             user2.setFirstName("Steve");
 			user2.setLastName("Noman");
 			user2.setPhoneNumber(121212);
